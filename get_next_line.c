@@ -6,11 +6,11 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 13:21:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/04/03 15:56:34 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/09 14:39:13 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "lemin.h"
 
 int		get_lines(char *stock, char **line)
 {

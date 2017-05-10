@@ -6,7 +6,7 @@
 #    By: jjaouen <jjaouen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/07 16:55:10 by jjaouen           #+#    #+#              #
-#    Updated: 2017/05/02 16:21:12 by clegoube         ###   ########.fr        #
+#    Updated: 2017/05/09 16:37:32 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = lem-in
 
 HEAD = lemin.h
 
-SRC = main.c get_next_line.c
+SRC = main.c get_next_line.c lemin.c ft_stock.c
 
 LIB = ./libft/libft.a
 
@@ -38,11 +38,10 @@ clean:
 fclean: clean
 	@rm -rf $(LIB)
 	@rm -rf $(NAME)
-	@rm -rf players/$(NAME)
 
 re: fclean all
 
 run: re
-	./$(NAME)
+	./$(NAME) < sujet1.map
 
 .PHONY: all clean
