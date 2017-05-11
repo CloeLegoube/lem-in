@@ -25,12 +25,14 @@ int		ft_initialize_struct(t_anthill *anthill)
 		return (0);
 	fourmi->num_fourmi = 0;
 	fourmi->num_room = 0;
+	fourmi->next = NULL;
 	anthill->s_fourmi = fourmi;
 	if (!(tube = (t_tube*)malloc(sizeof(t_tube))))
 		return (0);
 	tube->num_tube = 0;
 	tube->from = 0;
 	tube->to = 0;
+	tube->next = NULL;
 	anthill->s_tube = tube;
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
@@ -39,32 +41,10 @@ int		ft_initialize_struct(t_anthill *anthill)
 	room->end = 0;
 	room->coordo[0] = 0;
 	room->coordo[1] = 0;
+	room->next = NULL;
 	anthill->s_room = room;
 	return (1);
 }
-
-// void	ft_free_game(t_game *game)
-// {
-// 	int	i;
-//
-// 	i = 0;
-// 	while (i < game->map_line)
-// 		ft_strdel(&(game->map[i++]));
-// 	free(game->map);
-// 	i = 0;
-// 	while (i < game->piece_line)
-// 		ft_strdel(&(game->piece[i++]));
-// 	free(game->piece);
-// 	game->map_line = 0;
-// 	game->piece_line = 0;
-// 	game->map_col = 0;
-// 	game->piece_col = 0;
-// 	game->coordo[0] = 0;
-// 	game->coordo[1] = 0;
-// 	game->center[0] = 0;
-// 	game->center[1] = 0;
-// 	game->stars = 0;
-// }
 
 int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 {
@@ -72,6 +52,7 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 	t_room	new;	
 
 	i = 0;
+	//new = *anthill->s_room;
 	while (tab[i])
 		i++;
 	if (ft_strstr(*line, "##start"))
@@ -82,16 +63,13 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 		return (0);
 	else
 	{
+		anthill->s_room = &new;
 		new.num_room = ft_atoi(tab[0]);
 		new.coordo[0] = ft_atoi(tab[1]);
 		new.coordo[1] = ft_atoi(tab[2]);
 		printf("Start ? %d - End ? %d\n", new.start, new.end);
-
-		//printf("Numero room : %d - Coordo[%d][%d]\n", anthill->s_room->num_room, anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
-		ft_lstadd(anthill->s_room, ft_lstnew(&new, sizeof(t_room)));
-		new->next = anthill->s_room;
-		anthill->s_room = new;
-		// anthill->s_room = anthill->s_room->next;
+		printf("Numero room : %d - Coordo[%d][%d]\n", anthill->s_room->num_room, anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
+		new.next = anthill->s_room;
 	}
 	i = 0;
 	while (tab[i])
