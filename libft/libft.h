@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjaouen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jjaouen <jjaouen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 17:39:21 by jjaouen           #+#    #+#             */
-/*   Updated: 2016/12/04 14:23:49 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/12 20:47:29 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char				*ft_strnstr(const char *big, const char *little,
 					size_t len);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t				ft_strlen(char const *s);
+size_t				ft_tablen(char **s);
 char				*ft_strdup(char const *s);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
@@ -75,6 +76,7 @@ int					*ft_range(int min, int max);
 int					ft_is_sort(int *tab, int length, int (*f)(int, int));
 int					ft_count_if(char **tab, int (*f)(char*));
 char				*ft_strmaj(char *str);
+void				ft_free_tab(char ***tab);
 
 typedef	struct		s_list
 {

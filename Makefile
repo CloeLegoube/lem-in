@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: clegoube <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/11 20:07:47 by clegoube          #+#    #+#              #
-#    Updated: 2017/05/11 20:07:53 by clegoube         ###   ########.fr        #
+#    Updated: 2017/05/12 21:07:12 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = lem-in
 
 HEAD = lemin.h
 
-SRC = main.c get_next_line.c lemin.c ft_stock.c
+SRC = main.c get_next_line.c lemin.c ft_stock_room_tube.c ft_stock_fourmi.c
 
 LIB = ./libft/libft.a
 

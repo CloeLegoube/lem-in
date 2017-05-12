@@ -6,7 +6,7 @@
 #    By: jjaouen <jjaouen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 17:09:25 by jjaouen           #+#    #+#              #
-#    Updated: 2017/04/03 17:29:41 by clegoube         ###   ########.fr        #
+#    Updated: 2017/05/12 20:47:47 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = ft_memset.c \
 	ft_memchr.c \
 	ft_memcmp.c \
 	ft_strlen.c \
+	ft_tablen.c \
 	ft_strdup.c \
 	ft_strcpy.c \
 	ft_strncpy.c \
@@ -81,7 +82,8 @@ SRC = ft_memset.c \
 	ft_strmaj.c \
 	ft_count_list.c \
 	ft_sqrt.c \
-	ft_print_words_tables.c
+	ft_print_words_tables.c \
+	ft_freetab.c
 
 OBJ = $(SRC:.c=.o)
 

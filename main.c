@@ -6,100 +6,59 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/09 17:42:51 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/12 23:23:25 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+int		test(t_anthill	*anthill)
+{
+	anthill->s_fourmi = anthill->begin_fourmi;
+	printf("***** Structure FOURMIS ***** \n");
+	while (anthill->s_fourmi)
+	{
+		printf("num_fourmi = %d\n", anthill->s_fourmi->num_fourmi);
+		printf("num_room = %d\n\n", anthill->s_fourmi->num_room);
+		anthill->s_fourmi = anthill->s_fourmi->next;
+	}
+
+	anthill->s_tube = anthill->begin_tube;
+	printf("***** Structure TUBES *****\n");
+		while (anthill->s_tube)
+	{
+		printf("num_tube = %d\n", anthill->s_tube->num_tube);
+		printf("from %d - to %d\n\n", anthill->s_tube->from, anthill->s_tube->to);
+		anthill->s_tube = anthill->s_tube->next;
+	}
+
+	anthill->s_room = anthill->begin_room;
+	printf("***** Structure ROOMS *****\n");
+	while (anthill->s_room)
+	{
+		printf("start ? %d - end ? %d\n", anthill->s_room->start, anthill->s_room->end);
+		printf("coordo[%d][%d]\n\n", anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
+		anthill->s_room = anthill->s_room->next;
+	}
+	return (0);
+}
+
 int		ft_initialize_struct(t_anthill *anthill)
 {
-	t_fourmi	*fourmi;
-	t_tube		*tube;
-	t_room		*room;
-
 	anthill->nb_fourmis = 0;
 	anthill->nb_rooms = 0;
 	anthill->nb_tubes = 0;
-	if (!(fourmi = (t_fourmi*)malloc(sizeof(t_fourmi))))
-		return (0);
-	fourmi->num_fourmi = 0;
-	fourmi->num_room = 0;
-	fourmi->next = NULL;
-	anthill->s_fourmi = fourmi;
-	if (!(tube = (t_tube*)malloc(sizeof(t_tube))))
-		return (0);
-	tube->num_tube = 0;
-	tube->from = 0;
-	tube->to = 0;
-	tube->next = NULL;
-	anthill->s_tube = tube;
-	if (!(room = (t_room*)malloc(sizeof(t_room))))
-		return (0);
-	room->num_room = 0;
-	room->start = 0;
-	room->end = 0;
-	room->coordo[0] = 0;
-	room->coordo[1] = 0;
-	room->next = NULL;
-	anthill->s_room = room;
-	return (1);
-}
+	anthill->room_start = 0;
+	anthill->room_end = 0;
+	anthill->line_start = 0;
+	anthill->line_end = 0;
+	anthill->begin_tube = NULL;
+	anthill->begin_room = NULL;
+	anthill->begin_fourmi = NULL;
+	anthill->s_fourmi = NULL;
+	anthill->s_tube = NULL;
+	anthill->s_room = NULL;
 
-int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
-{
-	int i;
-	t_room	new;	
-
-	i = 0;
-	//new = *anthill->s_room;
-	while (tab[i])
-		i++;
-	if (ft_strstr(*line, "##start"))
-		new.start = 1;
-	if (ft_strstr(*line, "##end"))
-		new.end = 1;
-	if (i != 3)
-		return (0);
-	else
-	{
-		anthill->s_room = &new;
-		new.num_room = ft_atoi(tab[0]);
-		new.coordo[0] = ft_atoi(tab[1]);
-		new.coordo[1] = ft_atoi(tab[2]);
-		printf("Start ? %d - End ? %d\n", new.start, new.end);
-		printf("Numero room : %d - Coordo[%d][%d]\n", anthill->s_room->num_room, anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
-		new.next = anthill->s_room;
-	}
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
-	return (1);
-}
-
-
-int		ft_stock_tube(char **tab, t_anthill *anthill)
-{
-	int i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	if (i != 2)
-		return (0);
-	else
-	{
-		anthill->s_tube->num_tube = anthill->nb_tubes;
-		anthill->s_tube->from = ft_atoi(tab[0]);
-		anthill->s_tube->to = ft_atoi(tab[1]);
-		anthill->s_tube->next = NULL;
-	}
-	// printf("Numero tube : %d - Coordo[%d][%d]\n", anthill->s_tube->num_tube, anthill->s_tube->from, anthill->s_tube->to);
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
 	return (1);
 }
 
@@ -107,35 +66,36 @@ int		main(void)
 {
 	char		*line;
 	t_anthill	*anthill;
-	int			count_room;
-	int			count_tube;
-	//char		**tab;
-
+	// int			check;
 
 	if (!(anthill = (t_anthill*)malloc(sizeof(t_anthill))))
 		return (0);
 	ft_initialize_struct(anthill);
-	count_room = 0;
-	count_tube = 0;
 	line = NULL;
+	// first_assignation = 0;
 	get_next_line(0, &line);
 	anthill->nb_fourmis = ft_atoi(line);
 	printf("nb fourmis = %d\n", anthill->nb_fourmis);
 		while (get_next_line(0, &line))
 		{
-			printf("%s\n", line);
-
+			ft_putstr(line);
+			ft_putchar('\n');
 			anthill->nb_rooms += ft_stock_room(ft_strsplit(line, ' '), anthill, &line);
 			anthill->nb_tubes += ft_stock_tube(ft_strsplit(line, '-'), anthill);
+			// if(!first_assignation)
+			// {
+			// 	anthill->begin_fourmi = anthill->s_fourmi;
+			// 	anthill->begin_tube = anthill->s_tube;
+			// 	anthill->begin_room = anthill->s_room;
+			// }
 
-			// tab = ft_strsplit(line, ' ');
-			//ft_stock_struct(&line, anthill);
-			//ft_find_solutions(game);
-			//ft_free_game(game);
 		}
+	ft_stock_fourmi(anthill);
 	printf("nb_rooms = %d\n", anthill->nb_rooms);
 	printf("nb_tubes = %d\n", anthill->nb_tubes);
-
+	printf("room_start = %d\n", anthill->room_start);
+	printf("room_end = %d\n", anthill->room_end);
+	test(anthill);
 	// free(game);
 	free(line);
 	return (0);
