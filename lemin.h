@@ -38,6 +38,8 @@ typedef struct		s_anthill
 	struct s_tube		*begin_tube;
 	struct s_room		*s_room;
 	struct s_room		*begin_room;
+	struct s_room		*s_path;
+	struct s_room		*begin_path;
 	struct s_anthill	*next;
 }					t_anthill;
 
@@ -71,5 +73,6 @@ char				**ft_strsplit(char const *s, char c);
 int					ft_stock_room(char **tab, t_anthill *anthill, char **line);
 int					ft_stock_tube(char **tab, t_anthill *anthill);
 int					ft_stock_fourmi(t_anthill *anthill);
+int					ft_stock_path(t_anthill *anthill);
 
 #endif

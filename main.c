@@ -36,9 +36,20 @@ int		test(t_anthill	*anthill)
 	printf("***** Structure ROOMS *****\n");
 	while (anthill->s_room)
 	{
+		printf("num_room = %d\n", anthill->s_room->num_room);
 		printf("start ? %d - end ? %d\n", anthill->s_room->start, anthill->s_room->end);
 		printf("coordo[%d][%d]\n\n", anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
 		anthill->s_room = anthill->s_room->next;
+	}
+
+	anthill->s_path = anthill->begin_path;
+	printf("***** Structure PATH *****\n");
+	while (anthill->s_path)
+	{
+		printf("num_room = %d\n", anthill->s_path->num_room);
+		printf("start ? %d - end ? %d\n", anthill->s_path->start, anthill->s_path->end);
+		printf("coordo[%d][%d]\n\n", anthill->s_path->coordo[0], anthill->s_path->coordo[1]);
+		anthill->s_path = anthill->s_room->next;
 	}
 	return (0);
 }
@@ -55,10 +66,11 @@ int		ft_initialize_struct(t_anthill *anthill)
 	anthill->begin_tube = NULL;
 	anthill->begin_room = NULL;
 	anthill->begin_fourmi = NULL;
+	anthill->begin_path = NULL;
 	anthill->s_fourmi = NULL;
 	anthill->s_tube = NULL;
 	anthill->s_room = NULL;
-
+	anthill->s_path = NULL;
 	return (1);
 }
 
@@ -66,31 +78,23 @@ int		main(void)
 {
 	char		*line;
 	t_anthill	*anthill;
-	// int			check;
 
 	if (!(anthill = (t_anthill*)malloc(sizeof(t_anthill))))
 		return (0);
 	ft_initialize_struct(anthill);
 	line = NULL;
-	// first_assignation = 0;
 	get_next_line(0, &line);
 	anthill->nb_fourmis = ft_atoi(line);
 	printf("nb fourmis = %d\n", anthill->nb_fourmis);
-		while (get_next_line(0, &line))
-		{
-			ft_putstr(line);
-			ft_putchar('\n');
-			anthill->nb_rooms += ft_stock_room(ft_strsplit(line, ' '), anthill, &line);
-			anthill->nb_tubes += ft_stock_tube(ft_strsplit(line, '-'), anthill);
-			// if(!first_assignation)
-			// {
-			// 	anthill->begin_fourmi = anthill->s_fourmi;
-			// 	anthill->begin_tube = anthill->s_tube;
-			// 	anthill->begin_room = anthill->s_room;
-			// }
-
-		}
+	while (get_next_line(0, &line))
+	{
+		ft_putstr(line);
+		ft_putchar('\n');
+		anthill->nb_rooms += ft_stock_room(ft_strsplit(line, ' '), anthill, &line);
+		anthill->nb_tubes += ft_stock_tube(ft_strsplit(line, '-'), anthill);
+	}
 	ft_stock_fourmi(anthill);
+	ft_stock_path(anthill);
 	printf("nb_rooms = %d\n", anthill->nb_rooms);
 	printf("nb_tubes = %d\n", anthill->nb_tubes);
 	printf("room_start = %d\n", anthill->room_start);

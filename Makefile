@@ -16,7 +16,8 @@ NAME = lem-in
 
 HEAD = lemin.h
 
-SRC = main.c get_next_line.c lemin.c ft_stock_room_tube.c ft_stock_fourmi.c
+SRC = main.c get_next_line.c lemin.c ft_stock_room_tube.c ft_stock_fourmi.c \
+ft_stock_path.c
 
 LIB = ./libft/libft.a
 
