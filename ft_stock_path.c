@@ -12,64 +12,97 @@
 
 #include "lemin.h"
 
-static int		init_struct_path(t_room	**room)
+static int	init_struct_path(t_path	**path, t_room **path_from, t_room **path_to)
 {
-	if (!(*room = (t_room*)malloc(sizeof(t_room))))
+	if (!(*path = (t_path*)malloc(sizeof(t_path))))
 		return (0);
-	(*room)->num_room = 0;
-	(*room)->coordo[0] = 0;
-	(*room)->coordo[1] = 0;
-	(*room)->start = 0;
-	(*room)->end = 0;
-	(*room)->next = NULL;
+        (*path)->tab = NULL;
+        (*path)->s_path_room = *path_from;
+        if (*path_to)
+            (*path)->s_path_room->next = *path_to;
+        if (!(*path)->begin_path_room)
+            (*path)->begin_path_room = *path_from;
+        if (*path_to)
+            (*path)->end_path_room = *path_to;
+        (*path)->next = NULL;
 	return (0);
 }
 
-static t_room	*find_room(int from, t_anthill *anthill)
+t_room	*find_room(int target, t_anthill *anthill, t_room **room)
 {
     anthill->s_room = anthill->begin_room;
     while (anthill->s_room)
     {
-        if (anthill->s_room->num_room != from)
+        if (anthill->s_room->num_room != target)
             anthill->s_room = anthill->s_room->next;
         else
-            return (anthill->s_room);
+        {
+            if (!(*room = (t_room*)malloc(sizeof(t_room))))
+                return (0);
+            (*room)->num_room = anthill->s_room->num_room;
+            (*room)->coordo[0] = anthill->s_room->coordo[0];
+            (*room)->coordo[1] = anthill->s_room->coordo[1];
+            (*room)->start = anthill->s_room->start;
+            (*room)->end = anthill->s_room->end;
+            (*room)->next = NULL;
+            return (*room);
+        }
     }
-    return (anthill->s_room);
+    return (*room);
 }
 
-int		ft_stock_path(t_anthill *anthill)
+void		ft_stock_tab(t_anthill *anthill)
+{
+    int i;
+
+    i = 0;
+    anthill->s_path = anthill->begin_path;
+    while (anthill->s_path)
+	{
+		anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+		while (anthill->s_path->s_path_room)
+		{
+			i++;
+			anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
+		}
+        if (!(anthill->s_path->tab = (char *)malloc(sizeof(char) * (i + 1))))
+            return ;
+        anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+        i = 0;
+        while (anthill->s_path->s_path_room)
+        {
+            anthill->s_path->tab[i++]= anthill->s_path->s_path_room->num_room + 48;
+            anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
+        }
+        anthill->s_path->tab[i]= '\0';
+		anthill->s_path = anthill->s_path->next;
+	}
+}
+
+int		ft_stock_start_path(t_anthill *anthill)
 {
     t_room	*path_from;
     t_room	*path_to;
+    t_path	*path;
 
     path_from = NULL;
     path_to = NULL;
+    path = NULL;
     anthill->s_tube = anthill->begin_tube;
-	// printf("***** Structure PATH *****\n");
 	while (anthill->s_tube)
 	{
-        if (anthill->s_tube->from != anthill->room_start)
-            anthill->s_tube = anthill->s_tube->next;
-        else
+        if (anthill->s_tube->from == anthill->room_start)
         {
-            init_struct_path(&path_from);
-            path_from = find_room(anthill->s_tube->from, anthill);
-            init_struct_path(&path_to);
-            path_to = find_room(anthill->s_tube->to, anthill);
+            path_from = find_room(anthill->s_tube->from, anthill, &path_from);
+            path_to = find_room(anthill->s_tube->to, anthill, &path_to);
+            init_struct_path(&path, &path_from, &path_to);
             if (!anthill->begin_path)
-                anthill->begin_path = path_from;
+                anthill->begin_path = path;
             else
-                anthill->s_path->next = path_from;
-            anthill->s_path = path_from;
-            anthill->s_path->next = path_to;
-            return (0);
+                anthill->s_path->next = path;
+            anthill->s_path = path;
         }
-
-		// printf("num_tube = %d\n", anthill->s_tube->num_tube);
-		// printf("from %d - to %d\n\n", anthill->s_tube->from, anthill->s_tube->to);
+        anthill->s_tube = anthill->s_tube->next;
 	}
-
-
 	return (1);
 }

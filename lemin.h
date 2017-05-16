@@ -38,8 +38,8 @@ typedef struct		s_anthill
 	struct s_tube		*begin_tube;
 	struct s_room		*s_room;
 	struct s_room		*begin_room;
-	struct s_room		*s_path;
-	struct s_room		*begin_path;
+	struct s_path		*s_path;
+	struct s_path		*begin_path;
 	struct s_anthill	*next;
 }					t_anthill;
 
@@ -68,11 +68,26 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
+typedef struct		s_path
+{
+	char			*tab;
+	struct s_room	*s_path_room;
+	struct s_room	*begin_path_room;
+	struct s_room	*end_path_room;
+	struct s_path	*next;
+}					t_path;
+
 int					get_next_line(const int fd, char **line);
 char				**ft_strsplit(char const *s, char c);
 int					ft_stock_room(char **tab, t_anthill *anthill, char **line);
 int					ft_stock_tube(char **tab, t_anthill *anthill);
 int					ft_stock_fourmi(t_anthill *anthill);
+int					ft_stock_start_path(t_anthill *anthill);
 int					ft_stock_path(t_anthill *anthill);
+void				ft_stock_tab(t_anthill *anthill);
+void				ft_stock_copy_path(t_path **copy_path, t_anthill *anthill);
+void				ft_check_each_tube(t_anthill *anthill, int check);
+t_room				*find_room(int target, t_anthill *anthill, t_room **room);
+int					test(t_anthill	*anthill);
 
 #endif

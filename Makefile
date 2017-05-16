@@ -17,7 +17,7 @@ NAME = lem-in
 HEAD = lemin.h
 
 SRC = main.c get_next_line.c lemin.c ft_stock_room_tube.c ft_stock_fourmi.c \
-ft_stock_path.c
+ft_stock_path.c ft_stock_path2.c
 
 LIB = ./libft/libft.a
 
@@ -43,6 +43,6 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) < sujet1.map
+	./$(NAME) < sujet4.map
 
 .PHONY: all clean
