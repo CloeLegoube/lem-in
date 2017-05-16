@@ -74,6 +74,7 @@ typedef struct		s_path
 	struct s_room	*s_path_room;
 	struct s_room	*begin_path_room;
 	struct s_room	*end_path_room;
+	struct s_path	*previous;
 	struct s_path	*next;
 }					t_path;
 

@@ -96,14 +96,17 @@ void		ft_stock_copy_path(t_path **copy_path, t_anthill *anthill)
     }
     path->s_path_room = path->begin_path_room;
     path->next = (*(copy_path))->next;
-    (*(copy_path))->next = path;
 	if (!ft_check_if_room_exist(path, anthill->s_tube->to))
 	{
-		printf("ROOM existante\n");
-		return ;
+		printf("ROOM existante copy\n");
+		free(path);
 	}
 	else
-    	ft_add_new_room(anthill, anthill->s_tube->to, &path);
+	{
+		(*(copy_path))->next = path;
+		ft_add_new_room(anthill, anthill->s_tube->to, &path);
+
+	}
 }
 
 void		ft_check_each_tube(t_anthill *anthill, int check)
@@ -119,8 +122,13 @@ void		ft_check_each_tube(t_anthill *anthill, int check)
                 check++;
 				if (!ft_check_if_room_exist((anthill->s_path), anthill->s_tube->to))
 				{
-					printf("ROOM existante\n");
-					return ;
+					printf("ROOM existante tube\n");
+					// Attention au free
+					// anthill->s_path->s_path_room = anthill->s_path->next->s_path_room;
+					// anthill->s_path->begin_path_room = anthill->s_path->next->begin_path_room;
+					// anthill->s_path->end_path_room = anthill->s_path->next->end_path_room;
+					anthill->s_path = anthill->s_path->next;
+					break ;
 				}
 				else
                 	ft_add_new_room(anthill, anthill->s_tube->to, &(anthill->s_path));
