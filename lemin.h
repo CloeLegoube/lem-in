@@ -84,7 +84,7 @@ int					ft_stock_room(char **tab, t_anthill *anthill, char **line);
 int					ft_stock_tube(char **tab, t_anthill *anthill);
 int					ft_stock_fourmi(t_anthill *anthill);
 int					ft_stock_start_path(t_anthill *anthill);
-int					ft_stock_path(t_anthill *anthill);
+int		ft_stock_path(t_anthill *anthill, t_path *begin_path);
 void				ft_stock_tab(t_anthill *anthill);
 void				ft_stock_copy_path(t_path **copy_path, t_anthill *anthill);
 void				ft_check_each_tube(t_anthill *anthill, int check);

@@ -107,7 +107,7 @@ int		main(void)
 	printf("room_end = %d\n", anthill->room_end);
 	ft_stock_fourmi(anthill);
 	ft_stock_start_path(anthill);
-	ft_stock_path(anthill);
+	ft_stock_path(anthill, anthill->begin_path);
 	ft_stock_tab(anthill);
 
 	test(anthill);

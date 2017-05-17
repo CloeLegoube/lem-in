@@ -97,9 +97,15 @@ int		ft_stock_start_path(t_anthill *anthill)
             path_to = find_room(anthill->s_tube->to, anthill, &path_to);
             init_struct_path(&path, &path_from, &path_to);
             if (!anthill->begin_path)
+            {
                 anthill->begin_path = path;
+                path->previous = NULL;
+            }
             else
+            {
                 anthill->s_path->next = path;
+                path->previous = anthill->s_path;
+            }
             anthill->s_path = path;
         }
         anthill->s_tube = anthill->s_tube->next;
