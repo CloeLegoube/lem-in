@@ -56,9 +56,17 @@ int		test(t_anthill	*anthill)
 		// 	anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
 		//
 		// }
-		printf("tab = %s\n",anthill->s_path->tab);
+		printf("num %d) tab = %s - len %d\n",anthill->s_path->num_path, anthill->s_path->tab, anthill->s_path->len);
 		anthill->s_path = anthill->s_path->next;
 	}
+
+	printf("***** KIND PATH *****\n");
+	printf("len_short = %d\n", anthill->s_kind_path->len_short);
+	printf("nb_short = %d\n", anthill->s_kind_path->nb_short);
+	printf("tab short = %s)\n", anthill->s_kind_path->tab_short);
+	printf("len_long = %d\n", anthill->s_kind_path->len_long);
+	printf("nb_long = %d\n", anthill->s_kind_path->nb_long);
+	printf("tab long = %s)\n", anthill->s_kind_path->tab_long);
 	return (0);
 }
 
@@ -79,6 +87,7 @@ int		ft_initialize_struct(t_anthill *anthill)
 	anthill->s_tube = NULL;
 	anthill->s_room = NULL;
 	anthill->s_path = NULL;
+	anthill->s_kind_path = NULL;
 	return (1);
 }
 
@@ -109,6 +118,9 @@ int		main(void)
 	ft_stock_start_path(anthill);
 	ft_stock_path(anthill, anthill->begin_path);
 	ft_stock_tab(anthill);
+	// ft_delete_wrong_path(anthill);
+	init_struct_kind_path(anthill);
+	ft_display(anthill);
 
 	test(anthill);
 	// free(game);

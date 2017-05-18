@@ -18,6 +18,8 @@ static int	init_struct_path(t_path	**path, t_room **path_from, t_room **path_to)
 		return (0);
 		(*path)->tab = NULL;
         (*path)->stop = 0;
+        (*path)->len = 0;
+        (*path)->num_path = 0;
         (*path)->s_path_room = *path_from;
         if (*path_to)
             (*path)->s_path_room->next = *path_to;
@@ -76,7 +78,8 @@ void		ft_stock_tab(t_anthill *anthill)
             anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
         }
         anthill->s_path->tab[i]= '\0';
-		anthill->s_path = anthill->s_path->next;
+        anthill->s_path->len = ft_strlen(anthill->s_path->tab);
+        anthill->s_path = anthill->s_path->next;
 	}
 }
 
