@@ -51,6 +51,7 @@ int		ft_add_new_room(t_anthill *anthill, int target, t_path **path)
 
             anthill->s_path->s_path_room = path_to;
         }
+		(*(path))->stop = 1;
     }
     return (1);
 }
@@ -111,8 +112,10 @@ void		ft_stock_copy_path(t_path **copy_path, t_anthill *anthill)
 void		ft_check_each_tube(t_anthill *anthill, int check)
 {
 	t_path	*delete_path;
+	int		tube_match;
 
 	delete_path = NULL;
+	tube_match = 0;
 	printf("LOOP tube\n");
 	anthill->s_tube = anthill->begin_tube;
     while (anthill->s_tube)
@@ -121,7 +124,7 @@ void		ft_check_each_tube(t_anthill *anthill, int check)
 
         if (anthill->s_tube->from == anthill->s_path->s_path_room->num_room)
         {
-
+			tube_match++;
             if (!check)
             {
 				printf("Pas check\n");
@@ -130,6 +133,7 @@ void		ft_check_each_tube(t_anthill *anthill, int check)
 				{
 					printf(" !!! ROOM EXISTANTE tube\n");
 					// Attention au free
+					anthill->s_path->stop = 1;
 					// anthill->s_path->previous->next = anthill->s_path->next;
 					// anthill->s_path->next->previous = anthill->s_path->previous;
 					// delete_path = anthill->s_path;
@@ -166,7 +170,8 @@ void		ft_check_each_tube(t_anthill *anthill, int check)
 				else
 				{
 					printf("!!!!! ROOM EXISTANTE copy\n");
-					anthill->s_tube = anthill->s_tube->next;
+					// anthill->s_tube = anthill->s_tube->next;
+					anthill->s_path->stop = 1;
 
 					// printf("go restart 2\n");
 		            // ft_stock_path(anthill, anthill->s_path->previous);
@@ -188,6 +193,8 @@ void		ft_check_each_tube(t_anthill *anthill, int check)
 		printf("BREAK 6\n");
 
     }
+	if (!tube_match)
+		anthill->s_path->stop = 1;
 	// if (anthill->s_path->s_path_room->next->num_room != anthill->room_end)
 	// 	ft_stock_path(anthill, anthill->begin_path);
 
@@ -238,7 +245,15 @@ int		ft_stock_path(t_anthill *anthill, t_path *begin_path)
         check = 0;
 		if (anthill->s_path->s_path_room->num_room != anthill->room_end)
         	ft_check_each_tube(anthill, check);
-        printf("<<\n");
+
+
+		printf("<<\n");
+		printf("anthill->s_path->stop %d\n", anthill->s_path->stop);
+		printf("end_path_room->num_room %d %d\n", anthill->s_path->end_path_room->num_room, anthill->room_end);
+		if (!anthill->s_path->stop && anthill->s_path->end_path_room->num_room != anthill->room_end)
+		{
+			ft_stock_path(anthill, anthill->s_path);
+		}
         if (anthill->s_path)
 		{
 			// printf("path num room %d>>\n", anthill->s_path->s_path_room->num_room);
@@ -250,7 +265,8 @@ int		ft_stock_path(t_anthill *anthill, t_path *begin_path)
 
 
 		}
-        printf(">>\n");
+		printf(">>\n");
+
         printf("       ********************\n");
 	}
     return(1);

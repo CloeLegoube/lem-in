@@ -71,6 +71,7 @@ typedef struct		s_room
 typedef struct		s_path
 {
 	char			*tab;
+	int				stop;
 	struct s_room	*s_path_room;
 	struct s_room	*begin_path_room;
 	struct s_room	*end_path_room;

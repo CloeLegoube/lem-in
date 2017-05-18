@@ -16,7 +16,8 @@ static int	init_struct_path(t_path	**path, t_room **path_from, t_room **path_to)
 {
 	if (!(*path = (t_path*)malloc(sizeof(t_path))))
 		return (0);
-        (*path)->tab = NULL;
+		(*path)->tab = NULL;
+        (*path)->stop = 0;
         (*path)->s_path_room = *path_from;
         if (*path_to)
             (*path)->s_path_room->next = *path_to;
