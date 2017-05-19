@@ -43,6 +43,6 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) < sujet3.map
+	./$(NAME) < sujet4.map
 
 .PHONY: all clean

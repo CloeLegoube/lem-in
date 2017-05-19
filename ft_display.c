@@ -24,18 +24,56 @@ int		ft_display(t_anthill	*anthill)
 		len = ft_atoi(anthill->s_kind_path->tab_short);
 	while (anthill->s_path->num_path != len)
 		anthill->s_path = anthill->s_path->next;
-	while (fourmis)
-	{
-		printf("**** DISPLAY ****\n");
-		anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-		while (anthill->s_path->s_path_room)
-		{
-			printf("num_room = %d\n", anthill->s_path->s_path_room->num_room);
-			printf("coordo[%d][%d]\n\n", anthill->s_path->s_path_room->coordo[0], anthill->s_path->s_path_room->coordo[1]);
-			anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
 
+	anthill->s_fourmi = anthill->begin_fourmi;
+	printf("***** Structure FOURMIS ***** \n");
+	printf("end_fourmi->num_room %d\n", anthill->end_fourmi->num_room);
+	while (anthill->end_fourmi->num_room != anthill->room_end)
+	{
+		anthill->s_fourmi = anthill->begin_fourmi;
+		while (anthill->s_fourmi)
+		{
+			// printf("***** New fourmi ***** \n");
+			// printf("num_fourmi = %d\n", anthill->s_fourmi->num_fourmi);
+			// printf("num_room of fourmi = %d\n\n", anthill->s_fourmi->num_room);
+			if (anthill->s_fourmi->position_path)
+				anthill->s_path->s_path_room = anthill->s_fourmi->position_path;
+			else
+				anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+			if (anthill->s_path->s_path_room)
+			{
+				// printf("check_room = %d\n", anthill->s_path->s_path_room->num_room);
+				// printf("free ? %d\n\n", anthill->s_path->s_path_room->free);
+				if (anthill->s_path->s_path_room->free)
+				{
+					anthill->s_fourmi->num_room = anthill->s_path->s_path_room->num_room;
+					anthill->s_path->s_path_room->free = 0;
+					printf("L%d-%d \n", anthill->s_fourmi->num_fourmi, anthill->s_path->s_path_room->num_room);
+					anthill->s_fourmi->position_path = anthill->s_path->s_path_room;
+
+					// break;
+
+				}
+				else if (anthill->s_fourmi->num_room == anthill->s_path->s_path_room->num_room)
+				{
+					anthill->s_path->s_path_room->free = 1;
+					anthill->s_fourmi->position_path = anthill->s_path->s_path_room->next;
+
+
+				}
+
+
+				// break;
+				// anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
+
+			}
+			printf("\n");
+
+			anthill->s_fourmi = anthill->s_fourmi->next;
 		}
-		fourmis--;
+		// anthill->s_fourmi = anthill->s_fourmi->next;
+		printf("*****");
+
 	}
 	return (0);
 }

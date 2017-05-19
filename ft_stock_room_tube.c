@@ -21,6 +21,7 @@ static int		init_struct_room(t_room	**room, char **tab, t_anthill *anthill)
 	(*room)->coordo[1] = ft_atoi(tab[2]);
 	(*room)->start = 0;
 	(*room)->end = 0;
+	(*room)->free = 1;
 	(*room)->next = NULL;
 	if (anthill->line_start)
 	{

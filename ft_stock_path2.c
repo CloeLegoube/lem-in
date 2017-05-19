@@ -68,7 +68,11 @@ void		ft_copy_room(t_path	**path, t_path **copy_path)
         new_room->coordo[0] = (*(copy_path))->s_path_room->coordo[0];
         new_room->coordo[1] = (*(copy_path))->s_path_room->coordo[1];
         new_room->start = (*(copy_path))->s_path_room->start;
-        new_room->end = (*(copy_path))->s_path_room->end;
+		new_room->end = (*(copy_path))->s_path_room->end;
+		new_room->free = 1;
+		printf("FREE %d\n", (*(copy_path))->s_path_room->free);
+		printf("FREE %d\n", new_room->free);
+
     if (!(*(path))->begin_path_room)
         (*(path))->begin_path_room = new_room;
     else

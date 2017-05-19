@@ -23,6 +23,8 @@ int		test(t_anthill	*anthill)
 	// 	printf("num_room = %d\n\n", anthill->s_fourmi->num_room);
 	// 	anthill->s_fourmi = anthill->s_fourmi->next;
 	// }
+	// printf("end_room = %d\n\n", anthill->end_fourmi->num_room);
+
 	//
 	// anthill->s_tube = anthill->begin_tube;
 	// printf("***** Structure TUBES *****\n");
@@ -52,6 +54,7 @@ int		test(t_anthill	*anthill)
 		// while (anthill->s_path->s_path_room)
 		// {
 		// 	printf("num_room = %d\n", anthill->s_path->s_path_room->num_room);
+		// 	printf("free ? %d\n", anthill->s_path->s_path_room->free);
 		// 	printf("coordo[%d][%d]\n\n", anthill->s_path->s_path_room->coordo[0], anthill->s_path->s_path_room->coordo[1]);
 		// 	anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
 		//
@@ -82,6 +85,7 @@ int		ft_initialize_struct(t_anthill *anthill)
 	anthill->begin_tube = NULL;
 	anthill->begin_room = NULL;
 	anthill->begin_fourmi = NULL;
+	anthill->end_fourmi = NULL;
 	anthill->begin_path = NULL;
 	anthill->s_fourmi = NULL;
 	anthill->s_tube = NULL;
@@ -118,7 +122,7 @@ int		main(void)
 	ft_stock_start_path(anthill);
 	ft_stock_path(anthill, anthill->begin_path);
 	ft_stock_tab(anthill);
-	// ft_delete_wrong_path(anthill);
+	ft_delete_wrong_path(anthill);
 	init_struct_kind_path(anthill);
 	ft_display(anthill);
 

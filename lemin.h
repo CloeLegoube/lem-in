@@ -34,6 +34,7 @@ typedef struct		s_anthill
 	int					line_end;
 	struct s_fourmi		*s_fourmi;
 	struct s_fourmi		*begin_fourmi;
+	struct s_fourmi		*end_fourmi;
 	struct s_tube		*s_tube;
 	struct s_tube		*begin_tube;
 	struct s_room		*s_room;
@@ -50,6 +51,7 @@ typedef struct		s_fourmi
 	int				num_room;
 	struct s_fourmi	*next;
 	struct s_fourmi	*previous;
+	struct s_room	*position_path;
 }					t_fourmi;
 
 typedef struct		s_tube
@@ -63,6 +65,7 @@ typedef struct		s_tube
 typedef struct		s_room
 {
 	int				num_room;
+	int				free;
 	int				start;
 	int				end;
 	int				coordo[2];

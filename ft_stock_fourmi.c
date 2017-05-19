@@ -20,6 +20,7 @@ static int		init_struct_fourmi(t_fourmi	**fourmi)
 	(*fourmi)->num_room = 0;
 	(*fourmi)->next = NULL;
 	(*fourmi)->previous = NULL;
+	(*fourmi)->position_path = NULL;
 	return (0);
 }
 
@@ -49,5 +50,6 @@ int		ft_stock_fourmi(t_anthill *anthill)
 		}
 		i++;
 	}
+	anthill->end_fourmi = new;
 	return (1);
 }

@@ -47,6 +47,7 @@ t_room	*find_room(int target, t_anthill *anthill, t_room **room)
             (*room)->coordo[1] = anthill->s_room->coordo[1];
             (*room)->start = anthill->s_room->start;
             (*room)->end = anthill->s_room->end;
+            (*room)->free = 1;
             (*room)->next = NULL;
             return (*room);
         }
