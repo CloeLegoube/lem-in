@@ -31,7 +31,8 @@ int		ft_display(t_anthill	*anthill)
 	while (anthill->end_fourmi->num_room != anthill->room_end)
 	{
 		anthill->s_fourmi = anthill->begin_fourmi;
-		while (anthill->s_fourmi)
+		// printf("end_fourmi->num_room %d\n", anthill->end_fourmi->num_room);
+		while (anthill->s_fourmi && anthill->end_fourmi->num_room != anthill->room_end)
 		{
 			// printf("***** New fourmi ***** \n");
 			// printf("num_fourmi = %d\n", anthill->s_fourmi->num_fourmi);
@@ -39,7 +40,7 @@ int		ft_display(t_anthill	*anthill)
 			if (anthill->s_fourmi->position_path)
 				anthill->s_path->s_path_room = anthill->s_fourmi->position_path;
 			else
-				anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+				anthill->s_path->s_path_room = anthill->s_path->begin_path_room->next;
 			if (anthill->s_path->s_path_room)
 			{
 				// printf("check_room = %d\n", anthill->s_path->s_path_room->num_room);
@@ -47,32 +48,36 @@ int		ft_display(t_anthill	*anthill)
 				if (anthill->s_path->s_path_room->free)
 				{
 					anthill->s_fourmi->num_room = anthill->s_path->s_path_room->num_room;
-					anthill->s_path->s_path_room->free = 0;
-					printf("L%d-%d \n", anthill->s_fourmi->num_fourmi, anthill->s_path->s_path_room->num_room);
+					if (anthill->s_path->s_path_room->num_room != anthill->room_end)
+						anthill->s_path->s_path_room->free = 0;
+					printf("L%d-%d ", anthill->s_fourmi->num_fourmi, anthill->s_path->s_path_room->num_room);
 					anthill->s_fourmi->position_path = anthill->s_path->s_path_room;
-
-					// break;
 
 				}
 				else if (anthill->s_fourmi->num_room == anthill->s_path->s_path_room->num_room)
 				{
+					if (anthill->s_fourmi->num_room == anthill->room_end)
+					{
+						printf("L%d-%d ", anthill->s_fourmi->num_fourmi, anthill->s_fourmi->num_room);
+						// anthill->s_fourmi->position_path = NULL;
+
+					}
+
+					if (anthill->s_path->s_path_room->next)
+					{
+						printf("L%d-%d ", anthill->s_fourmi->num_fourmi, anthill->s_path->s_path_room->next->num_room);
+						anthill->s_fourmi->num_room = anthill->s_path->s_path_room->next->num_room;
+					}
+					// printf("On libére la salle %d\n", anthill->s_path->s_path_room->num_room);
+
 					anthill->s_path->s_path_room->free = 1;
 					anthill->s_fourmi->position_path = anthill->s_path->s_path_room->next;
-
-
 				}
-
-
-				// break;
-				// anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
-
 			}
-			printf("\n");
-
 			anthill->s_fourmi = anthill->s_fourmi->next;
 		}
+		printf("\n");
 		// anthill->s_fourmi = anthill->s_fourmi->next;
-		printf("*****");
 
 	}
 	return (0);
