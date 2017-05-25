@@ -17,7 +17,7 @@ NAME = lem-in
 HEAD = lemin.h
 
 SRC = main.c get_next_line.c lemin.c ft_stock_room_tube.c ft_stock_fourmi.c \
-ft_stock_path.c ft_stock_path2.c ft_kind_path.c ft_display.c
+ft_init_path.c ft_stock_path.c ft_manage_path.c ft_kind_path.c ft_display.c
 
 LIB = ./libft/libft.a
 
@@ -27,7 +27,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C ./libft/
-	@$(GCCF) $(SRC) $(LIB) -I $(HEAD) -o $(NAME)
+	@$(GCCF) $(SRC) libftprintf.a $(LIB) -I $(HEAD) -o $(NAME)
 
 %.o: %.c
 	@$(GCCF) -c $<

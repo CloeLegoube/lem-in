@@ -12,108 +12,133 @@
 
 #include "lemin.h"
 
-static int	init_struct_path(t_path	**path, t_room **path_from, t_room **path_to)
+int		ft_add_new_room(t_anthill *anthill, int target, t_path **path)
 {
-	if (!(*path = (t_path*)malloc(sizeof(t_path))))
-		return (0);
-		(*path)->tab = NULL;
-        (*path)->stop = 0;
-        (*path)->len = 0;
-        (*path)->num_path = 0;
-        (*path)->s_path_room = *path_from;
-        if (*path_to)
-            (*path)->s_path_room->next = *path_to;
-        if (!(*path)->begin_path_room)
-            (*path)->begin_path_room = *path_from;
-        if (*path_to)
-            (*path)->end_path_room = *path_to;
-        (*path)->next = NULL;
-	return (0);
-}
-
-t_room	*find_room(int target, t_anthill *anthill, t_room **room)
-{
-    anthill->s_room = anthill->begin_room;
-    while (anthill->s_room)
-    {
-        if (anthill->s_room->num_room != target)
-            anthill->s_room = anthill->s_room->next;
-        else
-        {
-            if (!(*room = (t_room*)malloc(sizeof(t_room))))
-                return (0);
-            (*room)->num_room = anthill->s_room->num_room;
-            (*room)->coordo[0] = anthill->s_room->coordo[0];
-            (*room)->coordo[1] = anthill->s_room->coordo[1];
-            (*room)->start = anthill->s_room->start;
-            (*room)->end = anthill->s_room->end;
-            (*room)->free = 1;
-            (*room)->next = NULL;
-            return (*room);
-        }
-    }
-    return (*room);
-}
-
-void		ft_stock_tab(t_anthill *anthill)
-{
-    int i;
-
-    i = 0;
-    anthill->s_path = anthill->begin_path;
-    while (anthill->s_path)
-	{
-		anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-		while (anthill->s_path->s_path_room)
-		{
-			i++;
-			anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
-		}
-        if (!(anthill->s_path->tab = (char *)malloc(sizeof(char) * (i + 1))))
-            return ;
-        anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-        i = 0;
-        while (anthill->s_path->s_path_room)
-        {
-            anthill->s_path->tab[i++]= anthill->s_path->s_path_room->num_room + 48;
-            anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
-        }
-        anthill->s_path->tab[i]= '\0';
-        anthill->s_path->len = ft_strlen(anthill->s_path->tab);
-        anthill->s_path = anthill->s_path->next;
-	}
-}
-
-int		ft_stock_start_path(t_anthill *anthill)
-{
-    t_room	*path_from;
     t_room	*path_to;
-    t_path	*path;
 
-    path_from = NULL;
     path_to = NULL;
-    path = NULL;
-    anthill->s_tube = anthill->begin_tube;
-	while (anthill->s_tube)
-	{
-        if (anthill->s_tube->from == anthill->room_start)
+    path_to = find_room(target, anthill, &path_to);
+    if (path_to)
+    {
+        (*(path))->end_path_room->next = path_to;
+        (*(path))->end_path_room = path_to;
+        if ((*(path))->end_path_room->num_room != anthill->room_end)
         {
-            path_from = find_room(anthill->s_tube->from, anthill, &path_from);
-            path_to = find_room(anthill->s_tube->to, anthill, &path_to);
-            init_struct_path(&path, &path_from, &path_to);
-            if (!anthill->begin_path)
+            return(0);
+            anthill->s_path->s_path_room = path_to;
+        }
+		(*(path))->stop = 1;
+    }
+    return (1);
+}
+
+void		ft_copy_room(t_path	**path, t_path **copy_path)
+{
+    t_room	*new_room;
+
+    new_room = NULL;
+    if (!(new_room = (t_room*)malloc(sizeof(t_room))))
+        return ;
+        new_room->num_room = (*(copy_path))->s_path_room->num_room;
+        new_room->coordo[0] = (*(copy_path))->s_path_room->coordo[0];
+        new_room->coordo[1] = (*(copy_path))->s_path_room->coordo[1];
+        new_room->start = (*(copy_path))->s_path_room->start;
+		new_room->end = (*(copy_path))->s_path_room->end;
+		new_room->free = 1;
+    if (!(*(path))->begin_path_room)
+        (*(path))->begin_path_room = new_room;
+    else
+        (*(path))->s_path_room->next = new_room;
+    (*(path))->s_path_room = new_room;
+    (*(path))->end_path_room = new_room;
+}
+void		ft_stock_copy_path(t_path **copy_path, t_anthill *anthill)
+{
+    t_path	*path;
+    int check;
+
+    path = NULL;
+    check = 1;
+    if (!(path = (t_path*)malloc(sizeof(t_path))))
+        return ;
+	path->tab = NULL;
+    path->num_path = 0;
+    (*(copy_path))->s_path_room = (*(copy_path))->begin_path_room;
+    while ((*(copy_path))->s_path_room)
+    {
+        if (check)
+        {
+            if (anthill->s_tube->from == (*(copy_path))->s_path_room->num_room)
+                check  = 0;
+            ft_copy_room(&path, copy_path);
+        }
+        (*(copy_path))->s_path_room = (*(copy_path))->s_path_room->next;
+    }
+    path->s_path_room = path->begin_path_room;
+	path->next = (*(copy_path))->next;
+	path->previous = (*(copy_path));
+	(*(copy_path))->next = path;
+	ft_add_new_room(anthill, anthill->s_tube->to, &path);
+}
+
+void		ft_check_each_tube(t_anthill *anthill, int check)
+{
+	int		tube_match;
+
+	tube_match = 0;
+	anthill->s_tube = anthill->begin_tube;
+    while (anthill->s_tube)
+    {
+        if (anthill->s_tube->from == anthill->s_path->s_path_room->num_room)
+        {
+			tube_match++;
+            if (!check)
             {
-                anthill->begin_path = path;
-                path->previous = NULL;
+                check++;
+				if (!ft_check_if_room_exist((anthill->s_path), anthill->s_tube->to))
+					anthill->s_path->stop = 1;
+				else
+					ft_add_new_room(anthill, anthill->s_tube->to, &(anthill->s_path));
+				if (anthill->s_tube)
+					anthill->s_tube = anthill->s_tube->next;
             }
             else
             {
-                anthill->s_path->next = path;
-                path->previous = anthill->s_path;
+				if (ft_check_if_room_exist(anthill->s_path, anthill->s_tube->to))
+				{
+					ft_stock_copy_path(&(anthill->s_path), anthill);
+					break;
+				}
+				else
+					anthill->s_path->stop = 1;
+				check = 0;
             }
-            anthill->s_path = path;
         }
-        anthill->s_tube = anthill->s_tube->next;
+        else
+            anthill->s_tube = anthill->s_tube->next;
+    }
+	if (!tube_match)
+		anthill->s_path->stop = 1;
+}
+
+void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
+{
+    t_path	*keep_path;
+	int     check;
+    int     i;
+
+    keep_path = NULL;
+	i = 1;
+    anthill->s_path = begin_path;
+	while (anthill->s_path)
+	{
+		anthill->s_path->s_path_room = anthill->s_path->end_path_room;
+        check = 0;
+		if (anthill->s_path->s_path_room->num_room != anthill->room_end)
+        	ft_check_each_tube(anthill, check);
+		if (!anthill->s_path->stop && anthill->s_path->end_path_room->num_room != anthill->room_end)
+			ft_stock_path(anthill, anthill->s_path);
+        if (anthill->s_path)
+			anthill->s_path = anthill->s_path->next;
 	}
-	return (1);
 }

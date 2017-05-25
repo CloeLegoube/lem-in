@@ -63,11 +63,16 @@ void		ft_find_kind_path(t_anthill	*anthill, int if_short)
 	while (anthill->s_path)
 	{
 		if (anthill->s_path->len == len)
+		{
 			nb++;
+			if (if_short)
+				anthill->s_path->shorter = 1;
+			else
+				anthill->s_path->longer = 1;
+		}
 		anthill->s_path = anthill->s_path->next;
 	}
 	ft_find_who(anthill, len, nb, if_short);
-	return;
 }
 
 void	init_struct_kind_path(t_anthill	*anthill)
