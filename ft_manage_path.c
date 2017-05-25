@@ -1,29 +1,146 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stock_path.c                                    :+:      :+:    :+:   */
+/*   ft_manage_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/09 17:21:30 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/25 21:30:59 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		ft_check_if_room_exist(t_path *path, int tube)
+void	init_match_path(t_anthill *anthill, t_path **me, t_path **my_next)
 {
-	path->s_path_room = path->begin_path_room;
+	t_match_path *my_path;
+	t_match_path *next_path;
 
-	while (path->s_path_room)
+	if (!(my_path = (t_match_path*)malloc(sizeof(t_match_path))))
+		return ;
+	my_path->s_path = *me;
+	my_path->previous = NULL;
+	if (!(next_path = (t_match_path*)malloc(sizeof(t_match_path))))
+		return ;
+	next_path->s_path = *my_next;
+	next_path->next = NULL;
+	my_path->next = next_path;
+	next_path->previous = my_path;
+	if (!anthill->begin_match_path)
 	{
-		if (path->s_path_room->num_room == tube)
-			return(0);
-		path->s_path_room = path->s_path_room->next;
+		anthill->begin_match_path = my_path;
+		my_path->previous = NULL;
 	}
-	path->s_path_room = path->end_path_room;
-	return(1);
+	anthill->match_path = next_path;
+	anthill->end_match_path = next_path;
+}
+
+
+void	ft_match_paths(t_anthill	*anthill)
+{
+	t_path	*my_next;
+	t_path	*me;
+	t_match_path *my_path;
+	t_match_path *next_path;
+
+	my_next = NULL;
+	my_path = NULL;
+	next_path = NULL;
+	me = anthill->begin_path;
+	while (me)
+	{
+
+		my_next = me->next;
+		while (my_next)
+		{
+			if (ft_str_find_little(me->tab,my_next->tab, 1, 1))
+			{
+				ft_printf("check -> %s - %d) VS %s - %d) = %d)\n\n", me->tab, me->num_path, my_next->tab, my_next->num_path, ft_str_find_little(me->tab,my_next->tab, 1, 1));
+				init_match_path(anthill, &me, &my_next);
+			}
+			my_next = my_next->next;
+		}
+		me = me->next;
+	}
+}
+
+void	ft_reorder_path(t_anthill	*anthill)
+{
+	t_path	*my_next;
+	t_path	*me;
+
+	my_next = NULL;
+	me = anthill->end_path;
+	while (me)
+	{
+		my_next = anthill->begin_path;
+		while (my_next)
+		{
+			if (me->len < my_next->len)
+				ft_lstswap(&(anthill->begin_path), me, my_next);
+			my_next = my_next->next;
+		}
+		anthill->end_path = me;
+		me = me->previous;
+	}
+}
+
+void	ft_sort_path(t_anthill	*anthill)
+{
+	t_path	*my_next;
+	t_path	*me;
+
+	my_next = NULL;
+	me = anthill->begin_path;
+	while (me)
+	{
+		my_next = me->next;
+		while (my_next)
+		{
+			if (me->len < my_next->len)
+				ft_lstswap(&(anthill->begin_path), me, my_next);
+			anthill->end_path = my_next;
+			my_next = my_next->next;
+		}
+		me = me->next;
+	}
+	ft_reorder_path(anthill);
+}
+
+int		ft_delete_wrong_path(t_anthill	*anthill)
+{
+	t_path	*delete_path;
+	int 	i;
+
+	delete_path = NULL;
+	i = 1;
+	anthill->s_path = anthill->begin_path;
+	while (anthill->s_path)
+	{
+		// printf("TEST %d",anthill->s_path->len );
+		if (anthill->s_path->end_path_room->num_room != anthill->room_end)
+		{
+			// printf("TEST num_room %d",anthill->s_path->end_path_room->num_room );
+
+			anthill->s_path->previous->next = anthill->s_path->next;
+			anthill->s_path->next->previous = anthill->s_path->previous;
+			delete_path = anthill->s_path;
+			free(delete_path->tab);
+			free(delete_path->s_path_room);
+			free(delete_path->begin_path_room);
+			free(delete_path->end_path_room);
+			free(delete_path);
+		}
+		else
+		{
+			anthill->s_path->num_path = i++;
+			anthill->end_path = anthill->s_path;
+
+		}
+		anthill->s_path = anthill->s_path->next;
+	}
+	return (0);
 }
 
 void		ft_stock_tab(t_anthill *anthill)
@@ -53,272 +170,4 @@ void		ft_stock_tab(t_anthill *anthill)
         anthill->s_path->len = ft_strlen(anthill->s_path->tab);
         anthill->s_path = anthill->s_path->next;
 	}
-}
-
-
-void    norme(t_path *tmp3, t_path *e1, t_path *e2)
-{
-    if (tmp3 && tmp3 != e1)
-        tmp3->previous = e1;
-    e1->next = tmp3;
-    if (tmp3 == e1)
-        e1->next = e2;
-    if (e1->previous == e1)
-        e1->previous = e2;
-}
-
-void    ft_lstswap(t_path **start, t_path *e1, t_path *e2)
-{
-    t_path *tmp2;
-    t_path *tmp3;
-    tmp2 = e2->previous;
-    tmp3 = e2->next;
-    e2->previous = e1->previous;
-    if (e1->previous)
-        e1->previous->next = e2;
-    else
-        (*start) = e2;
-    if (e1->next && e1->next != e2)
-        e1->next->previous = e2;
-    e2->next = e1->next;
-    if (e1->next == e2)
-        e2->next = e1;
-    if (e2->previous == e2)
-        e2->previous = e1;
-    e1->previous = tmp2;
-    if (tmp2)
-        tmp2->next = e1;
-    else
-        *start = e1;
-    norme(tmp3, e1, e2);
-}
-
-
-int		ft_sort_path(t_anthill	*anthill)
-{
-	t_path	*my_next;
-	t_path	*me;
-
-	my_next = NULL;
-	me = NULL;
-
-	me = anthill->begin_path;
-	while (me)
-	{
-		my_next = me->next;
-		while (my_next)
-		{
-			if (me->len < my_next->len)
-			{
-				ft_printf("ME -> %d)\n\n", me->num_path);
-				ft_lstswap(&(anthill->begin_path), me, my_next);
-			}
-			my_next = my_next->next;
-		}
-		me = me->next;
-	}
-	return (0);
-}
-
-
-// num 1) tab = 0214 - len 4
-// num 2) tab = 02314 - len 5
-// num 3) tab = 0234 - len 4
-// num 4) tab = 0314 - len 4
-// num 5) tab = 034 - len 3
-// 5 1 3 4 2
-
-// int		ft_sort_path(t_anthill	*anthill, t_path	*next_path)
-// {
-// 	int 	i;
-// 	t_path	*my_previous;
-// 	t_path	*my_next;
-// 	t_path	*move_path;
-//
-// 	i = 0;
-// 	my_previous = NULL;
-// 	my_next = NULL;
-// 	move_path = NULL;
-// 	// anthill->s_path = anthill->begin_path;
-// 	// while (anthill->s_path)
-// 	// {
-// 	// 	i++;
-// 	// 	anthill->s_path = anthill->s_path->next;
-// 	// }
-// 	// while (i > 0)
-// 	// {
-// 	if (next_path)
-// 		anthill->s_path = anthill->begin_path;
-// 	else
-// 		anthill->s_path = next_path;
-// 	while (anthill->s_path)
-// 	{
-// 		if (anthill->s_path->len > anthill->s_path->next->len)
-// 		{
-// 			ft_lstswap(&(anthill->s_path), anthill->s_path, anthill->s_path->next);
-//
-// 		}
-// 		if (anthill->s_path)
-// 			anthill->s_path = anthill->s_path->next;
-// 		else
-// 		{
-// 			ft_sort_path(anthill, anthill->s_path->next);
-// 		}
-// 	}
-//
-// 	return (0);
-// }
-
-//
-// int		ft_sort_path(t_anthill	*anthill)
-// {
-// 	int 	i;
-// 	t_path	*my_previous;
-// 	t_path	*my_next;
-// 	t_path	*me;
-//
-// 	i = 0;
-// 	my_previous = NULL;
-// 	my_next = NULL;
-// 	me = NULL;
-//
-// 	anthill->s_path = anthill->begin_path;
-// 	while (anthill->s_path)
-// 	{
-// 		i++;
-// 		anthill->s_path = anthill->s_path->next;
-// 	}
-// 	ft_printf("ici 5\n");
-//
-// 	while (i > 0)
-// 	{
-// 		ft_printf("*****************************************\n");
-//
-// 		if (!anthill->s_path)
-// 			anthill->s_path = anthill->begin_path;
-// 		ft_printf("*****************************************\n");
-// 		ft_printf("*****************************************\n\n\n\n\n");
-//
-// 		while (anthill->s_path)
-// 		{
-// 			// ft_printf("ici\n");
-// 			//
-// 			// if (!anthill->s_path->previous)
-// 			// 	ft_printf("-- NULL -> %d -> %d)\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
-// 			// else if (!anthill->s_path->next)
-// 			// 	ft_printf("-- %d -> %d -> NULL)\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
-// 			// else
-// 			// 	ft_printf("-- %d -> %d -> %d)\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
-//
-// 			// ft_printf("LEN %d > %d\n",anthill->s_path->len, anthill->s_path->next->len );
-// 			while (anthill->s_path && anthill->s_path->next && anthill->s_path->len > anthill->s_path->next->len)
-// 			{
-// 				// ft_printf("ici2\n");
-// 				//
-// 				//
-// 				// if (!anthill->s_path->previous)
-// 				// 	ft_printf("Num_room A NULL -> %d -> %d)\n\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
-// 				// else if (!anthill->s_path->next)
-// 				// 	ft_printf("Num_room A %d -> %d -> NULL)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
-// 				// else
-// 				// 	ft_printf("Num_room A %d -> %d -> %d)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
-// 				me = anthill->s_path;
-// 				ft_printf("ME -> %d)\n\n", me->num_path);
-// 				ft_lstswap(&(anthill->s_path), anthill->s_path, anthill->s_path->next);
-// 				anthill->s_path = me;
-// 				if (!anthill->s_path->previous)
-// 					ft_printf("Num_room B NULL -> %d -> %d)\n\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
-// 				else if (!anthill->s_path->next)
-// 					ft_printf("Num_room B %d -> %d -> NULL)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
-// 				else
-// 					ft_printf("Num_room B %d -> %d -> %d)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
-//
-// 			}
-// 			if (anthill->s_path && anthill->s_path->next)
-// 			{
-// 				anthill->s_path = anthill->s_path->next;
-// 				ft_printf("ici3\n");
-//
-// 			}
-// 			else
-// 			{
-// 				i--;
-// 				ft_printf("00000000000000000 i = %d\n", i);
-// 				// anthill->s_path = NULL;
-// 				// if (i == 0)
-// 				// 	return (0);
-// 				// else
-// 					break;
-//
-//
-// 			}
-// 			if (i == 0)
-// 				return (0);
-// 			// ft_sort_path(anthill);
-// 			// ft_printf("++++++++++++++\n");
-// 		}
-// 		ft_printf("ici i %d\n", i);
-//
-// 		// i--;
-// 	}
-// 	return (0);
-// }
-
-
-
-// void	ft_lstswap(t_dir **a, t_dir **b)
-// {
-// 	t_dir	*temp;
-//
-// 	temp = ft_lstnew_ls((*a)->buf);
-// 	temp->dossier = (*a)->dossier;
-// 	temp->name = (*a)->name;
-// 	temp->absolute = (*a)->absolute;
-// 	temp->buf = (*a)->buf;
-// 	temp->format = (*a)->format;
-// 	(*a)->dossier = (*b)->dossier;
-// 	(*a)->name = (*b)->name;
-// 	(*a)->absolute = (*b)->absolute;
-// 	(*a)->buf = (*b)->buf;
-// 	(*a)->format = (*b)->format;
-// 	(*b)->dossier = temp->dossier;
-// 	(*b)->name = temp->name;
-// 	(*b)->absolute = temp->absolute;
-// 	(*b)->buf = temp->buf;
-// 	(*b)->format = temp->format;
-// 	free(temp);
-
-
-int		ft_delete_wrong_path(t_anthill	*anthill)
-{
-	t_path	*delete_path;
-	int 	i;
-
-	delete_path = NULL;
-	i = 1;
-	anthill->s_path = anthill->begin_path;
-	while (anthill->s_path)
-	{
-		// printf("TEST %d",anthill->s_path->len );
-		if (anthill->s_path->end_path_room->num_room != anthill->room_end)
-		{
-			// printf("TEST num_room %d",anthill->s_path->end_path_room->num_room );
-
-			anthill->s_path->previous->next = anthill->s_path->next;
-			anthill->s_path->next->previous = anthill->s_path->previous;
-			delete_path = anthill->s_path;
-			free(delete_path->tab);
-			free(delete_path->s_path_room);
-			free(delete_path->begin_path_room);
-			free(delete_path->end_path_room);
-			free(delete_path);
-		}
-		else
-		{
-			anthill->s_path->num_path = i++;
-
-		}
-		anthill->s_path = anthill->s_path->next;
-	}
-	return (0);
 }

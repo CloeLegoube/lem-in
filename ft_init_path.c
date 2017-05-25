@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stock_path.c                                    :+:      :+:    :+:   */
+/*   ft_init_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/09 17:21:30 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/25 11:26:43 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	init_struct_path(t_path	**path, t_room **path_from, t_room **path_to)
             (*path)->begin_path_room = *path_from;
         if (*path_to)
             (*path)->end_path_room = *path_to;
-        (*path)->next = NULL;
+		(*path)->next = NULL;
 	return (0);
 }
 
@@ -85,7 +85,8 @@ int		ft_stock_start_path(t_anthill *anthill)
                 anthill->s_path->next = path;
                 path->previous = anthill->s_path;
             }
-            anthill->s_path = path;
+			anthill->s_path = path;
+            anthill->end_path = path;
         }
         anthill->s_tube = anthill->s_tube->next;
 	}
