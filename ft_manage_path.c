@@ -93,6 +93,34 @@ void    ft_lstswap(t_path **start, t_path *e1, t_path *e2)
     norme(tmp3, e1, e2);
 }
 
+
+int		ft_sort_path(t_anthill	*anthill)
+{
+	t_path	*my_next;
+	t_path	*me;
+
+	my_next = NULL;
+	me = NULL;
+
+	me = anthill->begin_path;
+	while (me)
+	{
+		my_next = me->next;
+		while (my_next)
+		{
+			if (me->len > my_next->len)
+			{
+				ft_printf("ME -> %d)\n\n", me->num_path);
+				ft_lstswap(&(anthill->begin_path), me, my_next);
+			}
+			my_next = my_next->next;
+		}
+		me = me->next;
+	}
+	return (0);
+}
+
+
 // num 1) tab = 0214 - len 4
 // num 2) tab = 02314 - len 5
 // num 3) tab = 0234 - len 4
@@ -141,100 +169,125 @@ void    ft_lstswap(t_path **start, t_path *e1, t_path *e2)
 // 	return (0);
 // }
 
+//
+// int		ft_sort_path(t_anthill	*anthill)
+// {
+// 	int 	i;
+// 	t_path	*my_previous;
+// 	t_path	*my_next;
+// 	t_path	*me;
+//
+// 	i = 0;
+// 	my_previous = NULL;
+// 	my_next = NULL;
+// 	me = NULL;
+//
+// 	anthill->s_path = anthill->begin_path;
+// 	while (anthill->s_path)
+// 	{
+// 		i++;
+// 		anthill->s_path = anthill->s_path->next;
+// 	}
+// 	ft_printf("ici 5\n");
+//
+// 	while (i > 0)
+// 	{
+// 		ft_printf("*****************************************\n");
+//
+// 		if (!anthill->s_path)
+// 			anthill->s_path = anthill->begin_path;
+// 		ft_printf("*****************************************\n");
+// 		ft_printf("*****************************************\n\n\n\n\n");
+//
+// 		while (anthill->s_path)
+// 		{
+// 			// ft_printf("ici\n");
+// 			//
+// 			// if (!anthill->s_path->previous)
+// 			// 	ft_printf("-- NULL -> %d -> %d)\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
+// 			// else if (!anthill->s_path->next)
+// 			// 	ft_printf("-- %d -> %d -> NULL)\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
+// 			// else
+// 			// 	ft_printf("-- %d -> %d -> %d)\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
+//
+// 			// ft_printf("LEN %d > %d\n",anthill->s_path->len, anthill->s_path->next->len );
+// 			while (anthill->s_path && anthill->s_path->next && anthill->s_path->len > anthill->s_path->next->len)
+// 			{
+// 				// ft_printf("ici2\n");
+// 				//
+// 				//
+// 				// if (!anthill->s_path->previous)
+// 				// 	ft_printf("Num_room A NULL -> %d -> %d)\n\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
+// 				// else if (!anthill->s_path->next)
+// 				// 	ft_printf("Num_room A %d -> %d -> NULL)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
+// 				// else
+// 				// 	ft_printf("Num_room A %d -> %d -> %d)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
+// 				me = anthill->s_path;
+// 				ft_printf("ME -> %d)\n\n", me->num_path);
+// 				ft_lstswap(&(anthill->s_path), anthill->s_path, anthill->s_path->next);
+// 				anthill->s_path = me;
+// 				if (!anthill->s_path->previous)
+// 					ft_printf("Num_room B NULL -> %d -> %d)\n\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
+// 				else if (!anthill->s_path->next)
+// 					ft_printf("Num_room B %d -> %d -> NULL)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
+// 				else
+// 					ft_printf("Num_room B %d -> %d -> %d)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
+//
+// 			}
+// 			if (anthill->s_path && anthill->s_path->next)
+// 			{
+// 				anthill->s_path = anthill->s_path->next;
+// 				ft_printf("ici3\n");
+//
+// 			}
+// 			else
+// 			{
+// 				i--;
+// 				ft_printf("00000000000000000 i = %d\n", i);
+// 				// anthill->s_path = NULL;
+// 				// if (i == 0)
+// 				// 	return (0);
+// 				// else
+// 					break;
+//
+//
+// 			}
+// 			if (i == 0)
+// 				return (0);
+// 			// ft_sort_path(anthill);
+// 			// ft_printf("++++++++++++++\n");
+// 		}
+// 		ft_printf("ici i %d\n", i);
+//
+// 		// i--;
+// 	}
+// 	return (0);
+// }
 
-int		ft_sort_path(t_anthill	*anthill)
-{
-	int 	i;
-	t_path	*my_previous;
-	t_path	*my_next;
-	t_path	*me;
-
-	i = 0;
-	my_previous = NULL;
-	my_next = NULL;
-	me = NULL;
-
-	anthill->s_path = anthill->begin_path;
-	while (anthill->s_path)
-	{
-		i++;
-		anthill->s_path = anthill->s_path->next;
-	}
-	ft_printf("ici 5\n");
-
-	while (i > 0)
-	{
-		ft_printf("*****************************************\n");
-
-		if (!anthill->s_path)
-			anthill->s_path = anthill->begin_path;
-		ft_printf("*****************************************\n");
-		ft_printf("*****************************************\n\n\n\n\n");
-
-		while (anthill->s_path)
-		{
-			// ft_printf("ici\n");
-			//
-			// if (!anthill->s_path->previous)
-			// 	ft_printf("-- NULL -> %d -> %d)\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
-			// else if (!anthill->s_path->next)
-			// 	ft_printf("-- %d -> %d -> NULL)\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
-			// else
-			// 	ft_printf("-- %d -> %d -> %d)\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
-
-			// ft_printf("LEN %d > %d\n",anthill->s_path->len, anthill->s_path->next->len );
-			while (anthill->s_path && anthill->s_path->next && anthill->s_path->len > anthill->s_path->next->len)
-			{
-				// ft_printf("ici2\n");
-				//
-				//
-				// if (!anthill->s_path->previous)
-				// 	ft_printf("Num_room A NULL -> %d -> %d)\n\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
-				// else if (!anthill->s_path->next)
-				// 	ft_printf("Num_room A %d -> %d -> NULL)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
-				// else
-				// 	ft_printf("Num_room A %d -> %d -> %d)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
-				me = anthill->s_path;
-				ft_printf("ME -> %d)\n\n", me->num_path);
-				ft_lstswap(&(anthill->s_path), anthill->s_path, anthill->s_path->next);
-				anthill->s_path = me;
-				if (!anthill->s_path->previous)
-					ft_printf("Num_room B NULL -> %d -> %d)\n\n", anthill->s_path->num_path, anthill->s_path->next->num_path);
-				else if (!anthill->s_path->next)
-					ft_printf("Num_room B %d -> %d -> NULL)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path);
-				else
-					ft_printf("Num_room B %d -> %d -> %d)\n\n",anthill->s_path->previous->num_path, anthill->s_path->num_path, anthill->s_path->next->num_path);
-
-			}
-			if (anthill->s_path && anthill->s_path->next)
-			{
-				anthill->s_path = anthill->s_path->next;
-				ft_printf("ici3\n");
-
-			}
-			else
-			{
-				i--;
-				ft_printf("00000000000000000 i = %d\n", i);
-				// anthill->s_path = NULL;
-				// if (i == 0)
-				// 	return (0);
-				// else
-					break;
 
 
-			}
-			if (i == 0)
-				return (0);
-			// ft_sort_path(anthill);
-			// ft_printf("++++++++++++++\n");
-		}
-		ft_printf("ici i %d\n", i);
+// void	ft_lstswap(t_dir **a, t_dir **b)
+// {
+// 	t_dir	*temp;
+//
+// 	temp = ft_lstnew_ls((*a)->buf);
+// 	temp->dossier = (*a)->dossier;
+// 	temp->name = (*a)->name;
+// 	temp->absolute = (*a)->absolute;
+// 	temp->buf = (*a)->buf;
+// 	temp->format = (*a)->format;
+// 	(*a)->dossier = (*b)->dossier;
+// 	(*a)->name = (*b)->name;
+// 	(*a)->absolute = (*b)->absolute;
+// 	(*a)->buf = (*b)->buf;
+// 	(*a)->format = (*b)->format;
+// 	(*b)->dossier = temp->dossier;
+// 	(*b)->name = temp->name;
+// 	(*b)->absolute = temp->absolute;
+// 	(*b)->buf = temp->buf;
+// 	(*b)->format = temp->format;
+// 	free(temp);
 
-		// i--;
-	}
-	return (0);
-}
 
 int		ft_delete_wrong_path(t_anthill	*anthill)
 {
