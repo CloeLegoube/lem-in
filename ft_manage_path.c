@@ -108,7 +108,7 @@ int		ft_sort_path(t_anthill	*anthill)
 		my_next = me->next;
 		while (my_next)
 		{
-			if (me->len > my_next->len)
+			if (me->len < my_next->len)
 			{
 				ft_printf("ME -> %d)\n\n", me->num_path);
 				ft_lstswap(&(anthill->begin_path), me, my_next);
