@@ -83,6 +83,18 @@ void	ft_for_each_path(t_anthill	*anthill)
 	}
 }
 
+t_path	*ft_find_shorter_path(t_anthill	*anthill)
+{
+	anthill->s_path = anthill->end_path;
+	while (anthill->s_path)
+	{
+		if (anthill->s_path->end_path_room->num_room == anthill->room_end)
+			return (anthill->s_path);
+		anthill->s_path = anthill->s_path->previous;
+	}
+	return (anthill->s_path);
+}
+
 void	ft_display(t_anthill	*anthill)
 {
 	int len;
@@ -90,11 +102,7 @@ void	ft_display(t_anthill	*anthill)
 
 	len = 0;
 	fourmis = anthill->nb_fourmis;
-	anthill->s_path = anthill->begin_path;
-	if (anthill->s_kind_path->nb_short == 1)
-		len = ft_atoi(anthill->s_kind_path->tab_short);
-	while (anthill->s_path->num_path != len)
-		anthill->s_path = anthill->s_path->next;
+	anthill->s_path = ft_find_shorter_path(anthill);
 	anthill->s_fourmi = anthill->begin_fourmi;
 	while (anthill->end_fourmi->num_room != anthill->room_end)
 	{

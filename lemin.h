@@ -42,9 +42,6 @@ typedef struct		s_anthill
 	struct s_path		*s_path;
 	struct s_path		*begin_path;
 	struct s_path		*end_path;
-	struct s_match_path	*match_path;
-	struct s_match_path	*begin_match_path;
-	struct s_match_path	*end_match_path;
 	struct s_kind_path	*s_kind_path;
 	struct s_calcul		*s_calcul;
 	struct s_anthill	*next;
@@ -118,27 +115,24 @@ typedef struct		s_path
 	struct s_path	*next;
 }					t_path;
 
-int			get_next_line(const int fd, char **line);
-int			ft_printf(char *format, ...);
-char		**ft_strsplit(char const *s, char c);
-int			ft_stock_room(char **tab, t_anthill *anthill, char **line);
-int			ft_stock_tube(char **tab, t_anthill *anthill);
-int			ft_stock_fourmi(t_anthill *anthill);
-int			ft_stock_start_path(t_anthill *anthill);
-void		ft_stock_path(t_anthill *anthill, t_path *begin_path);
-void		ft_stock_tab(t_anthill *anthill);
-void		ft_stock_copy_path(t_path **copy_path, t_anthill *anthill);
-void		ft_check_each_tube(t_anthill *anthill, int check);
-t_room		*find_room(int target, t_anthill *anthill, t_room **room);
-void		init_struct_kind_path(t_anthill	*anthill);
-void		ft_display(t_anthill	*anthill);
-int			ft_delete_wrong_path(t_anthill	*anthill);
-int			test(t_anthill	*anthill);
-int			ft_check_if_room_exist(t_path *path, int tube);
-void		ft_sort_path(t_anthill	*anthill);
+int					get_next_line(const int fd, char **line);
+int					ft_printf(char *format, ...);
+char				**ft_strsplit(char const *s, char c);
+int					ft_stock_room(char **tab, t_anthill *anthill, char **line);
+int					ft_stock_tube(char **tab, t_anthill *anthill);
+int					ft_stock_fourmi(t_anthill *anthill);
+int					ft_stock_start_path(t_anthill *anthill);
+void				ft_stock_path(t_anthill *anthill, t_path *begin_path);
+void				ft_stock_tab(t_anthill *anthill);
+void				ft_stock_copy_path(t_path **copy_path, t_anthill *anthill);
+void				ft_check_each_tube(t_anthill *anthill, int check);
+t_room				*find_room(int target, t_anthill *anthill, t_room **room);
+void				init_struct_kind_path(t_anthill	*anthill);
+void				ft_display(t_anthill	*anthill);
+int					ft_delete_wrong_path(t_anthill	*anthill);
 void		ft_lstswap(t_path **start, t_path *e1, t_path *e2);
-int			ft_str_find_little(char *s1, char *s2, size_t from, size_t to);
-void		ft_match_paths(t_anthill	*anthill);
-void		calcul_distrib_fourmis(t_anthill *anthill);
+int					test(t_anthill	*anthill);
+int		ft_check_if_room_exist(t_path *path, int tube);
+void	ft_sort_path(t_anthill	*anthill);
 
 #endif

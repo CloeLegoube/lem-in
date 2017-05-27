@@ -12,32 +12,7 @@
 
 #include "lemin.h"
 
-void	init_match_path(t_anthill *anthill, t_path **me, t_path **my_next)
-{
-	t_match_path *my_path;
-	t_match_path *next_path;
-
-	if (!(my_path = (t_match_path*)malloc(sizeof(t_match_path))))
-		return ;
-	my_path->s_path = *me;
-	my_path->previous = NULL;
-	if (!(next_path = (t_match_path*)malloc(sizeof(t_match_path))))
-		return ;
-	next_path->s_path = *my_next;
-	next_path->next = NULL;
-	my_path->next = next_path;
-	next_path->previous = my_path;
-	if (!anthill->begin_match_path)
-	{
-		anthill->begin_match_path = my_path;
-		my_path->previous = NULL;
-	}
-	anthill->match_path = next_path;
-	anthill->end_match_path = next_path;
-}
-
-
-void	ft_match_paths(t_anthill	*anthill)
+void		ft_stock_tab(t_anthill *anthill)
 {
 	t_path	*my_next;
 	t_path	*me;
@@ -65,26 +40,26 @@ void	ft_match_paths(t_anthill	*anthill)
 	}
 }
 
-void	ft_reorder_path(t_anthill	*anthill)
-{
-	t_path	*my_next;
-	t_path	*me;
-
-	my_next = NULL;
-	me = anthill->end_path;
-	while (me)
-	{
-		my_next = anthill->begin_path;
-		while (my_next)
-		{
-			if (me->len < my_next->len)
-				ft_lstswap(&(anthill->begin_path), me, my_next);
-			my_next = my_next->next;
-		}
-		anthill->end_path = me;
-		me = me->previous;
-	}
-}
+// void	ft_reorder_path(t_anthill	*anthill)
+// {
+// 	t_path	*my_next;
+// 	t_path	*me;
+//
+// 	my_next = NULL;
+// 	me = anthill->end_path;
+// 	while (me)
+// 	{
+// 		my_next = anthill->begin_path;
+// 		while (my_next)
+// 		{
+// 			if (me->len < my_next->len)
+// 				ft_lstswap(&(anthill->begin_path), me, my_next);
+// 			my_next = my_next->next;
+// 		}
+// 		anthill->end_path = me;
+// 		me = me->previous;
+// 	}
+// }
 
 void	ft_sort_path(t_anthill	*anthill)
 {
@@ -105,7 +80,7 @@ void	ft_sort_path(t_anthill	*anthill)
 		}
 		me = me->next;
 	}
-	ft_reorder_path(anthill);
+	// ft_reorder_path(anthill);
 }
 
 int		ft_delete_wrong_path(t_anthill	*anthill)
@@ -136,7 +111,6 @@ int		ft_delete_wrong_path(t_anthill	*anthill)
 		{
 			anthill->s_path->num_path = i++;
 			anthill->end_path = anthill->s_path;
-
 		}
 		anthill->s_path = anthill->s_path->next;
 	}

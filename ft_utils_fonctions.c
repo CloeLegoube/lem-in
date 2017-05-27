@@ -12,27 +12,6 @@
 
 #include "lemin.h"
 
-int		ft_str_find_little(char *s1, char *s2, size_t from, size_t to)
-{
-	size_t	i;
-	size_t	j;
-
-	i = from;
-	while (s1[i] && i < (ft_strlen(s1) - to))
-	{
-		j = from;
-		while(s2[j] && j < (ft_strlen(s2) - to))
-		{
-			if(s1[i] != s2[j])
-				j++;
-			else
-				return (0);
-		}
-		i++;
-	}
-	return(1);
-}
-
 int		ft_check_if_room_exist(t_path *path, int tube)
 {
 	path->s_path_room = path->begin_path_room;

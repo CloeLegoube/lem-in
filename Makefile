@@ -18,7 +18,7 @@ HEAD = lemin.h
 
 SRC = main.c get_next_line.c lemin.c ft_stock_room_tube.c ft_stock_fourmi.c \
 ft_init_path.c ft_stock_path.c ft_manage_path.c ft_kind_path.c ft_display.c \
-ft_utils_fonctions.c ft_multi_road.c
+ft_utils_fonctions.c
 
 LIB = ./libft/libft.a
 
