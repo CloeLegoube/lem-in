@@ -41,6 +41,7 @@ typedef struct		s_anthill
 	struct s_room		*begin_room;
 	struct s_path		*s_path;
 	struct s_path		*begin_path;
+	struct s_path		*end_path;
 	struct s_kind_path	*s_kind_path;
 	struct s_anthill	*next;
 }					t_anthill;
@@ -113,8 +114,9 @@ t_room				*find_room(int target, t_anthill *anthill, t_room **room);
 void				init_struct_kind_path(t_anthill	*anthill);
 void				ft_display(t_anthill	*anthill);
 int					ft_delete_wrong_path(t_anthill	*anthill);
+void		ft_lstswap(t_path **start, t_path *e1, t_path *e2);
 int					test(t_anthill	*anthill);
 int		ft_check_if_room_exist(t_path *path, int tube);
-int		ft_sort_path(t_anthill	*anthill);
+void	ft_sort_path(t_anthill	*anthill);
 
 #endif
