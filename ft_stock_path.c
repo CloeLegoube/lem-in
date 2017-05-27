@@ -40,6 +40,9 @@ void		ft_copy_room(t_path	**path, t_path **copy_path)
     if (!(new_room = (t_room*)malloc(sizeof(t_room))))
         return ;
         new_room->num_room = (*(copy_path))->s_path_room->num_room;
+        new_room->name = (*(copy_path))->s_path_room->name;
+        new_room->name = ft_strnew(ft_strlen((*(copy_path))->s_path_room->name));
+        new_room->name = ft_strdup((*(copy_path))->s_path_room->name);
         new_room->coordo[0] = (*(copy_path))->s_path_room->coordo[0];
         new_room->coordo[1] = (*(copy_path))->s_path_room->coordo[1];
         new_room->start = (*(copy_path))->s_path_room->start;

@@ -32,6 +32,9 @@ typedef struct		s_anthill
 	int					line_start;
 	int					room_end;
 	int					line_end;
+	int					error;
+	struct s_lines		*begin_lines;
+	struct s_lines		*s_lines;
 	struct s_fourmi		*s_fourmi;
 	struct s_fourmi		*begin_fourmi;
 	struct s_fourmi		*end_fourmi;
@@ -46,6 +49,13 @@ typedef struct		s_anthill
 	struct s_calcul		*s_calcul;
 	struct s_anthill	*next;
 }					t_anthill;
+
+typedef struct		s_lines
+{
+	char			*line;
+	struct s_lines	*next;
+}					t_lines;
+
 
 typedef struct		s_match_path
 {
@@ -76,12 +86,15 @@ typedef struct		s_tube
 	int				num_tube;
 	int				from;
 	int				to;
+	char			*str_from;
+	char			*str_to;
 	struct s_tube	*next;
 }					t_tube;
 
 typedef struct		s_room
 {
 	int				num_room;
+	char			*name;
 	int				free;
 	int				start;
 	int				end;
@@ -103,7 +116,7 @@ typedef struct		s_kind_path
 typedef struct		s_path
 {
 	int				num_path;
-	char			*tab;
+	int				*tab;
 	int				stop;
 	int				len;
 	int				shorter;
@@ -116,6 +129,7 @@ typedef struct		s_path
 }					t_path;
 
 int					get_next_line(const int fd, char **line);
+void				ft_check(t_anthill *anthill, char **line);
 int					ft_printf(char *format, ...);
 char				**ft_strsplit(char const *s, char c);
 int					ft_stock_room(char **tab, t_anthill *anthill, char **line);
@@ -134,5 +148,7 @@ void		ft_lstswap(t_path **start, t_path *e1, t_path *e2);
 int					test(t_anthill	*anthill);
 int		ft_check_if_room_exist(t_path *path, int tube);
 void	ft_sort_path(t_anthill	*anthill);
+char 	*ft_name_by_room(t_anthill *anthill, int room);
+int		ft_find_room_by_name(t_anthill *anthill, char *name);
 
 #endif

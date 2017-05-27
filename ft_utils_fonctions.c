@@ -12,6 +12,32 @@
 
 #include "lemin.h"
 
+int		ft_find_room_by_name(t_anthill *anthill, char *name)
+{
+	anthill->s_room = anthill->begin_room;
+	while (anthill->s_room)
+	{
+		// printf("%s = %s -> %d\n", name, anthill->s_room->name, ft_strcmp(name, anthill->s_room->name));
+
+		if (!ft_strcmp(name, anthill->s_room->name))
+			return (anthill->s_room->num_room);
+		anthill->s_room = anthill->s_room->next;
+	}
+	return (-42);
+}
+
+char 	*ft_name_by_room(t_anthill *anthill, int room)
+{
+	anthill->s_room = anthill->begin_room;
+	while (anthill->s_room)
+	{
+		if (room == anthill->s_room->num_room)
+			return (anthill->s_room->name);
+		anthill->s_room = anthill->s_room->next;
+	}
+	return (NULL);
+}
+
 int		ft_check_if_room_exist(t_path *path, int tube)
 {
 	path->s_path_room = path->begin_path_room;

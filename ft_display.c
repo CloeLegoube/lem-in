@@ -58,7 +58,7 @@ void	ft_for_each_path(t_anthill	*anthill)
 				anthill->s_path->s_path_room->free = 0;
 				available(anthill->s_path->s_path_room->num_room, anthill, 0);
 			}
-			ft_printf("L%d-%d    ", anthill->s_fourmi->num_fourmi, anthill->s_path->s_path_room->num_room);
+			ft_printf("L%d-%s    ", anthill->s_fourmi->num_fourmi, ft_name_by_room(anthill, anthill->s_path->s_path_room->num_room));
 			anthill->s_fourmi->position_path = anthill->s_path->s_path_room;
 		}
 		else if (anthill->s_fourmi->num_room == anthill->s_path->s_path_room->num_room)
@@ -66,12 +66,12 @@ void	ft_for_each_path(t_anthill	*anthill)
 			if (anthill->s_fourmi->num_room == anthill->room_end)
 			{
 
-				ft_printf("LL%d-%d    ", anthill->s_fourmi->num_fourmi, anthill->s_fourmi->num_room);
+				ft_printf("LL%d-%s    ", anthill->s_fourmi->num_fourmi, ft_name_by_room(anthill, anthill->s_fourmi->num_room));
 			}
 			if (anthill->s_path->s_path_room->next)
 			{
 
-				ft_printf("LLL%d-%d    ", anthill->s_fourmi->num_fourmi, anthill->s_path->s_path_room->next->num_room);
+				ft_printf("LLL%d-%s    ", anthill->s_fourmi->num_fourmi, ft_name_by_room(anthill, anthill->s_path->s_path_room->next->num_room));
 				anthill->s_fourmi->num_room = anthill->s_path->s_path_room->next->num_room;
 			}
 

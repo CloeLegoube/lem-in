@@ -14,29 +14,30 @@
 
 void		ft_stock_tab(t_anthill *anthill)
 {
-    int i;
+	int i;
+    int len;
 
-    i = 0;
+	i = 0;
+    len = 0;
     anthill->s_path = anthill->begin_path;
     while (anthill->s_path)
 	{
 		anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
 		while (anthill->s_path->s_path_room)
 		{
-			i++;
+			len++;
 			anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
 		}
-        if (!(anthill->s_path->tab = (char *)malloc(sizeof(char) * (i + 1))))
+        if (!(anthill->s_path->tab = (int *)malloc(sizeof(int) * len)))
             return ;
         anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
         i = 0;
         while (anthill->s_path->s_path_room)
         {
-            anthill->s_path->tab[i++]= anthill->s_path->s_path_room->num_room + 48;
+            anthill->s_path->tab[i++]= anthill->s_path->s_path_room->num_room;
             anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
         }
-        anthill->s_path->tab[i]= '\0';
-        anthill->s_path->len = ft_strlen(anthill->s_path->tab);
+        anthill->s_path->len = len;
         anthill->s_path = anthill->s_path->next;
 	}
 }

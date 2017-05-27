@@ -24,6 +24,9 @@ t_room	*find_room(int target, t_anthill *anthill, t_room **room)
             if (!(*room = (t_room*)malloc(sizeof(t_room))))
                 return (0);
             (*room)->num_room = anthill->s_room->num_room;
+            (*room)->name = anthill->s_room->name;
+            (*room)->name = ft_strnew(ft_strlen(anthill->s_room->name));
+            (*room)->name = ft_strdup(anthill->s_room->name);
             (*room)->coordo[0] = anthill->s_room->coordo[0];
             (*room)->coordo[1] = anthill->s_room->coordo[1];
             (*room)->start = anthill->s_room->start;
