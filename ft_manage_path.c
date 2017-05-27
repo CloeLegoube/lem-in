@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_manage_path.c                                   :+:      :+:    :+:   */
+/*   ft_stock_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/25 21:30:59 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/09 17:21:30 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,30 @@
 
 void		ft_stock_tab(t_anthill *anthill)
 {
-	t_path	*my_next;
-	t_path	*me;
-	t_match_path *my_path;
-	t_match_path *next_path;
+    int i;
 
-	my_next = NULL;
-	my_path = NULL;
-	next_path = NULL;
-	me = anthill->begin_path;
-	while (me)
+    i = 0;
+    anthill->s_path = anthill->begin_path;
+    while (anthill->s_path)
 	{
-
-		my_next = me->next;
-		while (my_next)
+		anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+		while (anthill->s_path->s_path_room)
 		{
-			if (ft_str_find_little(me->tab,my_next->tab, 1, 1))
-			{
-				ft_printf("check -> %s - %d) VS %s - %d) = %d)\n\n", me->tab, me->num_path, my_next->tab, my_next->num_path, ft_str_find_little(me->tab,my_next->tab, 1, 1));
-				init_match_path(anthill, &me, &my_next);
-			}
-			my_next = my_next->next;
+			i++;
+			anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
 		}
-		me = me->next;
+        if (!(anthill->s_path->tab = (char *)malloc(sizeof(char) * (i + 1))))
+            return ;
+        anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+        i = 0;
+        while (anthill->s_path->s_path_room)
+        {
+            anthill->s_path->tab[i++]= anthill->s_path->s_path_room->num_room + 48;
+            anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
+        }
+        anthill->s_path->tab[i]= '\0';
+        anthill->s_path->len = ft_strlen(anthill->s_path->tab);
+        anthill->s_path = anthill->s_path->next;
 	}
 }
 
@@ -110,38 +111,9 @@ int		ft_delete_wrong_path(t_anthill	*anthill)
 		else
 		{
 			anthill->s_path->num_path = i++;
-			anthill->end_path = anthill->s_path;
+            anthill->end_path = anthill->s_path;
 		}
 		anthill->s_path = anthill->s_path->next;
 	}
 	return (0);
-}
-
-void		ft_stock_tab(t_anthill *anthill)
-{
-    int i;
-
-    i = 0;
-    anthill->s_path = anthill->begin_path;
-    while (anthill->s_path)
-	{
-		anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-		while (anthill->s_path->s_path_room)
-		{
-			i++;
-			anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
-		}
-        if (!(anthill->s_path->tab = (char *)malloc(sizeof(char) * (i + 1))))
-            return ;
-        anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-        i = 0;
-        while (anthill->s_path->s_path_room)
-        {
-            anthill->s_path->tab[i++]= anthill->s_path->s_path_room->num_room + 48;
-            anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
-        }
-        anthill->s_path->tab[i]= '\0';
-        anthill->s_path->len = ft_strlen(anthill->s_path->tab);
-        anthill->s_path = anthill->s_path->next;
-	}
 }

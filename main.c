@@ -64,30 +64,30 @@ int		test(t_anthill	*anthill)
 		anthill->s_path = anthill->s_path->next;
 	}
 
-	anthill->match_path = anthill->begin_match_path;
-	printf("***** Structure MATCH PATH *****\n");
-	while (anthill->match_path)
-	{
-		printf("num %d) tab = %s - len %d\n",anthill->match_path->s_path->num_path, anthill->match_path->s_path->tab, anthill->match_path->s_path->len);
-		anthill->match_path = anthill->match_path->next;
-	}
-	printf("***** CALCUL *****\n");
-	printf("total = %d\n", anthill->s_calcul->total);
-	printf("nb_path = %d\n", anthill->s_calcul->nb_path);
-	printf("left = %d\n", anthill->s_calcul->left);
-	i = -1;
-	while (++i < anthill->s_calcul->nb_path)
-		printf("tab[%d] = %d\n", i, anthill->s_calcul->tab[i]);
-
+	// anthill->match_path = anthill->begin_match_path;
+	// printf("***** Structure MATCH PATH *****\n");
+	// while (anthill->match_path)
+	// {
+	// 	printf("num %d) tab = %s - len %d\n",anthill->match_path->s_path->num_path, anthill->match_path->s_path->tab, anthill->match_path->s_path->len);
+	// 	anthill->match_path = anthill->match_path->next;
+	// }
+	// printf("***** CALCUL *****\n");
+	// printf("total = %d\n", anthill->s_calcul->total);
+	// printf("nb_path = %d\n", anthill->s_calcul->nb_path);
+	// printf("left = %d\n", anthill->s_calcul->left);
+	// i = -1;
+	// while (++i < anthill->s_calcul->nb_path)
+	// 	printf("tab[%d] = %d\n", i, anthill->s_calcul->tab[i]);
 	//
-	//
-	// printf("***** KIND PATH *****\n");
-	// printf("len_short = %d\n", anthill->s_kind_path->len_short);
-	// printf("nb_short = %d\n", anthill->s_kind_path->nb_short);
-	// printf("tab short = %s)\n", anthill->s_kind_path->tab_short);
-	// printf("len_long = %d\n", anthill->s_kind_path->len_long);
-	// printf("nb_long = %d\n", anthill->s_kind_path->nb_long);
-	// printf("tab long = %s)\n", anthill->s_kind_path->tab_long);
+	// //
+	// //
+	// // printf("***** KIND PATH *****\n");
+	// // printf("len_short = %d\n", anthill->s_kind_path->len_short);
+	// // printf("nb_short = %d\n", anthill->s_kind_path->nb_short);
+	// // printf("tab short = %s)\n", anthill->s_kind_path->tab_short);
+	// // printf("len_long = %d\n", anthill->s_kind_path->len_long);
+	// // printf("nb_long = %d\n", anthill->s_kind_path->nb_long);
+	// // printf("tab long = %s)\n", anthill->s_kind_path->tab_long);
 	return (0);
 }
 
@@ -111,9 +111,6 @@ int		ft_initialize_struct_anthill(t_anthill *anthill)
 	anthill->s_room = NULL;
 	anthill->s_path = NULL;
 	anthill->s_kind_path = NULL;
-	anthill->match_path = NULL;
-	anthill->begin_match_path = NULL;
-	anthill->end_match_path = NULL;
 	return (1);
 }
 
@@ -145,10 +142,10 @@ int		main(void)
 	ft_stock_path(anthill, anthill->begin_path);
 	ft_stock_tab(anthill);
 	ft_sort_path(anthill);
-	ft_match_paths(anthill);
-	calcul_distrib_fourmis(anthill);
-	// init_struct_kind_path(anthill);
-	// ft_display(anthill);
+	// ft_match_paths(anthill);
+	// calcul_distrib_fourmis(anthill);
+	init_struct_kind_path(anthill);
+	ft_display(anthill);
 
 	test(anthill);
 	// free(game);
