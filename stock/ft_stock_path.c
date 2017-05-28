@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lemin.h"
+#include "../lemin.h"
 
 int		ft_add_new_room(t_anthill *anthill, int target, t_path **path)
 {
@@ -83,6 +83,21 @@ void		ft_stock_copy_path(t_path **copy_path, t_anthill *anthill)
 	(*(copy_path))->next = path;
 	ft_add_new_room(anthill, anthill->s_tube->to, &path);
 }
+// int		ft_check_if_room_exist(t_path *path, int tube)
+// {
+// 	path->s_path_room = path->begin_path_room;
+//
+// 	while (path->s_path_room)
+// 	{
+// 		ft_printf("num_room %d = tube %d\n", path->s_path_room->num_room , tube);
+//
+// 		if (path->s_path_room->num_room == tube)
+// 			return(0);
+// 		path->s_path_room = path->s_path_room->next;
+// 	}
+// 	path->s_path_room = path->end_path_room;
+// 	return(1);
+// }
 
 void		ft_check_each_tube(t_anthill *anthill, int check)
 {
@@ -92,6 +107,8 @@ void		ft_check_each_tube(t_anthill *anthill, int check)
 	anthill->s_tube = anthill->begin_tube;
     while (anthill->s_tube)
     {
+        ft_printf("from %d -> num_room %d\n", anthill->s_tube->from, anthill->s_path->s_path_room->num_room);
+
         if (anthill->s_tube->from == anthill->s_path->s_path_room->num_room)
         {
 			tube_match++;
@@ -99,9 +116,17 @@ void		ft_check_each_tube(t_anthill *anthill, int check)
             {
                 check++;
 				if (!ft_check_if_room_exist((anthill->s_path), anthill->s_tube->to))
-					anthill->s_path->stop = 1;
+                {
+                    ft_printf("ici1 room %d already exist in the path\n", anthill->s_tube->to);
+                    anthill->s_path->stop = 1;
+
+                }
 				else
-					ft_add_new_room(anthill, anthill->s_tube->to, &(anthill->s_path));
+                {
+                    ft_printf("add new room \n");
+                    ft_add_new_room(anthill, anthill->s_tube->to, &(anthill->s_path));
+
+                }
 				if (anthill->s_tube)
 					anthill->s_tube = anthill->s_tube->next;
             }
@@ -109,11 +134,18 @@ void		ft_check_each_tube(t_anthill *anthill, int check)
             {
 				if (ft_check_if_room_exist(anthill->s_path, anthill->s_tube->to))
 				{
+                    ft_printf("copy the path\n");
+                    // anthill->s_path->stop = 0;
 					ft_stock_copy_path(&(anthill->s_path), anthill);
 					break;
 				}
 				else
-					anthill->s_path->stop = 1;
+                {
+                    ft_printf("ici2 room %d already exist in the path\n", anthill->s_tube->to);
+
+                    anthill->s_path->stop = 1;
+
+                }
 				check = 0;
             }
         }
@@ -137,8 +169,10 @@ void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
 	{
 		anthill->s_path->s_path_room = anthill->s_path->end_path_room;
         check = 0;
+        ft_printf("num_room %d = anthill->room_end %d\n", anthill->s_path->s_path_room->num_room, anthill->room_end);
 		if (anthill->s_path->s_path_room->num_room != anthill->room_end)
         	ft_check_each_tube(anthill, check);
+        ft_printf("stop %d\n", anthill->s_path->stop, anthill->room_end);
 		if (!anthill->s_path->stop && anthill->s_path->end_path_room->num_room != anthill->room_end)
 			ft_stock_path(anthill, anthill->s_path);
         if (anthill->s_path)

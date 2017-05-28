@@ -66,12 +66,12 @@ void	ft_for_each_path(t_anthill	*anthill)
 			if (anthill->s_fourmi->num_room == anthill->room_end)
 			{
 
-				ft_printf("LL%d-%s    ", anthill->s_fourmi->num_fourmi, ft_name_by_room(anthill, anthill->s_fourmi->num_room));
+				ft_printf("LL%d-%s%s%s    ", anthill->s_fourmi->num_fourmi, "\033[4;31m", ft_name_by_room(anthill, anthill->s_fourmi->num_room), "\033[0m");
 			}
 			if (anthill->s_path->s_path_room->next)
 			{
 
-				ft_printf("LLL%d-%s    ", anthill->s_fourmi->num_fourmi, ft_name_by_room(anthill, anthill->s_path->s_path_room->next->num_room));
+				ft_printf("LLL%d-%s%s%s    ", anthill->s_fourmi->num_fourmi, "\033[1;36m", ft_name_by_room(anthill, anthill->s_path->s_path_room->next->num_room), "\033[0m");
 				anthill->s_fourmi->num_room = anthill->s_path->s_path_room->next->num_room;
 			}
 
@@ -106,6 +106,9 @@ void	ft_display(t_anthill	*anthill)
 	anthill->s_fourmi = anthill->begin_fourmi;
 	while (anthill->end_fourmi->num_room != anthill->room_end)
 	{
+		// printf("anthill->end_fourmi->num_room %d\n", anthill->end_fourmi->num_room);
+		// printf("anthill->room_end %d\n", anthill->room_end);
+
 		anthill->s_fourmi = anthill->begin_fourmi;
 		while (anthill->s_fourmi && anthill->end_fourmi->num_room != anthill->room_end)
 		{

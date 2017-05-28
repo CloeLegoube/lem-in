@@ -12,6 +12,53 @@
 
 #include "lemin.h"
 
+void	ft_check_correct_path(t_anthill *anthill)
+{
+	int i;
+	int nb_path;
+
+	anthill->s_path = anthill->begin_path;
+	i = 0;
+	nb_path = 0;
+	while (anthill->s_path)
+	{
+		ft_printf("num_room %d VS %d\n", anthill->s_path->end_path_room->num_room,anthill->room_end );
+		if (anthill->s_path->end_path_room->num_room != anthill->room_end)
+			i++;
+		anthill->s_path = anthill->s_path->next;
+		nb_path++;
+	}
+	if (i == nb_path)
+		ft_exit(2);
+}
+
+void	ft_display_lines(t_anthill *anthill)
+{
+	anthill->s_lines = anthill->begin_lines;
+	ft_printf("%d\n", anthill->nb_fourmis);
+	while (anthill->s_lines)
+	{
+		ft_printf("%s\n", anthill->s_lines->line);
+		anthill->s_lines = anthill->s_lines->next;
+	}
+}
+
+// int		ft_exit(t_anthill *anthill)
+// {
+// 	if(anthill->error)
+// 	{
+// 		ft_printf("ERROR\n");
+// 		exit(0);
+// 	}
+// 	return (1);
+// }
+
+void	ft_exit(int nb)
+{
+	ft_printf("ERROR %d\n", nb);
+	exit(0);
+}
+
 char	*ft_strstart(const char *big, const char *little)
 {
 	int		i;
@@ -53,12 +100,10 @@ void		ft_check(t_anthill *anthill, char **line)
 	else
 		anthill->s_lines->next = struct_line;
 	anthill->s_lines = struct_line;
-	if (!ft_strstr(*line, "##start") && !ft_strstr(*line, "##start") && ft_strstart(*line, "#"))
-		return ;
-	anthill->nb_rooms += ft_stock_room(ft_strsplit(*line, ' '), anthill, line);
-	if(anthill->error)
-		return ;
-	anthill->nb_tubes += ft_stock_tube(ft_strsplit(*line, '-'), anthill);
-	if(anthill->error)
-		return ;
+	// if (!ft_strstr(*line, "##start") && !ft_strstr(*line, "##start") && ft_strstart(*line, "#"))
+	// 	return ;
+	if (ft_stock_room(ft_strsplit(*line, ' '), anthill, line))
+		anthill->nb_rooms++;
+	else
+		anthill->nb_tubes += ft_stock_tube(ft_strsplit(*line, '-'), anthill);
 }

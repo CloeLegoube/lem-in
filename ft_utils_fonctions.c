@@ -23,7 +23,7 @@ int		ft_find_room_by_name(t_anthill *anthill, char *name)
 			return (anthill->s_room->num_room);
 		anthill->s_room = anthill->s_room->next;
 	}
-	anthill->error = 1;
+	ft_exit(6);
 	return (0);
 }
 
@@ -45,8 +45,14 @@ int		ft_check_if_room_exist(t_path *path, int tube)
 
 	while (path->s_path_room)
 	{
+		ft_printf("num_room %d = tube %d\n", path->s_path_room->num_room , tube);
+
 		if (path->s_path_room->num_room == tube)
+		{
+			ft_printf("egal\n");
 			return(0);
+
+		}
 		path->s_path_room = path->s_path_room->next;
 	}
 	path->s_path_room = path->end_path_room;
@@ -89,3 +95,45 @@ void    ft_lstswap(t_path **start, t_path *e1, t_path *e2)
         *start = e1;
     norme(tmp3, e1, e2);
 }
+
+
+int		ft_strdigit(char *s)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	if (s[i] == '-')
+	{
+		count++;
+		i++;
+	}
+	while (s[i])
+	{
+		if (s[i] >= 48 && s[i] <= 57)
+			count++;
+		else
+			return (0);
+		i++;
+	}
+	if (i == count)
+		return (1);
+	else
+		return (0);
+}
+
+
+// int		ft_lstlen(t_anthill *anthill)
+// {
+// 	int i;
+//
+// 	i = 0;
+// 	anthill->match_path = anthill->begin_match_path;
+// 	while (anthill->match_path)
+// 	{
+// 		i++;
+// 		anthill->match_path = anthill->match_path->next;
+// 	}
+// 	return (i);
+// }

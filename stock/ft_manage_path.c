@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lemin.h"
+#include "../lemin.h"
 
 // int		*ft_intdup(int *s, int len)
 // {
@@ -98,6 +98,7 @@ void	ft_sort_path(t_anthill	*anthill)
 		}
 		me = me->next;
 	}
+
 	// ft_reorder_path(anthill);
 }
 

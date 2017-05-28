@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lemin.h"
+#include "../lemin.h"
 
 static int		init_struct_fourmi(t_fourmi	**fourmi)
 {

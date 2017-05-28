@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lemin.h"
+#include "../lemin.h"
 
 t_room	*find_room(int target, t_anthill *anthill, t_room **room)
 {
@@ -93,6 +93,5 @@ int		ft_stock_start_path(t_anthill *anthill)
         }
         anthill->s_tube = anthill->s_tube->next;
 	}
-
 	return (1);
 }

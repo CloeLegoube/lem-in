@@ -40,6 +40,7 @@ typedef struct		s_anthill
 	struct s_fourmi		*end_fourmi;
 	struct s_tube		*s_tube;
 	struct s_tube		*begin_tube;
+	struct s_tube		*end_tube;
 	struct s_room		*s_room;
 	struct s_room		*begin_room;
 	struct s_path		*s_path;
@@ -144,11 +145,22 @@ t_room				*find_room(int target, t_anthill *anthill, t_room **room);
 void				init_struct_kind_path(t_anthill	*anthill);
 void				ft_display(t_anthill	*anthill);
 int					ft_delete_wrong_path(t_anthill	*anthill);
-void		ft_lstswap(t_path **start, t_path *e1, t_path *e2);
+void				ft_lstswap(t_path **start, t_path *e1, t_path *e2);
 int					test(t_anthill	*anthill);
-int		ft_check_if_room_exist(t_path *path, int tube);
-void	ft_sort_path(t_anthill	*anthill);
-char 	*ft_name_by_room(t_anthill *anthill, int room);
-int		ft_find_room_by_name(t_anthill *anthill, char *name);
+int					ft_check_if_room_exist(t_path *path, int tube);
+void				ft_sort_path(t_anthill	*anthill);
+char 				*ft_name_by_room(t_anthill *anthill, int room);
+int					ft_find_room_by_name(t_anthill *anthill, char *name);
+void				ft_display_lines(t_anthill *anthill);
+void				ft_exit(int nb);
+void				ft_check_correct_path(t_anthill *anthill);
+char				*ft_strstart(const char *big, const char *little);
+int					ft_strdigit(char *s);
+void				ft_free(t_anthill *anthill);
+void				ft_free_lines(t_anthill *anthill);
+void				ft_free_fourmis(t_anthill *anthill);
+void				ft_free_tubes(t_anthill *anthill);
+void				ft_free_rooms(t_anthill *anthill);
+void				ft_free_path(t_anthill *anthill);
 
 #endif
