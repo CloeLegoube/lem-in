@@ -17,6 +17,7 @@ int		test(t_anthill	*anthill)
 	int i;
 	anthill->s_lines = anthill->begin_lines;
 	printf("***** Structure LINES *****\n");
+	printf("nb fourmis = %d\n", anthill->nb_fourmis);
 	while (anthill->s_lines)
 	{
 		// printf("PATH -->\n");
@@ -43,28 +44,27 @@ int		test(t_anthill	*anthill)
 	// printf("end_room = %d\n\n", anthill->end_fourmi->num_room);
 
 	//
-	anthill->s_tube = anthill->begin_tube;
-	printf("***** Structure TUBES *****\n");
-		while (anthill->s_tube)
-	{
-		printf("num_tube = %d\n", anthill->s_tube->num_tube);
-		printf("str from %s - to %s\n", anthill->s_tube->str_from, anthill->s_tube->str_to);
-		printf("from %d - to %d\n\n", anthill->s_tube->from, anthill->s_tube->to);
-		anthill->s_tube = anthill->s_tube->next;
-	}
-
-	anthill->s_room = anthill->begin_room;
-	printf("***** Structure ROOMS *****\n");
-	while (anthill->s_room)
-	{
-		printf("num_room = %d\n", anthill->s_room->num_room);
-		printf("name = %s\n", anthill->s_room->name);
-		// printf("start ? %d - end ? %d\n", anthill->s_room->start, anthill->s_room->end);
-		// printf("coordo[%d][%d]\n\n", anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
-		// printf("Free ? %d\n", anthill->s_room->free);
-		anthill->s_room = anthill->s_room->next;
-	}
-	i = 0;
+	// anthill->s_tube = anthill->begin_tube;
+	// printf("***** Structure TUBES *****\n");
+	// 	while (anthill->s_tube)
+	// {
+	// 	printf("num_tube = %d\n", anthill->s_tube->num_tube);
+	// 	printf("str from %s - to %s\n", anthill->s_tube->str_from, anthill->s_tube->str_to);
+	// 	printf("from %d - to %d\n\n", anthill->s_tube->from, anthill->s_tube->to);
+	// 	anthill->s_tube = anthill->s_tube->next;
+	// }
+	//
+	// anthill->s_room = anthill->begin_room;
+	// printf("***** Structure ROOMS *****\n");
+	// while (anthill->s_room)
+	// {
+	// 	printf("num_room = %d\n", anthill->s_room->num_room);
+	// 	printf("name = %s\n", anthill->s_room->name);
+	// 	// printf("start ? %d - end ? %d\n", anthill->s_room->start, anthill->s_room->end);
+	// 	// printf("coordo[%d][%d]\n\n", anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
+	// 	// printf("Free ? %d\n", anthill->s_room->free);
+	// 	anthill->s_room = anthill->s_room->next;
+	// }
 	anthill->s_path = anthill->begin_path;
 	printf("***** Structure PATH *****\n");
 	while (anthill->s_path)
@@ -73,12 +73,14 @@ int		test(t_anthill	*anthill)
 		// anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
 		// while (anthill->s_path->s_path_room)
 		// {
-		// 	printf("num_room = %d\n", anthill->s_path->s_path_room->num_room);
-		// 	printf("free ? %d\n", anthill->s_path->s_path_room->free);
-		// 	printf("coordo[%d][%d]\n\n", anthill->s_path->s_path_room->coordo[0], anthill->s_path->s_path_room->coordo[1]);
+		// 	printf("num_room =s %d\n", anthill->s_path->s_path_room->num_room);
+		// 	printf("name = %s\n", anthill->s_path->s_path_room->name);
+		// 	// printf("free ? %d\n", anthill->s_path->s_path_room->free);
+		// 	// printf("coordo[%d][%d]\n\n", anthill->s_path->s_path_room->coordo[0], anthill->s_path->s_path_room->coordo[1]);
 		// 	anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
 		//
 		// }
+		i = 0;
 		printf("num %d) tab = ",anthill->s_path->num_path);
 		while (i < anthill->s_path->len)
 			printf("%s-",ft_name_by_room(anthill, anthill->s_path->tab[i++]));
@@ -151,11 +153,14 @@ int		main(void)
 	line = NULL;
 	get_next_line(0, &line);
 	anthill->nb_fourmis = ft_atoi(line);
-	printf("nb fourmis = %d\n", anthill->nb_fourmis);
 	while (get_next_line(0, &line))
 	{
 		ft_check(anthill, &line);
-
+		if(anthill->error)
+		{
+			ft_printf("ERROR\n");
+			return (0);
+		}
 	}
 	printf("nb_rooms = %d\n", anthill->nb_rooms);
 	printf("nb_tubes = %d\n", anthill->nb_tubes);

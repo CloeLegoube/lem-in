@@ -40,6 +40,8 @@ static int		init_struct_tube(t_tube	**tube)
 	(*tube)->from = 0;
 	(*tube)->to = 0;
 	(*tube)->next = NULL;
+	(*tube)->str_from = NULL;
+	(*tube)->str_to = NULL;
 	return (0);
 }
 
@@ -82,11 +84,16 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 	}
 	else
 	{
+		if ((anthill->line_start || anthill->line_end) && ft_strstr(tab[0], "#"))
+		{
+			anthill->error = 1;
+			return (0);
+		}
 		new = NULL;
-		ft_printf("atoi %d %d", ft_strdigit(tab[1]), ft_strdigit(tab[2]));
+		// ft_printf("atoi %d %d", ft_strdigit(tab[1]), ft_strdigit(tab[2]));
 		if (!ft_strdigit(tab[1])|| !ft_strdigit(tab[2]))
 		{
-			anthill->error = -42;
+			anthill->error = 1;
 			return (0);
 		}
 		init_struct_room(&new, tab, anthill);
@@ -131,6 +138,8 @@ int		ft_stock_tube(char **tab, t_anthill *anthill)
 
 	if (ft_tablen(tab) != 2)
 		return (0);
+	else if (ft_strstr(tab[0], "#"))
+		return (0);
 	else
 	{
 		new = NULL;
@@ -155,5 +164,7 @@ int		ft_stock_tube(char **tab, t_anthill *anthill)
 		// printf("Numero tube : %d - Coordo[%d][%d]\n", anthill->s_tube->num_tube, anthill->s_tube->from, anthill->s_tube->to);
 		ft_free_tab(&tab);
 	}
+	if(anthill->error)
+		return(0);
 	return (1);
 }

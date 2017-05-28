@@ -93,5 +93,6 @@ int		ft_stock_start_path(t_anthill *anthill)
         }
         anthill->s_tube = anthill->s_tube->next;
 	}
+
 	return (1);
 }

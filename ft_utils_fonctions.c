@@ -23,7 +23,8 @@ int		ft_find_room_by_name(t_anthill *anthill, char *name)
 			return (anthill->s_room->num_room);
 		anthill->s_room = anthill->s_room->next;
 	}
-	return (-42);
+	anthill->error = 1;
+	return (0);
 }
 
 char 	*ft_name_by_room(t_anthill *anthill, int room)

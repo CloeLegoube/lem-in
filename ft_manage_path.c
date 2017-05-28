@@ -12,17 +12,33 @@
 
 #include "lemin.h"
 
+// int		*ft_intdup(int *s, int len)
+// {
+// 	int		i;
+// 	int		*dest;
+//
+// 	i = 0;
+// 	if (!(dest = (int*)malloc(sizeof(int) * len)))
+// 		return (NULL);
+// 	while (i < len)
+// 	{
+// 		dest[i] = s[i];
+// 		i++;
+// 	}
+// 	return (dest);
+// }
+
 void		ft_stock_tab(t_anthill *anthill)
 {
 	int i;
     int len;
 
 	i = 0;
-    len = 0;
     anthill->s_path = anthill->begin_path;
     while (anthill->s_path)
 	{
 		anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+		len = 0;
 		while (anthill->s_path->s_path_room)
 		{
 			len++;
