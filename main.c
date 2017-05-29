@@ -50,7 +50,8 @@ int		test(t_anthill	*anthill)
 	{
 		// printf("num_tube = %d\n", anthill->s_tube->num_tube);
 		// printf("str from %s - to %s\n", anthill->s_tube->str_from, anthill->s_tube->str_to);
-		printf("from %d - to %d\n", anthill->s_tube->from, anthill->s_tube->to);
+		printf("num tube %d) ", anthill->s_tube->num_tube);
+		printf("from %d - to %d \n", anthill->s_tube->from, anthill->s_tube->to);
 		anthill->s_tube = anthill->s_tube->next;
 	}
 
@@ -199,13 +200,15 @@ int		main(void)
 	printf("room_end = %d\n", anthill->room_end);
 	ft_stock_fourmi(anthill);
 	ft_stock_start_path(anthill);
+	// test(anthill);
+
 	ft_stock_path(anthill, anthill->begin_path);
 
 	ft_stock_tab(anthill);
 	ft_sort_path(anthill);
-	test(anthill);
 
 	ft_check_correct_path(anthill);
+	test(anthill);
 	ft_display_lines(anthill);
 
 	// ft_match_paths(anthill);

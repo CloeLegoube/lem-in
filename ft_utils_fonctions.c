@@ -39,24 +39,35 @@ char 	*ft_name_by_room(t_anthill *anthill, int room)
 	return (NULL);
 }
 
-int		ft_check_if_room_exist(t_path *path, int tube)
+int		ft_check_if_room_exist(t_path *path, int tube, t_anthill *anthill)
 {
+	t_room	*tmp;
+	int check;
+
+	check = 1;
+	tmp = path->s_path_room;
 	path->s_path_room = path->begin_path_room;
 
 	while (path->s_path_room)
 	{
-		ft_printf("num_room %d = tube %d\n", path->s_path_room->num_room , tube);
-
-		if (path->s_path_room->num_room == tube)
+		if (check)
 		{
-			ft_printf("egal\n");
-			return(0);
+			if (path->s_path_room->num_room == anthill->s_tube->from)
+				check = 0;
+			ft_printf("num_room %d = tube %d\n", path->s_path_room->num_room , tube);
 
+			if (path->s_path_room->num_room == tube)
+			{
+				path->s_path_room = path->end_path_room;
+				ft_printf("egal\n");
+				return(1);
+
+			}
 		}
 		path->s_path_room = path->s_path_room->next;
 	}
-	path->s_path_room = path->end_path_room;
-	return(1);
+	path->s_path_room = tmp;
+	return(0);
 }
 
 void    norme(t_path *tmp3, t_path *e1, t_path *e2)

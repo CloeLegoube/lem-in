@@ -31,7 +31,6 @@ int		ft_stock_double_tube(t_anthill *anthill, char *begin, char *end)
 
 		new = NULL;
 		init_struct_tube(&new);
-		new->num_tube = anthill->nb_tubes;
 		new->str_from = ft_strnew(ft_strlen(begin));
 		new->str_from = ft_strdup(begin);
 		new->str_to = ft_strnew(ft_strlen(end));
@@ -44,9 +43,15 @@ int		ft_stock_double_tube(t_anthill *anthill, char *begin, char *end)
 
 		new->to = ft_find_room_by_name(anthill, new->str_to);
 		if (!anthill->begin_tube)
+		{
+			new->num_tube = 1;
 			anthill->begin_tube = new;
+		}
 		else
+		{
+			new->num_tube = anthill->s_tube->num_tube + 1;
 			anthill->s_tube->next = new;
+		}
 		anthill->s_tube = new;
 		anthill->end_tube = new;
 		// printf("Numero tube : %d - Coordo[%d][%d]\n", anthill->s_tube->num_tube, anthill->s_tube->from, anthill->s_tube->to);

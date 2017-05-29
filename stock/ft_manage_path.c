@@ -83,8 +83,31 @@ void	ft_sort_path(t_anthill	*anthill)
 {
 	t_path	*my_next;
 	t_path	*me;
-
+	int i;
 	my_next = NULL;
+	anthill->s_path = anthill->begin_path;
+	printf("**********\n");
+	while (anthill->s_path)
+	{
+		// printf("PATH -->\n");
+		// anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+		// while (anthill->s_path->s_path_room)
+		// {
+		// 	printf("num_room =s %d\n", anthill->s_path->s_path_room->num_room);
+		// 	printf("name = %s\n", anthill->s_path->s_path_room->name);
+		// 	// printf("free ? %d\n", anthill->s_path->s_path_room->free);
+		// 	// printf("coordo[%d][%d]\n\n", anthill->s_path->s_path_room->coordo[0], anthill->s_path->s_path_room->coordo[1]);
+		// 	anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
+		//
+		// }
+		i = 0;
+		printf("num %d) tab = ",anthill->s_path->num_path);
+		while (i < anthill->s_path->len)
+			printf("%s-",ft_name_by_room(anthill, anthill->s_path->tab[i++]));
+		printf(" len %d  \n", anthill->s_path->len);
+
+		anthill->s_path = anthill->s_path->next;
+	}
 	me = anthill->begin_path;
 	while (me)
 	{
@@ -98,7 +121,29 @@ void	ft_sort_path(t_anthill	*anthill)
 		}
 		me = me->next;
 	}
+	anthill->s_path = anthill->begin_path;
+	printf("**********\n");
+	while (anthill->s_path)
+	{
+		// printf("PATH -->\n");
+		// anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+		// while (anthill->s_path->s_path_room)
+		// {
+		// 	printf("num_room =s %d\n", anthill->s_path->s_path_room->num_room);
+		// 	printf("name = %s\n", anthill->s_path->s_path_room->name);
+		// 	// printf("free ? %d\n", anthill->s_path->s_path_room->free);
+		// 	// printf("coordo[%d][%d]\n\n", anthill->s_path->s_path_room->coordo[0], anthill->s_path->s_path_room->coordo[1]);
+		// 	anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
+		//
+		// }
+		i = 0;
+		printf("num %d) tab = ",anthill->s_path->num_path);
+		while (i < anthill->s_path->len)
+			printf("%s-",ft_name_by_room(anthill, anthill->s_path->tab[i++]));
+		printf(" len %d  \n", anthill->s_path->len);
 
+		anthill->s_path = anthill->s_path->next;
+	}
 	// ft_reorder_path(anthill);
 }
 
