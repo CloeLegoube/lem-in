@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stock_room_tube.c                               :+:      :+:    :+:   */
+/*   ft_stock_room.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/12 23:29:23 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/30 21:03:46 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 		new = NULL;
 		if (ft_strstart(tab[0], "#"))
 			return (0);
-		// ft_printf("atoi %d %d", ft_strdigit(tab[1]), ft_strdigit(tab[2]));
+		ft_printf("atoi %d %d", ft_strdigit(tab[1]), ft_strdigit(tab[2]));
 		if (!ft_strdigit(tab[1])|| !ft_strdigit(tab[2]))
 			ft_exit(4);
 		init_struct_room(&new, tab, anthill);
@@ -88,7 +88,7 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 			anthill->s_room->next = new;
 		}
 		anthill->s_room = new;
-		ft_free_tab(&tab);
+		// ft_free_tab(&tab);
 	}
 	// anthill->room_end = 2;
 	return (1);

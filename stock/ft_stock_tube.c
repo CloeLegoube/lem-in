@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stock_room_tube.c                               :+:      :+:    :+:   */
+/*   ft_stock_tube.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/12 23:29:23 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/30 18:15:40 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		ft_stock_tube(char **tab, t_anthill *anthill)
 	{
 		ft_stock_double_tube(anthill, tab[0], tab[1]);
 		ft_stock_double_tube(anthill, tab[1], tab[0]);
-		ft_free_tab(&tab);
+		// ft_free_tab(&tab);
 	}
 	if(anthill->error)
 		return(0);

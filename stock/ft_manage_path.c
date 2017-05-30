@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stock_path.c                                    :+:      :+:    :+:   */
+/*   ft_manage_path.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/09 17:21:30 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/30 19:15:01 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_sort_path(t_anthill	*anthill)
 		my_next = me->next;
 		while (my_next)
 		{
-			printf("me->len %d) my_next %d \n",me->len, my_next->len);
+			// printf("me->len %d) my_next %d \n",me->len, my_next->len);
 			if (me->len < my_next->len)
 			{
 				ft_lstswap(&(anthill->begin_path), me, my_next);

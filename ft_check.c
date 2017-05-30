@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_check.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/12 23:23:25 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/30 21:10:11 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void		ft_check(t_anthill *anthill, char **line)
 	new_line = ft_strnew(ft_strlen(*line));
 	new_line = ft_strdup(*line);
 	struct_line->line = new_line;
+	struct_line->next = NULL;
 	if (!anthill->begin_lines)
 		anthill->begin_lines = struct_line;
 	else
@@ -104,6 +105,8 @@ void		ft_check(t_anthill *anthill, char **line)
 	// 	return ;
 	if (ft_stock_room(ft_strsplit(*line, ' '), anthill, line))
 		anthill->nb_rooms++;
-	else
-		anthill->nb_tubes += ft_stock_tube(ft_strsplit(*line, '-'), anthill);
+	else if (ft_stock_tube(ft_strsplit(*line, '-'), anthill))
+		anthill->nb_tubes ++;
+	// else
+	// 	ft_exit(8);
 }

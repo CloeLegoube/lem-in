@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 11:46:33 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/25 14:18:14 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/30 19:14:44 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char 	*ft_name_by_room(t_anthill *anthill, int room)
 	return (NULL);
 }
 
-int		ft_check_if_room_exist(t_path *path, int tube, t_anthill *anthill)
+int		ft_check_if_room_exist(t_path *path, int tube_to, int tube_from)
 {
 	t_room	*tmp;
 	int check;
@@ -47,27 +47,33 @@ int		ft_check_if_room_exist(t_path *path, int tube, t_anthill *anthill)
 	check = 1;
 	tmp = path->s_path_room;
 	path->s_path_room = path->begin_path_room;
-	ft_printf("check room 1\n");
+	// ft_printf("check room 1\n");
+	// ft_printf("path->begin_path_room %d\n", path->begin_path_room->num_room);
 
 	while (path->s_path_room)
 	{
 		if (check)
 		{
-			if (path->s_path_room->num_room == anthill->s_tube->from)
-				check = 0;
-			ft_printf("num_room %d = tube %d\n", path->s_path_room->num_room , tube);
+			// ft_printf("tube_from %d\n", tube_from);
+			// ft_printf("free %d\n", path->s_path_room->free);
+			// ft_printf("start %d\n", path->s_path_room->start);
+			// ft_printf("num_room %d\n", path->s_path_room->num_room);
 
-			if (path->s_path_room->num_room == tube)
+			if (path->s_path_room->num_room == tube_from)
+				check = 0;
+			// ft_printf("num_room %d = tube_to %d\n", path->s_path_room->num_room , tube_to);
+
+			if (path->s_path_room->num_room == tube_to)
 			{
 				path->s_path_room = path->end_path_room;
-				ft_printf("egal\n");
+				// ft_printf("egal\n");
 				return(1);
 
 			}
 		}
 		path->s_path_room = path->s_path_room->next;
 	}
-	ft_printf("check room 2\n");
+	// ft_printf("check room 2\n");
 
 	path->s_path_room = tmp;
 	return(0);

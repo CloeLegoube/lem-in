@@ -6,11 +6,11 @@
 #    By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/11 20:07:47 by clegoube          #+#    #+#              #
-#    Updated: 2017/05/25 19:38:57 by clegoube         ###   ########.fr        #
+#    Updated: 2017/05/30 21:09:10 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-GCCF = gcc -Wall -Wextra -Werror
+GCCF = gcc -Wall -Wextra -Werror -g -fsanitize=address
 
 NAME = lem-in
 
@@ -46,7 +46,7 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) < tests/big
+	./$(NAME) < tests/sujet4ok.map
 	@Make clean
 
 .PHONY: all clean

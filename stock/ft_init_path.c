@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/25 11:26:43 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/05/30 18:45:56 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_room	*find_room(int target, t_anthill *anthill, t_room **room)
             if (!(*room = (t_room*)malloc(sizeof(t_room))))
                 return (0);
             (*room)->num_room = anthill->s_room->num_room;
+			// ft_printf("anthill->s_room->num_room %d", anthill->s_room->num_room);
             (*room)->name = anthill->s_room->name;
             (*room)->name = ft_strnew(ft_strlen(anthill->s_room->name));
             (*room)->name = ft_strdup(anthill->s_room->name);
@@ -50,6 +51,7 @@ static int	init_struct_path(t_path	**path, t_room **path_from, t_room **path_to)
 		(*path)->longer = 0;
         (*path)->len = 0;
         (*path)->num_path = 0;
+		(*path)->begin_path_room = NULL;
         (*path)->s_path_room = *path_from;
         if (*path_to)
             (*path)->s_path_room->next = *path_to;
@@ -58,6 +60,8 @@ static int	init_struct_path(t_path	**path, t_room **path_from, t_room **path_to)
         if (*path_to)
             (*path)->end_path_room = *path_to;
 		(*path)->next = NULL;
+		// ft_printf("(*path)->begin_path_room %d\n", (*path)->begin_path_room->num_room);
+
 	return (0);
 }
 
