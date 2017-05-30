@@ -47,6 +47,7 @@ int		ft_check_if_room_exist(t_path *path, int tube, t_anthill *anthill)
 	check = 1;
 	tmp = path->s_path_room;
 	path->s_path_room = path->begin_path_room;
+	ft_printf("check room 1\n");
 
 	while (path->s_path_room)
 	{
@@ -66,6 +67,8 @@ int		ft_check_if_room_exist(t_path *path, int tube, t_anthill *anthill)
 		}
 		path->s_path_room = path->s_path_room->next;
 	}
+	ft_printf("check room 2\n");
+
 	path->s_path_room = tmp;
 	return(0);
 }

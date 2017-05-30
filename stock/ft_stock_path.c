@@ -37,21 +37,38 @@ void		ft_copy_room(t_path	**path, t_path **copy_path)
     t_room	*new_room;
 
     new_room = NULL;
+    ft_printf("stay here 7\n");
     if (!(new_room = (t_room*)malloc(sizeof(t_room))))
         return ;
+        ft_printf("stay here 8\n");
         new_room->num_room = (*(copy_path))->s_path_room->num_room;
         new_room->name = (*(copy_path))->s_path_room->name;
         new_room->name = ft_strnew(ft_strlen((*(copy_path))->s_path_room->name));
+        ft_printf("stay here 9\n");
+
         new_room->name = ft_strdup((*(copy_path))->s_path_room->name);
         new_room->coordo[0] = (*(copy_path))->s_path_room->coordo[0];
         new_room->coordo[1] = (*(copy_path))->s_path_room->coordo[1];
         new_room->start = (*(copy_path))->s_path_room->start;
 		new_room->end = (*(copy_path))->s_path_room->end;
 		new_room->free = 1;
+        ft_printf("stay here 10\n");
+
     if (!(*(path))->begin_path_room)
+    {
+        ft_printf("stay here 11\n");
+
         (*(path))->begin_path_room = new_room;
+
+    }
     else
+    {
+        ft_printf("stay here 12\n");
         (*(path))->s_path_room->next = new_room;
+        ft_printf("stay here 13\n");
+
+    }
+
     (*(path))->s_path_room = new_room;
     (*(path))->end_path_room = new_room;
 }
@@ -66,23 +83,37 @@ t_path		*ft_stock_copy_path(t_path **copy_path, t_anthill *anthill)
 
     path = NULL;
     check = 1;
+    ft_printf("stay here 1\n");
     tmp = (*(copy_path))->s_path_room;
+
     if (!(path = (t_path*)malloc(sizeof(t_path))))
         return (NULL);
 	path->tab = NULL;
     path->num_path = 0;
     path->stop = 0;
     (*(copy_path))->s_path_room = (*(copy_path))->begin_path_room;
+
     while ((*(copy_path))->s_path_room)
     {
+        ft_printf("stay here 2\n");
+
         if (check)
         {
-            if (anthill->s_tube->from == (*(copy_path))->s_path_room->num_room)
+            ft_printf("stay here 3\n");
+            ft_printf("stay anthill->s_tube->from %d\n", anthill->s_tube->from);
+            ft_printf("stay num_room %d\n", (*(copy_path))->s_path_room->num_room);
+
+            if (anthill->s_tube && anthill->s_tube->from == (*(copy_path))->s_path_room->num_room)
                 check  = 0;
+            ft_printf("stay here 5\n");
             ft_copy_room(&path, copy_path);
+            ft_printf("stay here 6\n");
+
         }
         (*(copy_path))->s_path_room = (*(copy_path))->s_path_room->next;
     }
+    ft_printf("stay here 4\n");
+
     path->s_path_room = path->begin_path_room;
 	path->next = (*(copy_path))->next;
 	path->previous = (*(copy_path));
