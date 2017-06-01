@@ -39,6 +39,38 @@ char 	*ft_name_by_room(t_anthill *anthill, int room)
 	return (NULL);
 }
 
+int		if_room_previous(int room, t_anthill *anthill)
+{
+	anthill->s_room = anthill->begin_room;
+	while (anthill->s_room)
+	{
+		if (room == anthill->s_room->num_room)
+		{
+			// printf("room = %d num_room %d\n",room, anthill->s_room->num_room);
+			// printf("previous = %d\n", anthill->s_room->previous);
+
+			if (anthill->s_room->previous != 0)
+			{
+				return(1);
+
+			}
+		}
+		anthill->s_room = anthill->s_room->next;
+	}
+	return(0);
+}
+
+void		add_previous(int room, int previous, t_anthill *anthill)
+{
+	anthill->s_room = anthill->begin_room;
+	while (anthill->s_room)
+	{
+		if (room == anthill->s_room->num_room)
+			anthill->s_room->previous = previous;
+		anthill->s_room = anthill->s_room->next;
+	}
+}
+
 int		ft_check_if_room_exist(t_path *path, int tube_to, int tube_from)
 {
 	t_room	*tmp;

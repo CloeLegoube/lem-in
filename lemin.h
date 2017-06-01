@@ -28,11 +28,13 @@ typedef struct		s_anthill
 	int					nb_fourmis;
 	int					nb_rooms;
 	int					nb_tubes;
+	int					nb_path;
 	int					room_start;
 	int					line_start;
 	int					room_end;
 	int					line_end;
 	int					error;
+	int					boucle;
 	struct s_lines		*begin_lines;
 	struct s_lines		*s_lines;
 	struct s_fourmi		*s_fourmi;
@@ -99,6 +101,7 @@ typedef struct		s_room
 	int				free;
 	int				start;
 	int				end;
+	int				previous;
 	int				coordo[2];
 	struct s_room	*next;
 }					t_room;
@@ -141,7 +144,7 @@ void				ft_stock_path(t_anthill *anthill, t_path *begin_path);
 void				ft_stock_tab(t_anthill *anthill);
 t_path				*ft_stock_copy_path(t_path **copy_path, t_anthill *anthill);
 void				ft_check_each_tube(t_anthill *anthill, t_path *my_path);
-t_room				*find_room(int target, t_anthill *anthill, t_room **room);
+t_room	*find_room(int target, t_anthill *anthill, t_room **room, int previous);
 void				init_struct_kind_path(t_anthill	*anthill);
 void				ft_display(t_anthill	*anthill);
 int					ft_delete_wrong_path(t_anthill	*anthill);
@@ -162,5 +165,7 @@ void				ft_free_fourmis(t_anthill *anthill);
 void				ft_free_tubes(t_anthill *anthill);
 void				ft_free_rooms(t_anthill *anthill);
 void				ft_free_path(t_anthill *anthill);
+int					if_room_previous(int room, t_anthill *anthill);
+void				add_previous(int room, int previous, t_anthill *anthill);
 
 #endif

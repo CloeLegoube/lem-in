@@ -16,7 +16,7 @@ static int		init_struct_room(t_room	**room, char **tab, t_anthill *anthill)
 {
 	if (!(*room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
-	(*room)->num_room = 0;
+	(*room)->num_room = 1;
 	(*room)->name = ft_strnew(ft_strlen(tab[0]));
 	(*room)->name = ft_strdup(tab[0]);
 	(*room)->coordo[0] = ft_atoi(tab[1]);
@@ -24,6 +24,7 @@ static int		init_struct_room(t_room	**room, char **tab, t_anthill *anthill)
 	(*room)->start = 0;
 	(*room)->end = 0;
 	(*room)->free = 1;
+	(*room)->previous = 0;
 	(*room)->next = NULL;
 	if (anthill->line_start)
 		(*room)->start = 1;
@@ -31,6 +32,18 @@ static int		init_struct_room(t_room	**room, char **tab, t_anthill *anthill)
 		(*room)->end = 1;
 	return (0);
 }
+
+// void	ft_room_previous(t_anthill *anthill)
+// {
+// 	anthill->s_room = anthill->begin_room;
+// 	// printf("***** Structure ROOMS *****\n");
+// 	while (anthill->s_room)
+// 	{
+// 		anthill->s_room->previous = anthill->room_start;
+// 		printf("previous = %d\n", anthill->s_room->previous);
+// 		anthill->s_room = anthill->s_room->next;
+// 	}
+// }
 
 int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 {
@@ -40,21 +53,27 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 		ft_exit(3);
 	if (ft_tablen(tab) != 3)
 	{
-		if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
+		if (ft_strstart(tab[0], "#"))
 		{
-			if (ft_strstr(*line, "##start"))
-				anthill->line_start = 1;
-			if (ft_strstr(*line, "##end"))
-				anthill->line_end = 1;
+			if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
+			{
+				if (ft_strstr(*line, "##start"))
+					anthill->line_start = 1;
+				if (ft_strstr(*line, "##end"))
+					anthill->line_end = 1;
+			}
+			return (1);
 		}
+
 		return (0);
 	}
 	else
 	{
 		new = NULL;
 		if (ft_strstart(tab[0], "#"))
-			return (0);
-		ft_printf("atoi %d %d", ft_strdigit(tab[1]), ft_strdigit(tab[2]));
+			return (1);
+			// ft_printf("atoi %d %d", ft_strdigit(tab[1]), ft_strdigit(tab[2]));
+		// ft_printf("stock room -%s-%s-%s-\n", tab[0], tab[1], tab[2]);
 		if (!ft_strdigit(tab[1])|| !ft_strdigit(tab[2]))
 			ft_exit(4);
 		init_struct_room(&new, tab, anthill);
@@ -88,8 +107,11 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 			anthill->s_room->next = new;
 		}
 		anthill->s_room = new;
+		anthill->nb_rooms++;
+		return (1);
+
 		// ft_free_tab(&tab);
 	}
 	// anthill->room_end = 2;
-	return (1);
+	return (0);
 }

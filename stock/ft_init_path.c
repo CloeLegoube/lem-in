@@ -12,8 +12,10 @@
 
 #include "../lemin.h"
 
-t_room	*find_room(int target, t_anthill *anthill, t_room **room)
+t_room	*find_room(int target, t_anthill *anthill, t_room **room, int previous)
 {
+    // if (target == anthill->room_end)
+    //     previous = 0;
     anthill->s_room = anthill->begin_room;
     while (anthill->s_room)
     {
@@ -24,7 +26,6 @@ t_room	*find_room(int target, t_anthill *anthill, t_room **room)
             if (!(*room = (t_room*)malloc(sizeof(t_room))))
                 return (0);
             (*room)->num_room = anthill->s_room->num_room;
-			// ft_printf("anthill->s_room->num_room %d", anthill->s_room->num_room);
             (*room)->name = anthill->s_room->name;
             (*room)->name = ft_strnew(ft_strlen(anthill->s_room->name));
             (*room)->name = ft_strdup(anthill->s_room->name);
@@ -33,6 +34,8 @@ t_room	*find_room(int target, t_anthill *anthill, t_room **room)
             (*room)->start = anthill->s_room->start;
             (*room)->end = anthill->s_room->end;
             (*room)->free = 1;
+            (*room)->previous = previous;
+            add_previous((*room)->num_room, previous, anthill);
             (*room)->next = NULL;
             return (*room);
         }
@@ -79,8 +82,9 @@ int		ft_stock_start_path(t_anthill *anthill)
 	{
         if (anthill->s_tube->from == anthill->room_start)
         {
-            path_from = find_room(anthill->s_tube->from, anthill, &path_from);
-            path_to = find_room(anthill->s_tube->to, anthill, &path_to);
+            anthill->nb_path++;
+            path_from = find_room(anthill->s_tube->from, anthill, &path_from, anthill->room_start);
+            path_to = find_room(anthill->s_tube->to, anthill, &path_to, anthill->room_start);
             init_struct_path(&path, &path_from, &path_to);
             if (!anthill->begin_path)
             {

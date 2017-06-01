@@ -46,7 +46,7 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) < tests/sujet4ok.map
+	./$(NAME) < tests/ecole42
 	@Make clean
 
 .PHONY: all clean

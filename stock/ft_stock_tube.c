@@ -55,8 +55,6 @@ int		ft_stock_double_tube(t_anthill *anthill, char *begin, char *end)
 		anthill->s_tube = new;
 		anthill->end_tube = new;
 		// printf("Numero tube : %d - Coordo[%d][%d]\n", anthill->s_tube->num_tube, anthill->s_tube->from, anthill->s_tube->to);
-	if(anthill->error)
-		return(0);
 	return (1);
 }
 
@@ -65,15 +63,15 @@ int		ft_stock_tube(char **tab, t_anthill *anthill)
 {
 	if (ft_tablen(tab) != 2)
 		return (0);
-	else if (ft_strstr(tab[0], "#"))
-		return (0);
-	else
-	{
-		ft_stock_double_tube(anthill, tab[0], tab[1]);
-		ft_stock_double_tube(anthill, tab[1], tab[0]);
+	else if (ft_strstart(tab[0], "#"))
+		return (1);
+	// else
+	// 	ft_exit(9);
+	ft_stock_double_tube(anthill, tab[0], tab[1]);
+	ft_stock_double_tube(anthill, tab[1], tab[0]);
+	anthill->nb_tubes ++;
+
 		// ft_free_tab(&tab);
-	}
-	if(anthill->error)
-		return(0);
+
 	return (1);
 }

@@ -75,6 +75,8 @@ char	*ft_strstart(const char *big, const char *little)
 		else
 			return (NULL);
 	}
+	if ( big[i] == little[i])
+		return ((char *)big + i);
 	return (NULL);
 }
 
@@ -85,11 +87,7 @@ void		ft_check(t_anthill *anthill, char **line)
 	t_lines	*struct_line;
 
 	if (ft_strstart(*line, "L"))
-	{
-		// ft_printf("my check error %s - line = %s", ft_strstart(*line, "L"), *line);
-		anthill->error = 1;
-		return ;
-	}
+		ft_exit(10);
 	if (!(struct_line = (t_lines*)malloc(sizeof(t_lines))))
 		return ;
 	new_line = ft_strnew(ft_strlen(*line));
@@ -103,10 +101,12 @@ void		ft_check(t_anthill *anthill, char **line)
 	anthill->s_lines = struct_line;
 	// if (!ft_strstr(*line, "##start") && !ft_strstr(*line, "##start") && ft_strstart(*line, "#"))
 	// 	return ;
-	if (ft_stock_room(ft_strsplit(*line, ' '), anthill, line))
-		anthill->nb_rooms++;
-	else if (ft_stock_tube(ft_strsplit(*line, '-'), anthill))
-		anthill->nb_tubes ++;
-	// else
-	// 	ft_exit(8);
+
+	if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&
+		(!ft_stock_tube(ft_strsplit(*line, '-'), anthill)))
+	{
+		ft_printf("line = %s", *line);
+		ft_exit(8);
+	}
+
 }
