@@ -222,11 +222,12 @@ int		main(void)
 
 	ft_stock_start_path(anthill);
 
+	// test(anthill);
 
-	// ft_stock_path(anthill, anthill->begin_path);
-	//
-	// ft_stock_tab(anthill);
-	// ft_sort_path(anthill);
+	ft_stock_path(anthill, anthill->begin_path);
+
+	ft_stock_tab(anthill);
+	ft_sort_path(anthill);
 	test(anthill);
 
 	// //

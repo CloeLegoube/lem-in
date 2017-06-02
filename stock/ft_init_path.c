@@ -103,8 +103,8 @@ int		ft_stock_start_path(t_anthill *anthill)
             ft_printf("room %d   \n", room);
 
             anthill->nb_path++;
-            path_from = find_room(anthill->room_end, anthill, &path_from, anthill->room_start);
-            path_to = find_room(room_to, anthill, &path_to, anthill->room_start);
+            path_from = find_room(room_to, anthill, &path_from, anthill->room_start);
+            path_to = find_room(anthill->room_end, anthill, &path_to, anthill->room_start);
             init_struct_path(&path, &path_from, &path_to);
             if (!anthill->begin_path)
             {
