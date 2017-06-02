@@ -73,6 +73,7 @@ int		ft_stock_start_path(t_anthill *anthill)
     t_room	*path_to;
     t_path	*path;
     int     room;
+    int     room_to;
 
     path_from = NULL;
     path_to = NULL;
@@ -81,22 +82,29 @@ int		ft_stock_start_path(t_anthill *anthill)
 	while (anthill->s_tube)
 	{
         room = 0;
-        ft_printf("previous %d   - anthill->s_tube->to %d\n", his_previous(anthill->s_tube->to, anthill), anthill->s_tube->to);
-        ft_printf("room end %d - anthill->s_tube->to %d\n", anthill->room_end, anthill->s_tube->to);
-        ft_printf("previous %d - anthill->s_tube->from %d\n", his_previous(anthill->s_tube->from, anthill), anthill->s_tube->from);
-        ft_printf("room end %d - anthill->s_tube->from %d\n\n", anthill->room_end, anthill->s_tube->from);
+        room_to = 0;
+        // ft_printf("previous %d   - anthill->s_tube->to %d\n", his_previous(anthill->s_tube->to, anthill), anthill->s_tube->to);
+        // ft_printf("room end %d - anthill->s_tube->to %d\n", anthill->room_end, anthill->s_tube->to);
+        // ft_printf("previous %d - anthill->s_tube->from %d\n", his_previous(anthill->s_tube->from, anthill), anthill->s_tube->from);
+        // ft_printf("room end %d - anthill->s_tube->from %d\n\n", anthill->room_end, anthill->s_tube->from);
 
         if (anthill->s_tube->to == anthill->room_end)
+        {
             room = anthill->s_tube->to;
+            room_to = anthill->s_tube->from;
+        }
         else if (anthill->s_tube->from == anthill->room_end)
+        {
             room = anthill->s_tube->from;
+            room_to = anthill->s_tube->to;
+        }
         if (room == anthill->room_end)
         {
             ft_printf("room %d   \n", room);
 
             anthill->nb_path++;
             path_from = find_room(anthill->room_end, anthill, &path_from, anthill->room_start);
-            path_to = find_room(room, anthill, &path_to, anthill->room_start);
+            path_to = find_room(room_to, anthill, &path_to, anthill->room_start);
             init_struct_path(&path, &path_from, &path_to);
             if (!anthill->begin_path)
             {
