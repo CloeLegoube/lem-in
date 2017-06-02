@@ -68,7 +68,7 @@ int		ft_stock_tube(char **tab, t_anthill *anthill)
 	// else
 	// 	ft_exit(9);
 	ft_stock_double_tube(anthill, tab[0], tab[1]);
-	ft_stock_double_tube(anthill, tab[1], tab[0]);
+	// ft_stock_double_tube(anthill, tab[1], tab[0]);
 	anthill->nb_tubes ++;
 
 		// ft_free_tab(&tab);

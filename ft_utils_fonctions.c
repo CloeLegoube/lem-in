@@ -41,21 +41,23 @@ char 	*ft_name_by_room(t_anthill *anthill, int room)
 
 int		if_room_previous(int room, t_anthill *anthill)
 {
-	anthill->s_room = anthill->begin_room;
-	while (anthill->s_room)
-	{
-		if (room == anthill->s_room->num_room)
-		{
-			// printf("room = %d num_room %d\n",room, anthill->s_room->num_room);
-			// printf("previous = %d\n", anthill->s_room->previous);
+	t_room *path_room;
 
-			if (anthill->s_room->previous != 0)
+	path_room = anthill->begin_room;
+	while (path_room)
+	{
+		if (room == path_room->num_room)
+		{
+			// printf("room = %d num_room %d\n",room, path_room->num_room);
+			// printf("previous = %d\n", path_room->previous);
+
+			if (path_room->previous != 0)
 			{
 				return(1);
 
 			}
 		}
-		anthill->s_room = anthill->s_room->next;
+		path_room = path_room->next;
 	}
 	return(0);
 }

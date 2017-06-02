@@ -34,7 +34,10 @@ typedef struct		s_anthill
 	int					room_end;
 	int					line_end;
 	int					error;
+	int					check_end;
 	int					boucle;
+	int					end_boucle;
+	int					stop;
 	struct s_lines		*begin_lines;
 	struct s_lines		*s_lines;
 	struct s_fourmi		*s_fourmi;
@@ -167,5 +170,8 @@ void				ft_free_rooms(t_anthill *anthill);
 void				ft_free_path(t_anthill *anthill);
 int					if_room_previous(int room, t_anthill *anthill);
 void				add_previous(int room, int previous, t_anthill *anthill);
+int		ft_add_the_previous(t_anthill *anthill, int start);
+int if_all_room_has_previous(t_anthill *anthill);
+int     his_previous(int room, t_anthill *anthill);
 
 #endif

@@ -15,7 +15,7 @@
 t_room	*find_room(int target, t_anthill *anthill, t_room **room, int previous)
 {
     // if (target == anthill->room_end)
-    //     previous = 0;
+         previous = 0;
     anthill->s_room = anthill->begin_room;
     while (anthill->s_room)
     {
@@ -34,8 +34,7 @@ t_room	*find_room(int target, t_anthill *anthill, t_room **room, int previous)
             (*room)->start = anthill->s_room->start;
             (*room)->end = anthill->s_room->end;
             (*room)->free = 1;
-            (*room)->previous = previous;
-            add_previous((*room)->num_room, previous, anthill);
+            (*room)->previous = anthill->s_room->previous;
             (*room)->next = NULL;
             return (*room);
         }
@@ -73,6 +72,7 @@ int		ft_stock_start_path(t_anthill *anthill)
     t_room	*path_from;
     t_room	*path_to;
     t_path	*path;
+    int     room;
 
     path_from = NULL;
     path_to = NULL;
@@ -80,11 +80,23 @@ int		ft_stock_start_path(t_anthill *anthill)
     anthill->s_tube = anthill->begin_tube;
 	while (anthill->s_tube)
 	{
-        if (anthill->s_tube->from == anthill->room_start)
+        room = 0;
+        ft_printf("previous %d   - anthill->s_tube->to %d\n", his_previous(anthill->s_tube->to, anthill), anthill->s_tube->to);
+        ft_printf("room end %d - anthill->s_tube->to %d\n", anthill->room_end, anthill->s_tube->to);
+        ft_printf("previous %d - anthill->s_tube->from %d\n", his_previous(anthill->s_tube->from, anthill), anthill->s_tube->from);
+        ft_printf("room end %d - anthill->s_tube->from %d\n\n", anthill->room_end, anthill->s_tube->from);
+
+        if (anthill->s_tube->to == anthill->room_end)
+            room = anthill->s_tube->to;
+        else if (anthill->s_tube->from == anthill->room_end)
+            room = anthill->s_tube->from;
+        if (room == anthill->room_end)
         {
+            ft_printf("room %d   \n", room);
+
             anthill->nb_path++;
-            path_from = find_room(anthill->s_tube->from, anthill, &path_from, anthill->room_start);
-            path_to = find_room(anthill->s_tube->to, anthill, &path_to, anthill->room_start);
+            path_from = find_room(anthill->room_end, anthill, &path_from, anthill->room_start);
+            path_to = find_room(room, anthill, &path_to, anthill->room_start);
             init_struct_path(&path, &path_from, &path_to);
             if (!anthill->begin_path)
             {

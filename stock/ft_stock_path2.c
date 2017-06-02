@@ -98,6 +98,23 @@ int		ft_add_new_room(t_anthill *anthill, int room, t_path **path)
     return (1);
 }
 
+int     nb_end(t_anthill *anthill)
+{
+    int count;
+
+    count = 0;
+    // ATTENTION AUX TUBES IDENTIQUES
+    anthill->s_tube = anthill->begin_tube;
+	// printf("***** Structure TUBES *****\n");
+	while (anthill->s_tube)
+	{
+		if (anthill->s_tube->to == anthill->room_end)
+            count++;
+		anthill->s_tube = anthill->s_tube->next;
+	}
+    return (count);
+}
+
 void		ft_copy_room(t_path	**path, t_path **copy_path)
 {
     t_room	*new_room;
@@ -337,9 +354,12 @@ int		ft_add_the_previous(t_anthill *anthill, int start)
             if (anthill->s_tube->from == start &&
                 !if_room_previous(anthill->s_tube->to, anthill))
             {
-                    printf("pas de previous\n");
+                    printf("Add previous %d to %d\n",anthill->s_tube->from,  anthill->s_tube->to);
+                    anthill->check_end++;
 
                     add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
+                    // test(anthill);
+
                     // add_previous(anthill->s_tube->from, anthill->s_tube->to, anthill);
                     // start = anthill->s_tube->to;
                     // anthill->s_tube = anthill->begin_tube;
@@ -350,6 +370,7 @@ int		ft_add_the_previous(t_anthill *anthill, int start)
                         anthill->boucle++;
                         if (!ft_add_the_previous(anthill, anthill->s_tube->to))
                         {
+
                             anthill->s_tube = tmp;
                             if (!anthill->check_end)
                             {
@@ -358,21 +379,22 @@ int		ft_add_the_previous(t_anthill *anthill, int start)
                             }
                             else
                                 printf("KEEP %d\n", anthill->s_tube->to);
-
                             result = 1;
-                            // anthill->check_end = 0;
+                            anthill->check_end--;
                         }
+
                         printf("**boucle** = %d\n", anthill->boucle);
 
                     }
-                    else
-                        anthill->check_end++;
+
                     anthill->s_tube = tmp;
 
-            } else if (anthill->s_tube->to == start
+            }
+            if (anthill->s_tube->to == start
                 && !if_room_previous(anthill->s_tube->from, anthill))
             {
                     printf("pas de previous\n");
+                    anthill->check_end++;
 
                     add_previous(anthill->s_tube->from, anthill->s_tube->to, anthill);
                     // add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
@@ -395,13 +417,12 @@ int		ft_add_the_previous(t_anthill *anthill, int start)
                                 printf("KEEP %d\n", anthill->s_tube->from);
 
                             result = 1;
-                            // anthill->check_end = 0;
+                            anthill->check_end--;
                         }
                         printf("**boucle** = %d\n", anthill->boucle);
 
                     }
-                    else
-                        anthill->check_end++;
+
                     anthill->s_tube = tmp;
 
             }
@@ -473,30 +494,37 @@ void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
 {
     // t_path	*my_path;
     int     room;
+    // int     count;
     t_room *boucle_room;
 
     anthill->s_path = begin_path;
-	// printf("***** Stock path ****\n");
+	printf("***** Stock path ****\n");
 	while (anthill->s_path)
 	{
         anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
         room = anthill->s_path->s_path_room->previous;
         // printf("room %d\n", room);
         boucle_room = anthill->begin_room;
+        // count = 0;
         while (boucle_room)
         {
             // printf("room %d - num_room %d\n", room, boucle_room->num_room);
 
             if (room == boucle_room->num_room)
             {
-                // printf("num_room %d - previous %d\n", boucle_room->num_room, boucle_room->previous);
+                printf("num_room %d - previous %d\n", boucle_room->num_room, boucle_room->previous);
 
                 ft_add_new_room(anthill, boucle_room->num_room, &(anthill->s_path));
                 break;
             }
             else
+            {
                 boucle_room = boucle_room->next;
+                // count++;
+            }
         }
+        // printf("count %d - nb_rooms %d\n", count, anthill->nb_rooms);
+
         if (anthill->s_path->begin_path_room->num_room != anthill->room_start)
             anthill->s_path = begin_path;
         else
