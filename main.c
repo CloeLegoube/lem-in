@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/30 21:00:39 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/03 14:27:03 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,22 @@ int		test(t_anthill	*anthill)
 	printf("**********\n");
 	while (anthill->s_path)
 	{
-		printf("PATH -->\n");
-		anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-		while (anthill->s_path->s_path_room)
-		{
-			printf("num_room =s %d\n", anthill->s_path->s_path_room->num_room);
-			printf("name = %s\n", anthill->s_path->s_path_room->name);
-			// printf("free ? %d\n", anthill->s_path->s_path_room->free);
-			// printf("coordo[%d][%d]\n\n", anthill->s_path->s_path_room->coordo[0], anthill->s_path->s_path_room->coordo[1]);
-			anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
-
-		}
+		// printf("PATH -->\n");
+		// anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+		// while (anthill->s_path->s_path_room)
+		// {
+		// 	printf("num_room =s %d\n", anthill->s_path->s_path_room->num_room);
+		// 	printf("name = %s\n", anthill->s_path->s_path_room->name);
+		// 	// printf("free ? %d\n", anthill->s_path->s_path_room->free);
+		// 	// printf("coordo[%d][%d]\n\n", anthill->s_path->s_path_room->coordo[0], anthill->s_path->s_path_room->coordo[1]);
+		// 	anthill->s_path->s_path_room = 	anthill->s_path->s_path_room->next;
+		//
+		// }
 		i = 0;
 		printf("num %d) tab = ",anthill->s_path->num_path);
 		while (i < anthill->s_path->len)
-			printf("%d-",anthill->s_path->tab[i++]);
-			// printf("%s-",ft_name_by_room(anthill, anthill->s_path->tab[i++]));
+			// printf("%d-",anthill->s_path->tab[i++]);
+			printf("%s-",ft_name_by_room(anthill, anthill->s_path->tab[i++]));
 		printf(" len %d  \n", anthill->s_path->len);
 
 		anthill->s_path = anthill->s_path->next;
@@ -231,13 +231,13 @@ int		main(void)
 	test(anthill);
 
 	// //
-	// ft_check_correct_path(anthill);
+	ft_check_correct_path(anthill);
 	// ft_display_lines(anthill);
 	//
 	// // ft_match_paths(anthill);
 	// // calcul_distrib_fourmis(anthill);
 	// // init_struct_kind_path(anthill);
-	// ft_display(anthill);
+	ft_display(anthill);
 
 	// free(game);
 	free(line);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stock_path.c                                    :+:      :+:    :+:   */
+/*   ft_stock_path2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/30 19:36:49 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/03 14:13:19 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -501,20 +501,29 @@ void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
 	printf("***** Stock path ****\n");
 	while (anthill->s_path)
 	{
-        anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-        room = anthill->s_path->s_path_room->previous;
+        // anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
+		printf("***** Path %d ****\n", anthill->s_path->begin_path_room->num_room);
+
+        room = anthill->s_path->begin_path_room->previous;
         // printf("room %d\n", room);
         boucle_room = anthill->begin_room;
         // count = 0;
         while (boucle_room)
         {
-            // printf("room %d - num_room %d\n", room, boucle_room->num_room);
+            printf("room %d - num_room %d\n", room, boucle_room->num_room);
 
             if (room == boucle_room->num_room)
             {
                 printf("num_room %d - previous %d\n", boucle_room->num_room, boucle_room->previous);
 
-                ft_add_new_room(anthill, boucle_room->num_room, &(anthill->s_path));
+				// if (boucle_room->previous ==  anthill->room_start)
+				// {
+				// 	ft_add_new_room(anthill, boucle_room->num_room, &(anthill->s_path));
+				// 	ft_add_new_room(anthill, anthill->s_path->begin_path_room->previous, &(anthill->s_path));
+				// }
+				// else
+					ft_add_new_room(anthill, boucle_room->num_room, &(anthill->s_path));
+
                 break;
             }
             else
@@ -524,11 +533,15 @@ void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
             }
         }
         // printf("count %d - nb_rooms %d\n", count, anthill->nb_rooms);
+		printf("anthill->s_path->begin_path_room->num_room %d - anthill->room_start %d\n", anthill->s_path->begin_path_room->num_room, anthill->room_start);
 
-        if (anthill->s_path->begin_path_room->num_room != anthill->room_start)
-            anthill->s_path = begin_path;
-        else
-		      anthill->s_path = anthill->s_path->next;
+        if (anthill->s_path->begin_path_room->num_room == anthill->room_start)
+		{
+			printf("***** Change path ****\n");
+
+			anthill->s_path = anthill->s_path->next;
+
+		}
 
 	}
 }
