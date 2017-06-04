@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/03 19:10:28 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/04 14:07:07 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 int		test(t_anthill	*anthill)
 {
 	int i;
+	printf("nb_rooms = %d\n", anthill->nb_rooms);
+	printf("nb_tubes = %d\n", anthill->nb_tubes);
+	printf("room_start = %d\n", anthill->room_start);
+	printf("room_end = %d\n", anthill->room_end);
 	// anthill->s_lines = anthill->begin_lines;
 	// printf("***** Structure LINES *****\n");
 	// printf("nb fourmis = %d\n", anthill->nb_fourmis);
@@ -33,16 +37,16 @@ int		test(t_anthill	*anthill)
 	// 	ft_printf("%s\n", anthill->s_lines->line);
 	// 	anthill->s_lines = anthill->s_lines->next;
 	// }
-	anthill->s_fourmi = anthill->begin_fourmi;
-	printf("***** Structure FOURMIS ***** \n");
-	while (anthill->s_fourmi)
-	{
-		printf("num_fourmi = %d\n", anthill->s_fourmi->num_fourmi);
-		printf("num_room = %d\n\n", anthill->s_fourmi->num_room);
-		anthill->s_fourmi = anthill->s_fourmi->next;
-	}
-	printf("end_room = %d\n\n", anthill->end_fourmi->num_room);
-
+	// anthill->s_fourmi = anthill->begin_fourmi;
+	// printf("***** Structure FOURMIS ***** \n");
+	// while (anthill->s_fourmi)
+	// {
+	// 	printf("num_fourmi = %d\n", anthill->s_fourmi->num_fourmi);
+	// 	printf("num_room = %d\n\n", anthill->s_fourmi->num_room);
+	// 	anthill->s_fourmi = anthill->s_fourmi->next;
+	// }
+	// printf("end_room = %d\n\n", anthill->end_fourmi->num_room);
+	//
 
 	// anthill->s_tube = anthill->begin_tube;
 	// printf("***** Structure TUBES *****\n");
@@ -205,10 +209,6 @@ int		main(void)
 		// if(!ft_display_lines(anthill))
 		// 	return (0);
 	}
-	printf("nb_rooms = %d\n", anthill->nb_rooms);
-	printf("nb_tubes = %d\n", anthill->nb_tubes);
-	printf("room_start = %d\n", anthill->room_start);
-	printf("room_end = %d\n", anthill->room_end);
 	ft_stock_fourmi(anthill);
 	// ft_room_previous(anthill);
 	ft_stock_tube_room(anthill);
@@ -235,11 +235,11 @@ int		main(void)
 
 	ft_stock_tab(anthill);
 	ft_sort_path(anthill);
-	test(anthill);
+	// test(anthill);
 	//
 	// // //
 	// ft_check_correct_path(anthill);
-	// ft_display_lines(anthill);
+	ft_display_lines(anthill);
 	//
 	// // ft_match_paths(anthill);
 	// // calcul_distrib_fourmis(anthill);

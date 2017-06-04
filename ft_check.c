@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/03 15:46:19 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/04 14:05:38 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	ft_display_lines(t_anthill *anthill)
 
 void	ft_exit(int nb)
 {
-	ft_printf("ERROR %d\n", nb);
+	nb = 0;
+	// ft_printf("ERROR %d\n", nb);
+	ft_printf("ERROR\n");
 	exit(0);
 }
 
@@ -105,7 +107,7 @@ void		ft_check(t_anthill *anthill, char **line)
 	if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&
 		(!ft_stock_tube(ft_strsplit(*line, '-'), anthill)))
 	{
-		ft_printf("line = %s", *line);
+		// ft_printf("line = %s", *line);
 		ft_exit(8);
 	}
 

@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/03 19:47:57 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/04 14:03:53 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_for_each_path(t_anthill	*anthill)
 			{
 				anthill->s_path->s_path_room->free = 0;
 				available(anthill->s_path->s_path_room->num_room, anthill, 0);
-				ft_printf("L%d-%s    ", anthill->s_fourmi->num_fourmi, ft_name_by_room(anthill, anthill->s_path->s_path_room->num_room));
+				ft_printf("%sL%d%s-%s%s%s    ", "\033[1;35m", anthill->s_fourmi->num_fourmi, "\033[0m", "\033[1;32m", ft_name_by_room(anthill, anthill->s_path->s_path_room->num_room), "\033[0m");
 			}
 			anthill->s_fourmi->position_path = anthill->s_path->s_path_room;
 		}
@@ -69,7 +69,7 @@ void	ft_for_each_path(t_anthill	*anthill)
 			if (anthill->s_path->s_path_room->next)
 			{
 
-				ft_printf("LLL%d-%s%s%s    ", anthill->s_fourmi->num_fourmi, "\033[1;36m", ft_name_by_room(anthill, anthill->s_path->s_path_room->next->num_room), "\033[0m");
+				ft_printf("%sL%d%s-%s%s%s    ", "\033[1;35m", anthill->s_fourmi->num_fourmi, "\033[0m", "\033[1;32m", ft_name_by_room(anthill, anthill->s_path->s_path_room->next->num_room), "\033[0m");
 				anthill->s_fourmi->num_room = anthill->s_path->s_path_room->next->num_room;
 				anthill->s_path->s_path_room->next->free = 0;
 				available(anthill->s_path->s_path_room->next->num_room, anthill, 0);

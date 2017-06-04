@@ -6,7 +6,7 @@
 #    By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/11 20:07:47 by clegoube          #+#    #+#              #
-#    Updated: 2017/06/03 18:20:34 by clegoube         ###   ########.fr        #
+#    Updated: 2017/06/04 14:00:21 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) < tests/big
+	./$(NAME) < tests/sujet7.map
 	@Make clean
 
 .PHONY: all clean
