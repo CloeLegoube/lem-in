@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/04 14:05:38 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/04 15:54:42 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	ft_display_lines(t_anthill *anthill)
 
 void	ft_exit(int nb)
 {
-	nb = 0;
-	// ft_printf("ERROR %d\n", nb);
-	ft_printf("ERROR\n");
+	// nb = 0;
+	ft_printf("ERROR %d\n", nb);
+	// ft_printf("ERROR\n");
 	exit(0);
 }
 

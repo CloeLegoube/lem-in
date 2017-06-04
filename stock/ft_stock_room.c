@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/03 17:36:03 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/04 15:28:24 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,17 @@ void	ft_count_tube_room(t_anthill *anthill, int room)
 	anthill->s_tube = anthill->begin_tube;
 	while (anthill->s_tube)
 	{
+		// ft_printf("room %d, from %d, to %d", room, anthill->s_tube->from, anthill->s_tube->to);
+
 		if (anthill->s_tube->from == room ||
 			anthill->s_tube->to == room)
 			count++;
 		anthill->s_tube = anthill->s_tube->next;
 	}
+	// ft_printf("count : %d", count);
 	anthill->s_room->len_tube = count;
+	if (room == anthill->room_end && count == 0)
+		ft_exit(11);
 }
 
 void	ft_stock_tube_room(t_anthill *anthill)

@@ -18,3 +18,8 @@ start-longer0
 longer0-longer1
 longer1-longer2
 longer2-end
+#RESULT :
+#L1-short
+#L1-end    L2-short
+#L2-end    L3-short
+#L3-end

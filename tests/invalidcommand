@@ -6,3 +6,7 @@ end 1 1
 ##invalidcommand
 room 2 2
 start-end
+#RESULT :
+#L1-end
+#L2-end
+#L3-end

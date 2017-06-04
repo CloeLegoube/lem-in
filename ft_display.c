@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/04 14:03:53 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/04 14:41:23 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	ft_for_each_path(t_anthill	*anthill)
 		if (if_room_free(anthill->s_path->s_path_room->num_room, anthill))
 		{
 			anthill->s_fourmi->num_room = anthill->s_path->s_path_room->num_room;
-			if (anthill->s_path->s_path_room->num_room != anthill->room_end)
-			{
+			// if (anthill->s_path->s_path_room->num_room != anthill->room_end)
+			// {
 				anthill->s_path->s_path_room->free = 0;
 				available(anthill->s_path->s_path_room->num_room, anthill, 0);
 				ft_printf("%sL%d%s-%s%s%s    ", "\033[1;35m", anthill->s_fourmi->num_fourmi, "\033[0m", "\033[1;32m", ft_name_by_room(anthill, anthill->s_path->s_path_room->num_room), "\033[0m");
-			}
+			// }
 			anthill->s_fourmi->position_path = anthill->s_path->s_path_room;
 		}
 		// La room est prise mais c'est moi qui l'occupe
@@ -112,14 +112,26 @@ void	ft_display(t_anthill	*anthill)
 		anthill->s_fourmi = anthill->begin_fourmi;
 		while (anthill->s_fourmi && anthill->end_fourmi->num_room != anthill->room_end)
 		{
-			// ft_printf("\n> fourmi\n");
+			// ft_printf("\n> fourmi num_room %d - %d\n", anthill->s_fourmi->num_room,anthill->room_end );
 
 			if (anthill->s_fourmi->position_path)
+			{
 				anthill->s_path->s_path_room = anthill->s_fourmi->position_path;
+				// ft_printf("test1\n");
+
+			}
 			else if (anthill->s_fourmi->num_room == anthill->room_end)
+			{
 				anthill->s_path->s_path_room = NULL;
+				// ft_printf("test2\n");
+
+			}
 			else
+			{
 				anthill->s_path->s_path_room = anthill->s_path->begin_path_room->next;
+				// ft_printf("test3 %d\n", anthill->s_path->begin_path_room->next->num_room);
+
+			}
 			ft_for_each_path(anthill);
 
 			anthill->s_fourmi = anthill->s_fourmi->next;

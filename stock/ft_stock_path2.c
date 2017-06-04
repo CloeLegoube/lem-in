@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/03 19:04:02 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/04 15:59:14 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,12 +351,26 @@ int		ft_add_the_previous(t_anthill *anthill, int start)
 		// stop++;
 		while (room)
 		{
-			// printf("num room %d - room_round = %d - (num_round - 1) = %d\n",room->num_room, room->round, num_round - 1);
+			printf("num room %d - room_round = %d - (num_round - 1) = %d\n",room->num_room, room->round, num_round - 1);
 
 			if (room->num_room == start || room->round == num_round - 1)
 			{
+				// if (num_round > 1 && room->num_room == anthill->room_start)
+				// {
+				// 	printf("STOP *******************************\n");
+				// 	// printf("num room %d - room_end = %d\n",room->num_room, anthill->room_end);
+				// 	stop = 1;
+				//
+				// }
+
 				if(room->num_room == start)
+				{
 					start = 0;
+					printf("STOP 2*******************************\n");
+
+					// stop = 1;
+
+				}
 				if (room->num_room == anthill->room_end)
 				{
 					// printf("STOP *******************************\n");
@@ -365,14 +379,16 @@ int		ft_add_the_previous(t_anthill *anthill, int start)
 
 				}
 				i = 0;
+				printf("room->len_tube %d\n", room->len_tube);
+
 				while (i < room->len_tube)
 				{
 					tmp = room;
-					// printf("%d \n",room->liste_tubes[i]);
+					printf("%d \n",room->liste_tubes[i]);
 
 					if (!if_room_previous(room->liste_tubes[i], anthill))
 					{
-						// printf("Add the previous %d to %d\n",room->num_room, room->liste_tubes[i]);
+						printf("Add the previous %d to %d\n",room->num_room, room->liste_tubes[i]);
 
 						add_previous(room->liste_tubes[i], room->num_room, num_round, anthill);
 						room = tmp;
@@ -380,6 +396,7 @@ int		ft_add_the_previous(t_anthill *anthill, int start)
 					}
 					i++;
 				}
+
 			}
 			// test(anthill);
 
@@ -560,7 +577,7 @@ void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
 
     anthill->s_path = begin_path;
 	// printf("***** Stock path ****\n");
-	while (anthill->s_path)
+	while (anthill->s_path && anthill->s_path->begin_path_room->num_room != anthill->room_start)
 	{
         // anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
 		// printf("***** Path %d ****\n", anthill->s_path->begin_path_room->num_room);

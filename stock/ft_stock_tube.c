@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/30 18:15:40 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/04 15:23:51 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,18 @@ int		ft_stock_double_tube(t_anthill *anthill, char *begin, char *end)
 
 int		ft_stock_tube(char **tab, t_anthill *anthill)
 {
+	int check;
+
+	check = 0;
 	if (ft_tablen(tab) != 2)
 		return (0);
 	else if (ft_strstart(tab[0], "#"))
 		return (1);
 	// else
 	// 	ft_exit(9);
-	ft_stock_double_tube(anthill, tab[0], tab[1]);
+	check = ft_stock_double_tube(anthill, tab[0], tab[1]);
+	if ((anthill->line_start == 1 || anthill->line_end == 1) && check)
+		ft_exit(10);
 	// ft_stock_double_tube(anthill, tab[1], tab[0]);
 	anthill->nb_tubes ++;
 
