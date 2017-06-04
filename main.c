@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/03 14:27:03 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/03 19:10:28 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int		test(t_anthill	*anthill)
 	// 	ft_printf("%s\n", anthill->s_lines->line);
 	// 	anthill->s_lines = anthill->s_lines->next;
 	// }
-	// anthill->s_fourmi = anthill->begin_fourmi;
-	// printf("***** Structure FOURMIS ***** \n");
-	// while (anthill->s_fourmi)
-	// {
-	// 	printf("num_fourmi = %d\n", anthill->s_fourmi->num_fourmi);
-	// 	printf("num_room = %d\n\n", anthill->s_fourmi->num_room);
-	// 	anthill->s_fourmi = anthill->s_fourmi->next;
-	// }
-	// printf("end_room = %d\n\n", anthill->end_fourmi->num_room);
+	anthill->s_fourmi = anthill->begin_fourmi;
+	printf("***** Structure FOURMIS ***** \n");
+	while (anthill->s_fourmi)
+	{
+		printf("num_fourmi = %d\n", anthill->s_fourmi->num_fourmi);
+		printf("num_room = %d\n\n", anthill->s_fourmi->num_room);
+		anthill->s_fourmi = anthill->s_fourmi->next;
+	}
+	printf("end_room = %d\n\n", anthill->end_fourmi->num_room);
 
 
 	// anthill->s_tube = anthill->begin_tube;
@@ -55,18 +55,23 @@ int		test(t_anthill	*anthill)
 	// 	anthill->s_tube = anthill->s_tube->next;
 	// }
 
-	anthill->s_room = anthill->begin_room;
-	printf("***** Structure ROOMS *****\n");
-	while (anthill->s_room)
-	{
-		printf("num_room = %d - ", anthill->s_room->num_room);
-		printf("name = %s - ", anthill->s_room->name);
-		printf("previous = %d\n", anthill->s_room->previous);
-		// printf("start ? %d - end ? %d\n", anthill->s_room->start, anthill->s_room->end);
-		// printf("coordo[%d][%d]\n\n", anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
-		// printf("Free ? %d\n", anthill->s_room->free);
-		anthill->s_room = anthill->s_room->next;
-	}
+	// anthill->s_room = anthill->begin_room;
+	// printf("***** Structure ROOMS *****\n");
+	// while (anthill->s_room)
+	// {
+	// 	printf("num_room = %d - ", anthill->s_room->num_room);
+	// 	printf("name = %s - ", anthill->s_room->name);
+	// 	printf("previous = %d -  ", anthill->s_room->previous);
+	// 	// printf("start ? %d - end ? %d\n", anthill->s_room->start, anthill->s_room->end);
+	// 	// printf("coordo[%d][%d]\n\n", anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
+	// 	// printf("Free ? %d\n", anthill->s_room->free);
+	// 	i = 0;
+	// 	while (i < anthill->s_room->len_tube)
+	// 		// printf("%d-",anthill->s_path->tab[i++]);
+	// 		printf("%d-",anthill->s_room->liste_tubes[i++]);
+	// 	printf(" len %d  \n", anthill->s_room->len_tube);
+	// 	anthill->s_room = anthill->s_room->next;
+	// }
 	// anthill->s_path = anthill->begin_path;
 	// printf("***** Structure PATH *****\n");
 	// while (anthill->s_path)
@@ -106,7 +111,7 @@ int		test(t_anthill	*anthill)
 		while (i < anthill->s_path->len)
 			// printf("%d-",anthill->s_path->tab[i++]);
 			printf("%s-",ft_name_by_room(anthill, anthill->s_path->tab[i++]));
-		printf(" len %d  \n", anthill->s_path->len);
+		printf(" len %d  \n\n", anthill->s_path->len);
 
 		anthill->s_path = anthill->s_path->next;
 	}
@@ -119,7 +124,7 @@ int		test(t_anthill	*anthill)
 	// 	anthill->match_path = anthill->match_path->next;
 	// }
 	// printf("***** CALCUL *****\n");
-	// printf("total = %d\n", anthill->s_calcul->total);
+	// printf("total = %d\n", anthill0->s_calcul->total);
 	// printf("nb_path = %d\n", anthill->s_calcul->nb_path);
 	// printf("left = %d\n", anthill->s_calcul->left);
 	// i = -1;
@@ -206,39 +211,49 @@ int		main(void)
 	printf("room_end = %d\n", anthill->room_end);
 	ft_stock_fourmi(anthill);
 	// ft_room_previous(anthill);
-	test(anthill);
+	ft_stock_tube_room(anthill);
+	ft_add_the_previous(anthill, anthill->room_start);
+	// test(anthill);
 	// printf("anthill->boucle%d\n", anthill->boucle);
-	while(!if_all_room_has_previous(anthill) && !anthill->stop)
-	{
-
-		ft_add_the_previous(anthill, anthill->room_start);
-		printf("**anthill->boucle** = %d - %d\n", anthill->boucle, anthill->end_boucle);
-
-		if (anthill->boucle != anthill->end_boucle)
-			anthill->stop = 1;
-
-	}
-	// test(anthill);
-
+	// while(!if_all_room_has_previous(anthill) && !anthill->stop)
+	// {
+	//
+	// 	ft_add_the_previous(anthill, anthill->room_start);
+	// 	printf("**anthill->boucle** = %d - %d\n", anthill->boucle, anthill->end_boucle);
+	//
+	// 	if (anthill->boucle != anthill->end_boucle)
+	// 		anthill->stop = 1;
+	//
+	// }
+	// // test(anthill);
+	//
 	ft_stock_start_path(anthill);
-
-	// test(anthill);
-
+	// //
+	// // test(anthill);
+	// //
 	ft_stock_path(anthill, anthill->begin_path);
 
 	ft_stock_tab(anthill);
 	ft_sort_path(anthill);
 	test(anthill);
-
-	// //
-	ft_check_correct_path(anthill);
+	//
+	// // //
+	// ft_check_correct_path(anthill);
 	// ft_display_lines(anthill);
 	//
 	// // ft_match_paths(anthill);
 	// // calcul_distrib_fourmis(anthill);
 	// // init_struct_kind_path(anthill);
 	ft_display(anthill);
-
+	// LLL1-713
+	// LLL2-713
+	// LLL1-918    LLL3-713
+	// LLL2-918
+	// LLL1-437    LLL3-918
+	// LLL2-437
+	// LLL1-end    LLL3-437
+	// LLL2-end
+	// LLL3-end
 	// free(game);
 	free(line);
 	return (0);

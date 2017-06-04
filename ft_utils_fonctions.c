@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 11:46:33 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/30 19:14:44 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/03 18:12:06 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,16 @@ int		if_room_previous(int room, t_anthill *anthill)
 	return(0);
 }
 
-void		add_previous(int room, int previous, t_anthill *anthill)
+void		add_previous(int room, int prev, int num_round, t_anthill *anthill)
 {
 	anthill->s_room = anthill->begin_room;
 	while (anthill->s_room)
 	{
 		if (room == anthill->s_room->num_room)
-			anthill->s_room->previous = previous;
+		{
+			anthill->s_room->previous = prev;
+			anthill->s_room->round = num_round;
+		}
 		anthill->s_room = anthill->s_room->next;
 	}
 }

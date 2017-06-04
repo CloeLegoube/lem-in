@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/30 21:03:46 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/03 17:36:03 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static int		init_struct_room(t_room	**room, char **tab, t_anthill *anthill)
 	(*room)->end = 0;
 	(*room)->free = 1;
 	(*room)->previous = 0;
+	(*room)->round = -42;
 	(*room)->next = NULL;
+	(*room)->liste_tubes = NULL;
+	(*room)->len_tube = 0;
 	if (anthill->line_start)
 		(*room)->start = 1;
 	if (anthill->line_end)
@@ -44,6 +47,45 @@ static int		init_struct_room(t_room	**room, char **tab, t_anthill *anthill)
 // 		anthill->s_room = anthill->s_room->next;
 // 	}
 // }
+
+void	ft_count_tube_room(t_anthill *anthill, int room)
+{
+	int count;
+
+	count = 0;
+	anthill->s_tube = anthill->begin_tube;
+	while (anthill->s_tube)
+	{
+		if (anthill->s_tube->from == room ||
+			anthill->s_tube->to == room)
+			count++;
+		anthill->s_tube = anthill->s_tube->next;
+	}
+	anthill->s_room->len_tube = count;
+}
+
+void	ft_stock_tube_room(t_anthill *anthill)
+{
+	int i;
+
+	anthill->s_room = anthill->begin_room;
+	while (anthill->s_room)
+	{
+		ft_count_tube_room(anthill, anthill->s_room->num_room);
+		anthill->s_room->liste_tubes = (int *)malloc(sizeof(int) * anthill->s_room->len_tube);
+		anthill->s_tube = anthill->begin_tube;
+		i = -1;
+		while (anthill->s_tube)
+		{
+			if (anthill->s_tube->from == anthill->s_room->num_room)
+				anthill->s_room->liste_tubes[++i] = anthill->s_tube->to;
+			if (anthill->s_tube->to == anthill->s_room->num_room)
+				anthill->s_room->liste_tubes[++i] = anthill->s_tube->from;
+			anthill->s_tube = anthill->s_tube->next;
+		}
+		anthill->s_room = anthill->s_room->next;
+	}
+}
 
 int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 {

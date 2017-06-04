@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/30 18:45:56 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/03 19:05:02 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		ft_stock_start_path(t_anthill *anthill)
         }
         if (room == anthill->room_end)
         {
-            ft_printf("room %d   \n", room);
+            // ft_printf("room %d   \n", room);
 
             anthill->nb_path++;
             path_from = find_room(room_to, anthill, &path_from, anthill->room_start);

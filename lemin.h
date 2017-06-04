@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:18:47 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/30 18:22:27 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/03 18:11:45 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ typedef struct		s_room
 	int				start;
 	int				end;
 	int				previous;
+	int 			round;
 	int				coordo[2];
+	int				*liste_tubes;
+	int				len_tube;
 	struct s_room	*next;
 }					t_room;
 
@@ -169,9 +172,10 @@ void				ft_free_tubes(t_anthill *anthill);
 void				ft_free_rooms(t_anthill *anthill);
 void				ft_free_path(t_anthill *anthill);
 int					if_room_previous(int room, t_anthill *anthill);
-void				add_previous(int room, int previous, t_anthill *anthill);
+void		add_previous(int room, int prev, int num_round, t_anthill *anthill);
 int		ft_add_the_previous(t_anthill *anthill, int start);
 int if_all_room_has_previous(t_anthill *anthill);
 int     his_previous(int room, t_anthill *anthill);
+void	ft_stock_tube_room(t_anthill *anthill);
 
 #endif

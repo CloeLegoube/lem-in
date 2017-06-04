@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/03 14:13:19 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/03 19:04:02 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int     ft_check_previous(t_anthill *anthill)
     {
         if (anthill->s_room->previous)
             count++;
-        printf("%d) previous = %d\n", anthill->s_room->num_room, anthill->s_room->previous);
+        // printf("%d) previous = %d\n", anthill->s_room->num_room, anthill->s_room->previous);
         // printf("start ? %d - end ? %d\n", anthill->s_room->start, anthill->s_room->end);
         // printf("coordo[%d][%d]\n\n", anthill->s_room->coordo[0], anthill->s_room->coordo[1]);
         // printf("Free ? %d\n", anthill->s_room->free);
         anthill->s_room = anthill->s_room->next;
     }
-    printf("count= %d\n", count);
+    // printf("count= %d\n", count);
 
     if (count != anthill->nb_rooms)
         return(1);
@@ -221,82 +221,82 @@ void		delete_previous(int start, t_anthill *anthill)
 	}
 }
 
-int		if_path_find_room_end(int start, t_anthill *anthill)
-{
-    int nb_tubes;
+// int		if_path_find_room_end(int start, t_anthill *anthill)
+// {
+//     int nb_tubes;
+//
+//     nb_tubes = 0;
+//     while (start != anthill->room_end || nb_tubes != anthill->nb_tubes * 2)
+//     {
+//         nb_tubes = 0;
+//         anthill->s_tube = anthill->begin_tube;
+//         while (anthill->s_tube)
+//         {
+//             if (anthill->s_tube->from == start &&
+//                 (anthill->s_tube->to == anthill->room_end || !if_room_previous(anthill->s_tube->to, anthill)))
+//             {
+//                 if (!if_path_find_room_end(anthill->s_tube->to, anthill))
+//                     delete_previous(anthill->s_tube->to, anthill);
+//                 else
+//                 {
+//                     delete_previous(anthill->s_tube->to, anthill);
+//                     add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
+//                     start = anthill->s_tube->to;
+//                     anthill->s_tube = NULL;
+//                 }
+//             }
+//             else
+//             {
+//                 anthill->s_tube = anthill->s_tube->next;
+//                 nb_tubes++;
+//             }
+//         }
+//     }
+//     if (start == anthill->room_end)
+//         return (1);
+//     return (0);
+// }
 
-    nb_tubes = 0;
-    while (start != anthill->room_end || nb_tubes != anthill->nb_tubes * 2)
-    {
-        nb_tubes = 0;
-        anthill->s_tube = anthill->begin_tube;
-        while (anthill->s_tube)
-        {
-            if (anthill->s_tube->from == start &&
-                (anthill->s_tube->to == anthill->room_end || !if_room_previous(anthill->s_tube->to, anthill)))
-            {
-                if (!if_path_find_room_end(anthill->s_tube->to, anthill))
-                    delete_previous(anthill->s_tube->to, anthill);
-                else
-                {
-                    delete_previous(anthill->s_tube->to, anthill);
-                    add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
-                    start = anthill->s_tube->to;
-                    anthill->s_tube = NULL;
-                }
-            }
-            else
-            {
-                anthill->s_tube = anthill->s_tube->next;
-                nb_tubes++;
-            }
-        }
-    }
-    if (start == anthill->room_end)
-        return (1);
-    return (0);
-}
-
-void		ft_check_each_tube(t_anthill *anthill, t_path *my_path)
-{
-    int nb_tubes;
-
-    nb_tubes = 0;
-	anthill->s_tube = anthill->begin_tube;
-    while (anthill->s_tube)
-    {
-        // ft_printf("************************************\nAVANT from %d -> num_room %d\n", anthill->s_tube->from, my_path->s_path_room->num_room);
-        // ft_printf("AVANT my_path->s_path_room->num_room %d\n", my_path->s_path_room->num_room);
-
-        if (anthill->s_tube->from == my_path->s_path_room->num_room &&
-            ( anthill->s_tube->to == anthill->room_end || !if_room_previous(anthill->s_tube->to, anthill)))
-        {
-                // if (!if_path_find_room_end(anthill->s_tube->to, anthill))
-                //     delete_previous(anthill->s_tube->to, anthill);
-                // else
-                // {
-                //     delete_previous(anthill->s_tube->to, anthill);
-                add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
-
-                    // ft_add_new_room(anthill, anthill->s_tube, &(my_path));
-                    // anthill->s_path->s_path_room = anthill->s_path->end_path_room;
-                    // anthill->s_tube = NULL;
-                    // printf("%d//) my_path->s_path_room->num_room = %d\n", my_path->s_path_room->num_room, my_path->end_path_room->num_room);
-                // }
-                // my_path->s_path_room = my_path->end_path_room;
-                // anthill->s_tube = anthill->begin_tube;
-                // my_path->s_path_room = my_path->s_path_room->next;
-        }
-        else
-        {
-            nb_tubes++;
-
-        }
-    }
-    // ft_printf("-------------------------- \nnb_tubes %d = anthill->nb_tubes %d ?\n\n", nb_tubes,anthill->nb_tubes * 2 );
-    if (nb_tubes == anthill->nb_tubes * 2)
-        my_path->stop = 1;
-}
+// void		ft_check_each_tube(t_anthill *anthill, t_path *my_path)
+// {
+//     int nb_tubes;
+//
+//     nb_tubes = 0;
+// 	anthill->s_tube = anthill->begin_tube;
+//     while (anthill->s_tube)
+//     {
+//         // ft_printf("************************************\nAVANT from %d -> num_room %d\n", anthill->s_tube->from, my_path->s_path_room->num_room);
+//         // ft_printf("AVANT my_path->s_path_room->num_room %d\n", my_path->s_path_room->num_room);
+//
+//         if (anthill->s_tube->from == my_path->s_path_room->num_room &&
+//             ( anthill->s_tube->to == anthill->room_end || !if_room_previous(anthill->s_tube->to, anthill)))
+//         {
+//                 // if (!if_path_find_room_end(anthill->s_tube->to, anthill))
+//                 //     delete_previous(anthill->s_tube->to, anthill);
+//                 // else
+//                 // {
+//                 //     delete_previous(anthill->s_tube->to, anthill);
+//                 add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
+//
+//                     // ft_add_new_room(anthill, anthill->s_tube, &(my_path));
+//                     // anthill->s_path->s_path_room = anthill->s_path->end_path_room;
+//                     // anthill->s_tube = NULL;
+//                     // printf("%d//) my_path->s_path_room->num_room = %d\n", my_path->s_path_room->num_room, my_path->end_path_room->num_room);
+//                 // }
+//                 // my_path->s_path_room = my_path->end_path_room;
+//                 // anthill->s_tube = anthill->begin_tube;
+//                 // my_path->s_path_room = my_path->s_path_room->next;
+//         }
+//         else
+//         {
+//             nb_tubes++;
+//
+//         }
+//     }
+//     // ft_printf("-------------------------- \nnb_tubes %d = anthill->nb_tubes %d ?\n\n", nb_tubes,anthill->nb_tubes * 2 );
+//     if (nb_tubes == anthill->nb_tubes * 2)
+//         my_path->stop = 1;
+// }
 
 int if_all_room_has_previous(t_anthill *anthill)
 {
@@ -334,121 +334,182 @@ int if_all_room_has_previous(t_anthill *anthill)
 
 int		ft_add_the_previous(t_anthill *anthill, int start)
 {
-    int nb_tubes;
-    int count;
-    int result;
-    t_tube  *tmp;
+	int i;
+	int num_round;
+	int stop;
+	t_room *tmp;
+	t_room *room;
 
-    nb_tubes = 1;
-    result = 0;
-    count = 1;
-	anthill->s_tube = anthill->begin_tube;
-    // printf("anthill->nb_tubes %d-%d\n", anthill->nb_tubes, nb_tubes);
+	num_round = 0;
+	stop = 0;
+	room = NULL;
+	// anthill->s_room = anthill->begin_room;
+	while (!stop)
+	{
+		room = anthill->begin_room;
+		num_round++;
+		// stop++;
+		while (room)
+		{
+			// printf("num room %d - room_round = %d - (num_round - 1) = %d\n",room->num_room, room->round, num_round - 1);
 
-    while (anthill->s_tube || nb_tubes < anthill->nb_tubes)
-    {
-        // printf("tube %d-%d room_end %d start %d\n", anthill->s_tube->from, anthill->s_tube->to,anthill->room_end, start );
-        // printf("num_rooms %d-%d\n", anthill->s_tube->from, anthill->s_tube->to);
-        if (anthill->s_tube && (anthill->s_tube->from == start || anthill->s_tube->to == start))
-        {
-            if (anthill->s_tube->from == start &&
-                !if_room_previous(anthill->s_tube->to, anthill))
-            {
-                    printf("Add previous %d to %d\n",anthill->s_tube->from,  anthill->s_tube->to);
-                    anthill->check_end++;
+			if (room->num_room == start || room->round == num_round - 1)
+			{
+				if(room->num_room == start)
+					start = 0;
+				if (room->num_room == anthill->room_end)
+				{
+					// printf("STOP *******************************\n");
+					// printf("num room %d - room_end = %d\n",room->num_room, anthill->room_end);
+					stop = 1;
 
-                    add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
-                    // test(anthill);
+				}
+				i = 0;
+				while (i < room->len_tube)
+				{
+					tmp = room;
+					// printf("%d \n",room->liste_tubes[i]);
 
-                    // add_previous(anthill->s_tube->from, anthill->s_tube->to, anthill);
-                    // start = anthill->s_tube->to;
-                    // anthill->s_tube = anthill->begin_tube;
-                    // nb_tubes = 0;
-                    tmp = anthill->s_tube;
-                    if (anthill->s_tube->to != anthill->room_end)
-                    {
-                        anthill->boucle++;
-                        if (!ft_add_the_previous(anthill, anthill->s_tube->to))
-                        {
+					if (!if_room_previous(room->liste_tubes[i], anthill))
+					{
+						// printf("Add the previous %d to %d\n",room->num_room, room->liste_tubes[i]);
 
-                            anthill->s_tube = tmp;
-                            if (!anthill->check_end)
-                            {
-                                printf("DELETE %d\n", anthill->s_tube->to);
-                                delete_previous(anthill->s_tube->to, anthill);
-                            }
-                            else
-                                printf("KEEP %d\n", anthill->s_tube->to);
-                            result = 1;
-                            anthill->check_end--;
-                        }
+						add_previous(room->liste_tubes[i], room->num_room, num_round, anthill);
+						room = tmp;
+						// room->round = num_round;
+					}
+					i++;
+				}
+			}
+			// test(anthill);
 
-                        printf("**boucle** = %d\n", anthill->boucle);
-
-                    }
-
-                    anthill->s_tube = tmp;
-
-            }
-            if (anthill->s_tube->to == start
-                && !if_room_previous(anthill->s_tube->from, anthill))
-            {
-                    printf("pas de previous\n");
-                    anthill->check_end++;
-
-                    add_previous(anthill->s_tube->from, anthill->s_tube->to, anthill);
-                    // add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
-                    // start = anthill->s_tube->from;
-                    // anthill->s_tube = anthill->begin_tube;
-                    // nb_tubes = 0;
-                    tmp = anthill->s_tube;
-                    if (anthill->s_tube->from != anthill->room_end)
-                    {
-                        anthill->boucle++;
-                        if (!ft_add_the_previous(anthill, anthill->s_tube->from))
-                        {
-                            anthill->s_tube = tmp;
-                            if (!anthill->check_end)
-                            {
-                                printf("DELETE %d\n", anthill->s_tube->from);
-                                delete_previous(anthill->s_tube->from, anthill);
-                            }
-                            else
-                                printf("KEEP %d\n", anthill->s_tube->from);
-
-                            result = 1;
-                            anthill->check_end--;
-                        }
-                        printf("**boucle** = %d\n", anthill->boucle);
-
-                    }
-
-                    anthill->s_tube = tmp;
-
-            }
-        }
-        else
-            nb_tubes++;
-            if(anthill->s_tube)
-                anthill->s_tube = anthill->s_tube->next;
-
-        // printf("anthill->nb_tubes %d-%d\n", anthill->nb_tubes, nb_tubes);
-
-    }
-    printf("anthill->check_end %d\n",anthill->check_end);
-    if (nb_tubes == anthill->nb_tubes)
-    {
-        anthill->end_boucle++;
-    }
-    if ((nb_tubes == anthill->nb_tubes && !anthill->check_end) || result)
-        return(0);
-    if (nb_tubes == anthill->nb_tubes)
-    {
-        return(1);
-    }
-    printf("anthill->end_boucle = %d\n", anthill->end_boucle);
-    return(1);
+			if (room)
+				room = room->next;
+				// ft_add_the_previous(anthill, anthill->s_room->liste_tubes[i]);
+		}
+		// if (!stop)
+		// 	anthill->s_room = anthill->s_room->next;
+	}
+	return (1);
 }
+
+// int		ft_add_the_previous(t_anthill *anthill, int start)
+// {
+//     int nb_tubes;
+//     int count;
+//     int result;
+//     t_tube  *tmp;
+//
+//     nb_tubes = 1;
+//     result = 0;
+//     count = 1;
+// 	anthill->s_tube = anthill->begin_tube;
+//     // printf("anthill->nb_tubes %d-%d\n", anthill->nb_tubes, nb_tubes);
+//
+//     while (anthill->s_tube || nb_tubes < anthill->nb_tubes)
+//     {
+//         // printf("tube %d-%d room_end %d start %d\n", anthill->s_tube->from, anthill->s_tube->to,anthill->room_end, start );
+//         // printf("num_rooms %d-%d\n", anthill->s_tube->from, anthill->s_tube->to);
+//         if (anthill->s_tube && (anthill->s_tube->from == start || anthill->s_tube->to == start))
+//         {
+//             if (anthill->s_tube->from == start &&
+//                 !if_room_previous(anthill->s_tube->to, anthill))
+//             {
+//                     printf("Add previous %d to %d\n",anthill->s_tube->from,  anthill->s_tube->to);
+//                     anthill->check_end++;
+//
+//                     add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
+//                     // test(anthill);
+//
+//                     // add_previous(anthill->s_tube->from, anthill->s_tube->to, anthill);
+//                     // start = anthill->s_tube->to;
+//                     // anthill->s_tube = anthill->begin_tube;
+//                     // nb_tubes = 0;
+//                     tmp = anthill->s_tube;
+//                     if (anthill->s_tube->to != anthill->room_end)
+//                     {
+//                         anthill->boucle++;
+//                         if (!ft_add_the_previous(anthill, anthill->s_tube->to))
+//                         {
+//
+//                             anthill->s_tube = tmp;
+//                             if (!anthill->check_end)
+//                             {
+//                                 printf("DELETE %d\n", anthill->s_tube->to);
+//                                 delete_previous(anthill->s_tube->to, anthill);
+//                             }
+//                             else
+//                                 printf("KEEP %d\n", anthill->s_tube->to);
+//                             result = 1;
+//                             anthill->check_end--;
+//                         }
+//
+//                         printf("**boucle** = %d\n", anthill->boucle);
+//
+//                     }
+//
+//                     anthill->s_tube = tmp;
+//
+//             }
+//             if (anthill->s_tube->to == start
+//                 && !if_room_previous(anthill->s_tube->from, anthill))
+//             {
+//                     printf("pas de previous\n");
+//                     anthill->check_end++;
+//
+//                     add_previous(anthill->s_tube->from, anthill->s_tube->to, anthill);
+//                     // add_previous(anthill->s_tube->to, anthill->s_tube->from, anthill);
+//                     // start = anthill->s_tube->from;
+//                     // anthill->s_tube = anthill->begin_tube;
+//                     // nb_tubes = 0;
+//                     tmp = anthill->s_tube;
+//                     if (anthill->s_tube->from != anthill->room_end)
+//                     {
+//                         anthill->boucle++;
+//                         if (!ft_add_the_previous(anthill, anthill->s_tube->from))
+//                         {
+//                             anthill->s_tube = tmp;
+//                             if (!anthill->check_end)
+//                             {
+//                                 printf("DELETE %d\n", anthill->s_tube->from);
+//                                 delete_previous(anthill->s_tube->from, anthill);
+//                             }
+//                             else
+//                                 printf("KEEP %d\n", anthill->s_tube->from);
+//
+//                             result = 1;
+//                             anthill->check_end--;
+//                         }
+//                         printf("**boucle** = %d\n", anthill->boucle);
+//
+//                     }
+//
+//                     anthill->s_tube = tmp;
+//
+//             }
+//         }
+//         else
+//             nb_tubes++;
+//             if(anthill->s_tube)
+//                 anthill->s_tube = anthill->s_tube->next;
+//
+//         // printf("anthill->nb_tubes %d-%d\n", anthill->nb_tubes, nb_tubes);
+//
+//     }
+//     printf("anthill->check_end %d\n",anthill->check_end);
+//     if (nb_tubes == anthill->nb_tubes)
+//     {
+//         anthill->end_boucle++;
+//     }
+//     if ((nb_tubes == anthill->nb_tubes && !anthill->check_end) || result)
+//         return(0);
+//     if (nb_tubes == anthill->nb_tubes)
+//     {
+//         return(1);
+//     }
+//     printf("anthill->end_boucle = %d\n", anthill->end_boucle);
+//     return(1);
+// }
 
     // void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
     // {
@@ -498,11 +559,11 @@ void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
     t_room *boucle_room;
 
     anthill->s_path = begin_path;
-	printf("***** Stock path ****\n");
+	// printf("***** Stock path ****\n");
 	while (anthill->s_path)
 	{
         // anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-		printf("***** Path %d ****\n", anthill->s_path->begin_path_room->num_room);
+		// printf("***** Path %d ****\n", anthill->s_path->begin_path_room->num_room);
 
         room = anthill->s_path->begin_path_room->previous;
         // printf("room %d\n", room);
@@ -510,11 +571,11 @@ void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
         // count = 0;
         while (boucle_room)
         {
-            printf("room %d - num_room %d\n", room, boucle_room->num_room);
+            // printf("room %d - num_room %d\n", room, boucle_room->num_room);
 
             if (room == boucle_room->num_room)
             {
-                printf("num_room %d - previous %d\n", boucle_room->num_room, boucle_room->previous);
+                // printf("num_room %d - previous %d\n", boucle_room->num_room, boucle_room->previous);
 
 				// if (boucle_room->previous ==  anthill->room_start)
 				// {
@@ -533,11 +594,11 @@ void	ft_stock_path(t_anthill *anthill, t_path *begin_path)
             }
         }
         // printf("count %d - nb_rooms %d\n", count, anthill->nb_rooms);
-		printf("anthill->s_path->begin_path_room->num_room %d - anthill->room_start %d\n", anthill->s_path->begin_path_room->num_room, anthill->room_start);
+		// printf("anthill->s_path->begin_path_room->num_room %d - anthill->room_start %d\n", anthill->s_path->begin_path_room->num_room, anthill->room_start);
 
         if (anthill->s_path->begin_path_room->num_room == anthill->room_start)
 		{
-			printf("***** Change path ****\n");
+			// printf("***** Change path ****\n");
 
 			anthill->s_path = anthill->s_path->next;
 
