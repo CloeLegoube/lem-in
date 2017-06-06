@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 22:00:01 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/06 22:05:55 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	ft_exit(int nb, t_anthill *anthill, char **line)
 	nb = 0;
 	ft_printf("ERROR\n");
 	ft_free(anthill);
-	if (*line)
+	if (line && *line)
 		ft_strdel(line);
 	get_next_line(-2, NULL);
 	exit(0);
