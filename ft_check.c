@@ -6,82 +6,31 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/04 15:54:42 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/06 21:46:23 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	ft_check_correct_path(t_anthill *anthill)
+void		ft_check_same_name(t_anthill *anthill)
 {
-	int i;
-	int nb_path;
+	t_room	*room;
 
-	anthill->s_path = anthill->begin_path;
-	i = 0;
-	nb_path = 0;
-	while (anthill->s_path)
+	room = NULL;
+	anthill->s_room = anthill->begin_room;
+	while (anthill->s_room)
 	{
-		ft_printf("num_room %d VS %d\n", anthill->s_path->end_path_room->num_room,anthill->room_end );
-		if (anthill->s_path->end_path_room->num_room != anthill->room_end)
-			i++;
-		anthill->s_path = anthill->s_path->next;
-		nb_path++;
-	}
-	if (i == nb_path)
-		ft_exit(2);
-}
-
-void	ft_display_lines(t_anthill *anthill)
-{
-	anthill->s_lines = anthill->begin_lines;
-	ft_printf("%d\n", anthill->nb_fourmis);
-	while (anthill->s_lines)
-	{
-		ft_printf("%s\n", anthill->s_lines->line);
-		anthill->s_lines = anthill->s_lines->next;
+		room = anthill->begin_room;
+		while (room)
+		{
+			if (anthill->s_room->num_room != room->num_room &&
+				ft_strcmp(anthill->s_room->name, room->name) == 0)
+				ft_exit(14, anthill, NULL);
+			room = room->next;
+		}
+		anthill->s_room = anthill->s_room->next;
 	}
 }
-
-// int		ft_exit(t_anthill *anthill)
-// {
-// 	if(anthill->error)
-// 	{
-// 		ft_printf("ERROR\n");
-// 		exit(0);
-// 	}
-// 	return (1);
-// }
-
-void	ft_exit(int nb)
-{
-	// nb = 0;
-	ft_printf("ERROR %d\n", nb);
-	// ft_printf("ERROR\n");
-	exit(0);
-}
-
-char	*ft_strstart(const char *big, const char *little)
-{
-	int		i;
-
-	i = 0;
-	if (little[0] == '\0')
-		return ((char *)big);
-	while (big[i])
-	{
-		if (little[i] == '\0')
-			return ((char *)big + i);
-		if ( big[i] == little[i])
-			i++;
-		else
-			return (NULL);
-	}
-	if ( big[i] == little[i])
-		return ((char *)big + i);
-	return (NULL);
-}
-
 
 void		ft_check(t_anthill *anthill, char **line)
 {
@@ -89,10 +38,10 @@ void		ft_check(t_anthill *anthill, char **line)
 	t_lines	*struct_line;
 
 	if (ft_strstart(*line, "L"))
-		ft_exit(10);
+		ft_exit(10, anthill, NULL);
 	if (!(struct_line = (t_lines*)malloc(sizeof(t_lines))))
 		return ;
-	new_line = ft_strnew(ft_strlen(*line));
+	// new_line = ft_strnew(ft_strlen(*line));
 	new_line = ft_strdup(*line);
 	struct_line->line = new_line;
 	struct_line->next = NULL;
@@ -101,14 +50,7 @@ void		ft_check(t_anthill *anthill, char **line)
 	else
 		anthill->s_lines->next = struct_line;
 	anthill->s_lines = struct_line;
-	// if (!ft_strstr(*line, "##start") && !ft_strstr(*line, "##start") && ft_strstart(*line, "#"))
-	// 	return ;
-
 	if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&
 		(!ft_stock_tube(ft_strsplit(*line, '-'), anthill)))
-	{
-		// ft_printf("line = %s", *line);
-		ft_exit(8);
-	}
-
+		ft_exit(8, anthill, NULL);
 }

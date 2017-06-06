@@ -6,24 +6,67 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 11:46:33 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/03 18:12:06 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/06 21:46:38 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+int		available(int num_room, t_anthill *anthill, int yes)
+{
+	anthill->s_room = anthill->begin_room;
+	while (anthill->s_room)
+	{
+		if (anthill->s_room->num_room != num_room)
+			anthill->s_room = anthill->s_room->next;
+		else
+		{
+			if (yes)
+				anthill->s_room->free = 1;
+			else
+				anthill->s_room->free = 0;
+			return (0);
+		}
+	}
+	return (1);
+}
+
+void	ft_tabdel(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+}
+
+
+int		if_room_free(int num_room, t_anthill *anthill)
+{
+	anthill->s_room = anthill->begin_room;
+	while (anthill->s_room)
+	{
+		if (anthill->s_room->num_room != num_room)
+			anthill->s_room = anthill->s_room->next;
+		else if (anthill->s_room->free)
+			return(1);
+		else
+			return (0);
+	}
+	return (0);
+}
 
 int		ft_find_room_by_name(t_anthill *anthill, char *name)
 {
 	anthill->s_room = anthill->begin_room;
 	while (anthill->s_room)
 	{
-		// printf("%s = %s -> %d\n", name, anthill->s_room->name, ft_strcmp(name, anthill->s_room->name));
-
 		if (!ft_strcmp(name, anthill->s_room->name))
 			return (anthill->s_room->num_room);
 		anthill->s_room = anthill->s_room->next;
 	}
-	ft_exit(6);
+	ft_exit(6, anthill, NULL);
 	return (0);
 }
 
@@ -37,83 +80,6 @@ char 	*ft_name_by_room(t_anthill *anthill, int room)
 		anthill->s_room = anthill->s_room->next;
 	}
 	return (NULL);
-}
-
-int		if_room_previous(int room, t_anthill *anthill)
-{
-	t_room *path_room;
-
-	path_room = anthill->begin_room;
-	while (path_room)
-	{
-		if (room == path_room->num_room)
-		{
-			// printf("room = %d num_room %d\n",room, path_room->num_room);
-			// printf("previous = %d\n", path_room->previous);
-
-			if (path_room->previous != 0)
-			{
-				return(1);
-
-			}
-		}
-		path_room = path_room->next;
-	}
-	return(0);
-}
-
-void		add_previous(int room, int prev, int num_round, t_anthill *anthill)
-{
-	anthill->s_room = anthill->begin_room;
-	while (anthill->s_room)
-	{
-		if (room == anthill->s_room->num_room)
-		{
-			anthill->s_room->previous = prev;
-			anthill->s_room->round = num_round;
-		}
-		anthill->s_room = anthill->s_room->next;
-	}
-}
-
-int		ft_check_if_room_exist(t_path *path, int tube_to, int tube_from)
-{
-	t_room	*tmp;
-	int check;
-
-	check = 1;
-	tmp = path->s_path_room;
-	path->s_path_room = path->begin_path_room;
-	// ft_printf("check room 1\n");
-	// ft_printf("path->begin_path_room %d\n", path->begin_path_room->num_room);
-
-	while (path->s_path_room)
-	{
-		if (check)
-		{
-			// ft_printf("tube_from %d\n", tube_from);
-			// ft_printf("free %d\n", path->s_path_room->free);
-			// ft_printf("start %d\n", path->s_path_room->start);
-			// ft_printf("num_room %d\n", path->s_path_room->num_room);
-
-			if (path->s_path_room->num_room == tube_from)
-				check = 0;
-			// ft_printf("num_room %d = tube_to %d\n", path->s_path_room->num_room , tube_to);
-
-			if (path->s_path_room->num_room == tube_to)
-			{
-				path->s_path_room = path->end_path_room;
-				// ft_printf("egal\n");
-				return(1);
-
-			}
-		}
-		path->s_path_room = path->s_path_room->next;
-	}
-	// ft_printf("check room 2\n");
-
-	path->s_path_room = tmp;
-	return(0);
 }
 
 void    norme(t_path *tmp3, t_path *e1, t_path *e2)
@@ -153,7 +119,6 @@ void    ft_lstswap(t_path **start, t_path *e1, t_path *e2)
     norme(tmp3, e1, e2);
 }
 
-
 int		ft_strdigit(char *s)
 {
 	int i;
@@ -180,17 +145,23 @@ int		ft_strdigit(char *s)
 		return (0);
 }
 
+char	*ft_strstart(const char *big, const char *little)
+{
+	int		i;
 
-// int		ft_lstlen(t_anthill *anthill)
-// {
-// 	int i;
-//
-// 	i = 0;
-// 	anthill->match_path = anthill->begin_match_path;
-// 	while (anthill->match_path)
-// 	{
-// 		i++;
-// 		anthill->match_path = anthill->match_path->next;
-// 	}
-// 	return (i);
-// }
+	i = 0;
+	if (little[0] == '\0')
+		return ((char *)big);
+	while (big[i])
+	{
+		if (little[i] == '\0')
+			return ((char *)big + i);
+		if ( big[i] == little[i])
+			i++;
+		else
+			return (NULL);
+	}
+	if ( big[i] == little[i])
+		return ((char *)big + i);
+	return (NULL);
+}

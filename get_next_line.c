@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 13:21:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 13:53:34 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/06 21:38:52 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ int		get_next_line(int const fd, char **line)
 	char		*tmp;
 	int			ret;
 
+	if (stock && fd == -2 && line == NULL)
+	{
+		free(stock);
+		return (-1);
+	}
 	if (stock)
 		if (get_lines(stock, line))
 			return (1);

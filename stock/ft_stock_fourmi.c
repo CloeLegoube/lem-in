@@ -6,13 +6,13 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/12 23:19:02 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/06 20:34:11 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lemin.h"
 
-static int		init_struct_fourmi(t_fourmi	**fourmi)
+int		init_struct_fourmi(t_fourmi **fourmi)
 {
 	if (!(*fourmi = (t_fourmi*)malloc(sizeof(t_fourmi))))
 		return (0);
@@ -24,7 +24,7 @@ static int		init_struct_fourmi(t_fourmi	**fourmi)
 	return (0);
 }
 
-int		ft_stock_fourmi(t_anthill *anthill)
+void	ft_stock_fourmi(t_anthill *anthill)
 {
 	t_fourmi	*new;
 	t_fourmi	*previous;
@@ -51,5 +51,4 @@ int		ft_stock_fourmi(t_anthill *anthill)
 		i++;
 	}
 	anthill->end_fourmi = new;
-	return (1);
 }
