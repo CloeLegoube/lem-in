@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/04 15:51:45 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/06 14:02:29 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int		main(void)
 		return (0);
 	ft_initialize_struct_anthill(anthill);
 	line = NULL;
-	if (get_next_line(0, &line) == -1)
+	if (get_next_line(0, &line) == 0)
 		ft_exit(7);
 	if (!ft_strdigit(line))
 		ft_exit(5);
@@ -211,8 +211,9 @@ int		main(void)
 	}
 	if (anthill->room_end == -42 || anthill->room_start == -42)
 		ft_exit(12);
+
 	ft_stock_fourmi(anthill);
-	// ft_room_previous(anthill);
+	// // ft_room_previous(anthill);
 	ft_stock_tube_room(anthill);
 	ft_add_the_previous(anthill, anthill->room_start);
 	// test(anthill);
@@ -237,7 +238,7 @@ int		main(void)
 
 	ft_stock_tab(anthill);
 	ft_sort_path(anthill);
-	test(anthill);
+	// test(anthill);
 	//
 	// // //
 	// ft_check_correct_path(anthill);

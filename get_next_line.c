@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/28 13:21:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/05/09 14:39:13 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/06 13:53:34 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int		ret_inf_zero(char *stock, char **line, int ret)
 {
 	char	*tmp;
 
-	if (ret == -1)
-		return (-1);
+	if (ret == -1 || ret == 0)
+		return (ret);
 	if (ft_strcmp(stock, "\0") != 0)
 	{
 		if ((tmp = ft_strchr(stock, '\n')) != NULL)
