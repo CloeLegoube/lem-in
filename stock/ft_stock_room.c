@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 21:48:24 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/24 19:26:48 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 int		init_struct_room(t_room **room, char **tab, t_anthill *anthill)
 {
+	int		i;
+
+	i = 0;
+	while (tab[0][i])
+		if (tab[0][i++] == '-')
+			ft_exit(15, anthill, NULL);
 	if (!(*room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
 	(*room)->num_room = 1;
-	// (*room)->name = ft_strnew(ft_strlen(tab[0]));
 	(*room)->name = ft_strdup(tab[0]);
 	(*room)->coordo[0] = ft_atoi(tab[1]);
 	(*room)->coordo[1] = ft_atoi(tab[2]);
@@ -89,13 +94,13 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 {
 	t_room	*new;
 
+	ft_tablen(tab) == 0 ? ft_exit(14, anthill, NULL) : 0;
 	if (ft_tablen(tab) != 3)
 		return (not_a_room(tab, anthill, line));
 	else
 	{
 		new = NULL;
-		if (ft_strstart(tab[0], "#") ||
-			(!ft_strdigit(tab[1]) || !ft_strdigit(tab[2])))
+		if (ft_strstart(tab[0], "#") || (!ftdigit(tab[1]) || !ftdigit(tab[2])))
 		{
 			ft_tabdel(tab);
 			return (1);

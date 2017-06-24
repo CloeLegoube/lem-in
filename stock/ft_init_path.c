@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 19:05:23 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/24 18:43:18 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 t_room	*find_room(int target, t_anthill *anthill, t_room **room, int previous)
 {
-	// char *tmp;
-	//
-	// tmp = NULL;
 	previous = 0;
 	anthill->s_room = anthill->begin_room;
 	while (anthill->s_room)
@@ -29,8 +26,6 @@ t_room	*find_room(int target, t_anthill *anthill, t_room **room, int previous)
 				return (0);
 			(*room)->num_room = anthill->s_room->num_room;
 			(*room)->name = anthill->s_room->name;
-			// tmp = ft_strnew(ft_strlen(anthill->s_room->name));
-			// (*room)->name = ft_strnew(ft_strlen(anthill->s_room->name));
 			(*room)->name = ft_strdup(anthill->s_room->name);
 			(*room)->coordo[0] = anthill->s_room->coordo[0];
 			(*room)->coordo[1] = anthill->s_room->coordo[1];

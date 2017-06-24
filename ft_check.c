@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 21:46:23 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/23 20:24:09 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void		ft_check(t_anthill *anthill, char **line)
 		ft_exit(10, anthill, NULL);
 	if (!(struct_line = (t_lines*)malloc(sizeof(t_lines))))
 		return ;
-	// new_line = ft_strnew(ft_strlen(*line));
 	new_line = ft_strdup(*line);
 	struct_line->line = new_line;
 	struct_line->next = NULL;
@@ -51,6 +50,6 @@ void		ft_check(t_anthill *anthill, char **line)
 		anthill->s_lines->next = struct_line;
 	anthill->s_lines = struct_line;
 	if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&
-		(!ft_stock_tube(ft_strsplit(*line, '-'), anthill)))
+		(!ft_stock_tube(ft_strsplit(*line, '-'), anthill, *line)))
 		ft_exit(8, anthill, NULL);
 }

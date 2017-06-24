@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 21:48:46 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/24 18:44:51 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ int		ft_stock_double_tube(t_anthill *anthill, char *begin, char *end)
 
 	new = NULL;
 	init_struct_tube(&new);
-	// new->str_from = ft_strnew(ft_strlen(begin));
 	new->str_from = ft_strdup(begin);
-	// new->str_to = ft_strnew(ft_strlen(end));
 	new->str_to = ft_strdup(end);
 	new->from = ft_find_room_by_name(anthill, new->str_from);
 	new->to = ft_find_room_by_name(anthill, new->str_to);
@@ -52,12 +50,22 @@ int		ft_stock_double_tube(t_anthill *anthill, char *begin, char *end)
 	return (1);
 }
 
-int		ft_stock_tube(char **tab, t_anthill *anthill)
+int		ft_stock_tube(char **tab, t_anthill *anthill, char *line)
 {
-	int check;
+	int		check;
+	int		i;
+	int		count;
 
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		if (line[i] == '-')
+			count++;
+		i++;
+	}
 	check = 0;
-	if (ft_tablen(tab) != 2)
+	if (ft_tablen(tab) != 2 || count > 1)
 		return (0);
 	else if (ft_strstart(tab[0], "#"))
 		return (1);

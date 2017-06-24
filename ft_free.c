@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 21:14:28 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/23 18:59:18 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	ft_free_rooms(t_anthill *anthill, t_room *begin)
 void	ft_free_path(t_anthill *anthill)
 {
 	t_path	*tmp;
-	t_room *room;
-
 
 	if (anthill->begin_path)
 	{
@@ -105,24 +103,7 @@ void	ft_free_path(t_anthill *anthill)
 		{
 			tmp = anthill->s_path->next;
 			if (anthill->s_path)
-			{
-				free(anthill->s_path->tab);
-				if (anthill->s_path->begin_path_room)
-				{
-					anthill->s_path->s_path_room = anthill->s_path->begin_path_room;
-					while (anthill->s_path->s_path_room)
-					{
-						room = anthill->s_path->s_path_room->next;
-						if (anthill->s_path->s_path_room)
-						{
-							free(anthill->s_path->s_path_room->name);
-							free(anthill->s_path->s_path_room);
-						}
-						anthill->s_path->s_path_room = room;
-					}
-				}
-				free(anthill->s_path);
-			}
+				free_path(anthill);
 			anthill->s_path = tmp;
 		}
 	}

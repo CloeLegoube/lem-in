@@ -6,7 +6,7 @@
 #    By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/11 20:07:47 by clegoube          #+#    #+#              #
-#    Updated: 2017/06/06 19:38:10 by clegoube         ###   ########.fr        #
+#    Updated: 2017/06/23 19:22:42 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = lem-in
 HEAD = lemin.h
 
 SRC = main.c get_next_line.c  ft_display.c ft_utils_fonctions.c ft_check.c \
-		ft_add_previous.c ft_free.c
+		ft_add_previous.c ft_free.c ft_free2.c ft_lib.c
 
 STOCK = stock/ft_stock_room.c stock/ft_stock_fourmi.c stock/ft_init_path.c \
 		stock/ft_stock_path.c stock/ft_manage_path.c stock/ft_stock_tube.c \

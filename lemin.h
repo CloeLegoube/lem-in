@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:18:47 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 21:43:25 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/24 18:58:06 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "libft/libft.h"
-
-#include <string.h>
+# include <string.h>
 
 typedef struct		s_anthill
 {
@@ -61,7 +60,6 @@ typedef struct		s_lines
 	char			*line;
 	struct s_lines	*next;
 }					t_lines;
-
 
 typedef struct		s_match_path
 {
@@ -105,7 +103,7 @@ typedef struct		s_room
 	int				start;
 	int				end;
 	int				previous;
-	int 			round;
+	int				round;
 	int				coordo[2];
 	int				*liste_tubes;
 	int				len_tube;
@@ -143,39 +141,43 @@ void				ft_check(t_anthill *anthill, char **line);
 int					ft_printf(char *format, ...);
 char				**ft_strsplit(char const *s, char c);
 int					ft_stock_room(char **tab, t_anthill *anthill, char **line);
-int					ft_stock_tube(char **tab, t_anthill *anthill);
+int					ft_stock_tube(char **tab, t_anthill *anthill, char *line);
 void				ft_stock_fourmi(t_anthill *anthill);
 int					ft_stock_start_path(t_anthill *anthill);
 void				ft_stock_path(t_anthill *anthill, t_path *begin_path);
 void				ft_stock_tab(t_anthill *anthill);
 t_path				*ft_stock_copy_path(t_path **copy_path, t_anthill *anthill);
 void				ft_check_each_tube(t_anthill *anthill, t_path *my_path);
-t_room				*find_room(int target, t_anthill *anthill, t_room **room, int previous);
+t_room				*find_room(int target, t_anthill *anthill, t_room **room,
+					int previous);
 void				init_struct_kind_path(t_anthill	*anthill);
 void				ft_display(t_anthill	*anthill);
 int					ft_delete_wrong_path(t_anthill	*anthill);
 void				ft_lstswap(t_path **start, t_path *e1, t_path *e2);
 int					test(t_anthill	*anthill);
-int					ft_check_if_room_exist(t_path *path, int tube_from, int tube_to);
+int					ft_check_if_room_exist(t_path *path, int tube_from,
+					int tube_to);
 void				ft_sort_path(t_anthill	*anthill);
-char 				*ft_name_by_room(t_anthill *anthill, int room);
+char				*ft_name_by_room(t_anthill *anthill, int room);
 int					ft_find_room_by_name(t_anthill *anthill, char *name);
 void				ft_display_lines(t_anthill *anthill);
 void				ft_exit(int nb, t_anthill *anthill, char **line);
 void				ft_check_correct_path(t_anthill *anthill);
 char				*ft_strstart(const char *big, const char *little);
-int					ft_strdigit(char *s);
+int					ftdigit(char *s);
 void				ft_free(t_anthill *anthill);
 void				ft_free_lines(t_anthill *anthill);
 void				ft_free_fourmis(t_anthill *anthill);
 void				ft_free_tubes(t_anthill *anthill);
 void				ft_free_rooms(t_anthill *anthill, t_room *begin);
 void				ft_free_path(t_anthill *anthill);
+void				free_path(t_anthill *anthill);
 int					if_room_previous(int room, t_anthill *anthill);
-void				add_previous(int room, int prev, int num_round, t_anthill *anthill);
+void				add_previous(int room, int prev, int num_round,
+					t_anthill *anthill);
 int					ft_add_the_previous(t_anthill *anthill, int start);
-int 				if_all_room_has_previous(t_anthill *anthill);
-int 			    his_previous(int room, t_anthill *anthill);
+int					if_all_room_has_previous(t_anthill *anthill);
+int					his_previous(int room, t_anthill *anthill);
 void				ft_stock_tube_room(t_anthill *anthill);
 void				ft_check_same_name(t_anthill *anthill);
 int					if_room_free(int num_room, t_anthill *anthill);
