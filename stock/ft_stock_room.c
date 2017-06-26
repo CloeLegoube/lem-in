@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/24 19:26:48 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/06/26 20:12:26 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		not_a_room(char **tab, t_anthill *anthill, char **line)
 {
 	if (ft_strstart(tab[0], "#"))
 	{
-		if (ft_strstr(*line, "##start") || ft_strstr(*line, "##end"))
+		if (!ft_strcmp(*line, "##start") || !ft_strcmp(*line, "##end"))
 		{
 			if (ft_strstr(*line, "##start"))
 				anthill->line_start = 1;
