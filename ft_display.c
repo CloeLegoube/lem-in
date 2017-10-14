@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/06 18:48:49 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/14 16:19:09 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,16 @@ t_path	*ft_find_shorter_path(t_anthill *anthill)
 		anthill->s_path = anthill->s_path->previous;
 	}
 	return (anthill->s_path);
+}
+
+void		ft_display_lines(t_anthill *anthill)
+{
+	anthill->s_lines = anthill->begin_lines;
+	while (anthill->s_lines)
+	{
+		ft_printf("%s\n", anthill->s_lines->line);
+		anthill->s_lines = anthill->s_lines->next;
+	}
 }
 
 void	ft_display(t_anthill *anthill)

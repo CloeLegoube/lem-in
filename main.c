@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/26 20:09:34 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/14 16:19:01 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		ft_exit(int nb, t_anthill *anthill, char **line)
 {
-	nb = 0;
-	ft_printf("ERROR\n");
+	// nb = 0;
+	ft_printf("ERROR num %d\n", nb);
 	ft_free(anthill);
 	if (line && *line)
 		ft_strdel(line);
@@ -23,49 +23,10 @@ void		ft_exit(int nb, t_anthill *anthill, char **line)
 	exit(0);
 }
 
-t_anthill	*ft_initialize_struct_anthill(void)
-{
-	t_anthill *anthill;
-
-	if (!(anthill = (t_anthill*)malloc(sizeof(t_anthill))))
-		return (NULL);
-	anthill->nb_rooms = 0;
-	anthill->nb_tubes = 0;
-	anthill->room_start = -42;
-	anthill->room_end = -42;
-	anthill->line_start = 0;
-	anthill->line_end = 0;
-	anthill->begin_tube = NULL;
-	anthill->end_tube = NULL;
-	anthill->s_lines = NULL;
-	anthill->begin_lines = NULL;
-	anthill->begin_room = NULL;
-	anthill->begin_fourmi = NULL;
-	anthill->end_fourmi = NULL;
-	anthill->begin_path = NULL;
-	anthill->end_path = NULL;
-	anthill->s_fourmi = NULL;
-	anthill->s_tube = NULL;
-	anthill->s_room = NULL;
-	anthill->s_path = NULL;
-	anthill->s_kind_path = NULL;
-	return (anthill);
-}
-
-void		ft_display_lines(t_anthill *anthill)
-{
-	anthill->s_lines = anthill->begin_lines;
-	ft_printf("%d\n", anthill->nb_fourmis);
-	while (anthill->s_lines)
-	{
-		ft_printf("%s\n", anthill->s_lines->line);
-		anthill->s_lines = anthill->s_lines->next;
-	}
-}
-
 void		ft_execute(t_anthill *anthill)
 {
-	ft_check_same_name(anthill);
+	ft_if_start_end_exist(anthill, anthill->room_start);
+	ft_if_start_end_exist(anthill, anthill->room_end);
 	if (anthill->room_end == -42 || anthill->room_start == -42)
 		ft_exit(12, anthill, NULL);
 	ft_stock_fourmi(anthill);
@@ -80,6 +41,25 @@ void		ft_execute(t_anthill *anthill)
 	ft_free(anthill);
 }
 
+void		ft_comment_nb_fourmis(t_anthill *anthill, char *line, int gnl)
+{
+	while ((gnl = get_next_line(0, &line)) && ft_strstart(line, "#"))
+	{
+		if (gnl == 0 || gnl == -1)
+			ft_exit(7, anthill, &line);
+		ft_add_lines(anthill, line);
+	}
+	if (gnl == 0 || gnl == -1)
+		ft_exit(7, anthill, &line);
+	if (!ftdigit(line))
+		ft_exit(5, anthill, &line);
+	anthill->nb_fourmis = ft_atoi(line);
+	ft_add_lines(anthill, line);
+	if (anthill->nb_fourmis <= 0)
+		ft_exit(13, anthill, &line);
+	free(line);
+}
+
 int			main(void)
 {
 	char		*line;
@@ -88,15 +68,8 @@ int			main(void)
 
 	anthill = ft_initialize_struct_anthill();
 	line = NULL;
-	gnl = get_next_line(0, &line);
-	if (gnl == 0 || gnl == -1)
-		ft_exit(7, anthill, &line);
-	if (!ftdigit(line))
-		ft_exit(5, anthill, &line);
-	anthill->nb_fourmis = ft_atoi(line);
-	if (anthill->nb_fourmis <= 0)
-		ft_exit(13, anthill, &line);
-	free(line);
+	gnl = 0;
+	ft_comment_nb_fourmis(anthill, line, gnl);
 	while ((gnl = get_next_line(0, &line)))
 	{
 		if (gnl == -1)
@@ -108,3 +81,14 @@ int			main(void)
 	get_next_line(-2, NULL);
 	return (0);
 }
+
+/*
+Si les tubes n'ont pas de start OK
+S'il y a un commentaire au debut
+S'il y a un retour a la ligne a la fin
+Boucle si les chemins ne sont pas compatibles
+0-2
+3-1
+##end suivi d'un ##start ne renvoie rien
+-2147483649 fourmis plante
+*/

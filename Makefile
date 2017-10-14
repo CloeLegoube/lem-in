@@ -6,7 +6,7 @@
 #    By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/11 20:07:47 by clegoube          #+#    #+#              #
-#    Updated: 2017/06/23 19:22:42 by clegoube         ###   ########.fr        #
+#    Updated: 2017/10/14 16:19:47 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = main.c get_next_line.c  ft_display.c ft_utils_fonctions.c ft_check.c \
 
 STOCK = stock/ft_stock_room.c stock/ft_stock_fourmi.c stock/ft_init_path.c \
 		stock/ft_stock_path.c stock/ft_manage_path.c stock/ft_stock_tube.c \
-		stock/ft_stock_tube_room.c
+		stock/ft_stock_tube_room.c stock/ft_init_anthill.c
 
 LIB = ./libft/libft.a
 PRINTF = ./printf/libftprintf.a
