@@ -15,7 +15,7 @@
 void		ft_exit(int nb, t_anthill *anthill, char **line)
 {
 	// nb = 0;
-	ft_printf("ERROR num %d\n", nb);
+	ft_printf("ERROR %d\n", nb);
 	ft_free(anthill);
 	if (line && *line)
 		ft_strdel(line);
@@ -25,8 +25,11 @@ void		ft_exit(int nb, t_anthill *anthill, char **line)
 
 void		ft_execute(t_anthill *anthill)
 {
+	ft_check_same_name(anthill);
 	ft_if_start_end_exist(anthill, anthill->room_start);
 	ft_if_start_end_exist(anthill, anthill->room_end);
+	if(anthill->room_start == anthill->room_end)
+		ft_exit(16, anthill, NULL);
 	if (anthill->room_end == -42 || anthill->room_start == -42)
 		ft_exit(12, anthill, NULL);
 	ft_stock_fourmi(anthill);
@@ -54,9 +57,9 @@ void		ft_comment_nb_fourmis(t_anthill *anthill, char *line, int gnl)
 	if (!ftdigit(line))
 		ft_exit(5, anthill, &line);
 	anthill->nb_fourmis = ft_atoi(line);
-	ft_add_lines(anthill, line);
-	if (anthill->nb_fourmis <= 0)
+	if (ft_strstart(line, "-") || anthill->nb_fourmis <= 0)
 		ft_exit(13, anthill, &line);
+	ft_add_lines(anthill, line);
 	free(line);
 }
 
@@ -84,11 +87,11 @@ int			main(void)
 
 /*
 Si les tubes n'ont pas de start OK
-S'il y a un commentaire au debut
-S'il y a un retour a la ligne a la fin
-Boucle si les chemins ne sont pas compatibles
+S'il y a un commentaire au debut OK
+S'il y a un retour a la ligne a la fin OK
+Boucle si les chemins ne sont pas compatibles OK
 0-2
 3-1
-##end suivi d'un ##start ne renvoie rien
--2147483649 fourmis plante
+##end suivi d'un ##start ne renvoie rien OK
+-2147483649 fourmis plante OK
 */

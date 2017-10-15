@@ -69,6 +69,7 @@ void		ft_display_lines(t_anthill *anthill)
 		ft_printf("%s\n", anthill->s_lines->line);
 		anthill->s_lines = anthill->s_lines->next;
 	}
+	ft_printf("\n");
 }
 
 void	ft_display(t_anthill *anthill)
