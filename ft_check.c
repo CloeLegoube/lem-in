@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/14 16:23:00 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 20:43:35 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,17 @@ void		ft_add_lines(t_anthill *anthill, char *line)
 void		ft_check(t_anthill *anthill, char **line)
 {
 	if (ft_strstart(*line, "L"))
-		ft_exit(10, anthill, NULL);
-	if (anthill->s_lines->line && (anthill->s_lines->line[0] < ' ' || *line[0] > '~'))
-		ft_exit(21, anthill, NULL);
-	ft_add_lines(anthill, *line);
-	if (*line[0] >= ' ' && *line[0] <= '~')
+		ft_add_lines(anthill, *line);
+	else
 	{
-		if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&
-			(!ft_stock_tube(ft_strsplit(*line, '-'), anthill, *line)))
-			ft_exit(8, anthill, NULL);
+		if (anthill->s_lines->line && (anthill->s_lines->line[0] < ' ' || *line[0] > '~'))
+			ft_exit(21, anthill, NULL);
+		ft_add_lines(anthill, *line);
+		if (*line[0] >= ' ' && *line[0] <= '~')
+		{
+			if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&
+				(!ft_stock_tube(ft_strsplit(*line, '-'), anthill, *line)))
+				ft_exit(8, anthill, NULL);
+		}
 	}
 }
