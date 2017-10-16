@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 22:42:44 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 22:58:33 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void		ft_execute(t_anthill *anthill)
 	ft_stock_path(anthill, anthill->begin_path);
 	ft_stock_tab(anthill);
 	ft_sort_path(anthill);
-	ft_display_lines(anthill);
-	ft_display(anthill);
+	// ft_display_lines(anthill);
+	// ft_display(anthill);
 	ft_free(anthill);
 }
 
