@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 21:50:41 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 22:43:38 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int		ft_stock_double_tube(t_anthill *anthill, char *begin, char *end)
 	new->str_to = ft_strdup(end);
 	new->from = ft_find_room_by_name(anthill, new->str_from);
 	new->to = ft_find_room_by_name(anthill, new->str_to);
+	if (new->from == 0 || new->to == 0)
+		return (0);
 	if (!anthill->begin_tube)
 	{
 		new->num_tube = 1;
@@ -59,7 +61,7 @@ int		ft_if_start_end_exist(t_anthill *anthill, int room)
 			return(1);
 		anthill->s_tube = anthill->s_tube->next;
 	}
-	ft_exit(15, anthill, NULL);
+	// ft_exit(15, anthill, NULL);
 	return(0);
 }
 
@@ -82,9 +84,10 @@ int		ft_stock_tube(char **tab, t_anthill *anthill, char *line)
 		return (0);
 	else if (ft_strstart(tab[0], "#"))
 		return (1);
-	check = ft_stock_double_tube(anthill, tab[0], tab[1]);
-	if ((anthill->line_start == 1 || anthill->line_end == 1) && check)
+	if (anthill->line_start == 1 || anthill->line_end == 1)
 		ft_exit(10, anthill, NULL);
+	if (!(check = ft_stock_double_tube(anthill, tab[0], tab[1])))
+		return (0);
 	anthill->nb_tubes++;
 	ft_tabdel(tab);
 	return (1);
