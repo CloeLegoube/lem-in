@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/14 16:19:01 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 21:11:37 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,18 @@ int			main(void)
 	char		*line;
 	t_anthill	*anthill;
 	int			gnl;
+	int			check;
 
 	anthill = ft_initialize_struct_anthill();
 	line = NULL;
 	gnl = 0;
+	check = 1;
 	ft_comment_nb_fourmis(anthill, line, gnl);
-	while ((gnl = get_next_line(0, &line)))
+	while (check && (gnl = get_next_line(0, &line)))
 	{
 		if (gnl == -1)
 			ft_exit(7, anthill, &line);
-		ft_check(anthill, &line);
+		check = ft_check(anthill, &line);
 		free(line);
 	}
 	ft_execute(anthill);

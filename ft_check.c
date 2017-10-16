@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 20:43:35 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 21:13:59 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,16 @@ void		ft_add_lines(t_anthill *anthill, char *line)
 	anthill->s_lines = struct_line;
 }
 
-void		ft_check(t_anthill *anthill, char **line)
+int		ft_check(t_anthill *anthill, char **line)
 {
-	if (ft_strstart(*line, "L"))
-		ft_add_lines(anthill, *line);
-	else
+	if (anthill->s_lines->line && (anthill->s_lines->line[0] < ' ' || *line[0] > '~'))
+		ft_exit(21, anthill, NULL);
+	if (*line[0] >= ' ' && *line[0] <= '~')
 	{
-		if (anthill->s_lines->line && (anthill->s_lines->line[0] < ' ' || *line[0] > '~'))
-			ft_exit(21, anthill, NULL);
-		ft_add_lines(anthill, *line);
-		if (*line[0] >= ' ' && *line[0] <= '~')
-		{
-			if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&
-				(!ft_stock_tube(ft_strsplit(*line, '-'), anthill, *line)))
-				ft_exit(8, anthill, NULL);
-		}
+		if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&
+			(!ft_stock_tube(ft_strsplit(*line, '-'), anthill, *line)))
+			return (0);
 	}
+	ft_add_lines(anthill, *line);
+	return (1);
 }

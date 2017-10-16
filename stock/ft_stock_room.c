@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/14 16:23:15 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 21:09:01 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 	else
 	{
 		new = NULL;
-		if (ft_strstart(tab[0], "#") || (!ftdigit(tab[1]) || !ftdigit(tab[2])))
+		if (ft_strstart(tab[0], "#") || ft_strstart(*line, "L") ||
+			(!ftdigit(tab[1]) || !ftdigit(tab[2])))
 		{
 			ft_tabdel(tab);
 			return (1);

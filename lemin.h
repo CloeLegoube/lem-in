@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:18:47 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/14 16:15:39 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 21:10:16 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ typedef struct		s_path
 
 int					get_next_line(const int fd, char **line);
 t_anthill			*ft_initialize_struct_anthill(void);
-void				ft_check(t_anthill *anthill, char **line);
+int					ft_check(t_anthill *anthill, char **line);
 int					ft_printf(char *format, ...);
 char				**ft_strsplit(char const *s, char c);
 int					ft_stock_room(char **tab, t_anthill *anthill, char **line);
