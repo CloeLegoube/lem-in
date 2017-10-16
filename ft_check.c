@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 21:13:59 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 21:48:09 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		ft_add_lines(t_anthill *anthill, char *line)
 int		ft_check(t_anthill *anthill, char **line)
 {
 	if (anthill->s_lines->line && (anthill->s_lines->line[0] < ' ' || *line[0] > '~'))
-		ft_exit(21, anthill, NULL);
+		ft_exit(21, anthill, line);
 	if (*line[0] >= ' ' && *line[0] <= '~')
 	{
 		if (!ft_stock_room(ft_strsplit(*line, ' '), anthill, line) &&

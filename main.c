@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 21:11:37 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 21:45:15 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,12 @@ int			main(void)
 		if (gnl == -1)
 			ft_exit(7, anthill, &line);
 		check = ft_check(anthill, &line);
-		free(line);
+		ft_strdel(&line);
 	}
+	ft_strdel(&line);
 	ft_execute(anthill);
 	get_next_line(-2, NULL);
+	while (42);
 	return (0);
 }
 

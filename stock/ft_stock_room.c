@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 21:09:01 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/16 21:49:36 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 {
 	t_room	*new;
 
-	ft_tablen(tab) == 0 ? ft_exit(19, anthill, NULL) : 0;
+	ft_tablen(tab) == 0 ? ft_exit(19, anthill, line) : 0;
 	if (ft_tablen(tab) != 3)
 		return (not_a_room(tab, anthill, line));
 	else
