@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/06/23 18:51:26 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 21:33:14 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		ft_add_the_previous(t_anthill *anthill, int start)
 					stop = 1;
 				ft_construct_the_path(anthill, &room, start, num_round);
 			}
-			room = room ? room = room->next : NULL;
+			room = room ? room->next : NULL;
 		}
 		if (!stop && num_round == anthill->nb_rooms)
 			ft_exit(20, anthill, NULL);

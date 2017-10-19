@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 22:43:38 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 21:37:52 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ int		ft_if_start_end_exist(t_anthill *anthill, int room)
 	anthill->s_tube = anthill->begin_tube;
 	while (anthill->s_tube)
 	{
-		if (room == anthill->s_tube->from || room == anthill->s_tube->to )
-			return(1);
+		if (room == anthill->s_tube->from || room == anthill->s_tube->to)
+			return (1);
 		anthill->s_tube = anthill->s_tube->next;
 	}
-	// ft_exit(15, anthill, NULL);
-	return(0);
+	return (0);
 }
 
 int		ft_stock_tube(char **tab, t_anthill *anthill, char *line)

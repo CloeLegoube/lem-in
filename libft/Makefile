@@ -6,7 +6,7 @@
 #    By: jjaouen <jjaouen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 17:09:25 by jjaouen           #+#    #+#              #
-#    Updated: 2017/05/12 20:47:47 by clegoube         ###   ########.fr        #
+#    Updated: 2017/10/19 20:55:37 by clegoube         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRC = ft_memset.c \
 	ft_memmove.c \
 	ft_memchr.c \
 	ft_memcmp.c \
+	ft_memjoin.c \
+	ft_memjoinf.c \
 	ft_strlen.c \
 	ft_tablen.c \
 	ft_strdup.c \

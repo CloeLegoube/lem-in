@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 13:46:02 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 22:58:33 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 21:37:07 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		ft_exit(int nb, t_anthill *anthill, char **line)
 {
-	// nb = 0;
-	ft_printf("ERROR %d\n", nb);
+	nb = 0;
+	ft_printf("ERROR \n");
 	ft_free(anthill);
 	if (line && *line)
 		ft_strdel(line);
@@ -28,7 +28,7 @@ void		ft_execute(t_anthill *anthill)
 	ft_check_same_name(anthill);
 	ft_if_start_end_exist(anthill, anthill->room_start);
 	ft_if_start_end_exist(anthill, anthill->room_end);
-	if(anthill->room_start == anthill->room_end)
+	if (anthill->room_start == anthill->room_end)
 		ft_exit(16, anthill, NULL);
 	if (anthill->room_end == -42 || anthill->room_start == -42)
 		ft_exit(12, anthill, NULL);
@@ -39,8 +39,8 @@ void		ft_execute(t_anthill *anthill)
 	ft_stock_path(anthill, anthill->begin_path);
 	ft_stock_tab(anthill);
 	ft_sort_path(anthill);
-	// ft_display_lines(anthill);
-	// ft_display(anthill);
+	ft_display_lines(anthill);
+	ft_display(anthill);
 	ft_free(anthill);
 }
 
@@ -87,14 +87,3 @@ int			main(void)
 	get_next_line(-2, NULL);
 	return (0);
 }
-
-/*
-Si les tubes n'ont pas de start OK
-S'il y a un commentaire au debut OK
-S'il y a un retour a la ligne a la fin OK
-Boucle si les chemins ne sont pas compatibles OK
-0-2
-3-1
-##end suivi d'un ##start ne renvoie rien OK
--2147483649 fourmis plante OK
-*/

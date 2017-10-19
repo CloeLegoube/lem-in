@@ -6,7 +6,7 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:18:47 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/16 21:10:16 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 21:41:08 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define BUFF_SIZE 235
 
 # include "libft/libft.h"
+# include "get_next_line.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -148,6 +149,9 @@ int					ft_stock_start_path(t_anthill *anthill);
 void				ft_stock_path(t_anthill *anthill, t_path *begin_path);
 void				ft_stock_tab(t_anthill *anthill);
 t_path				*ft_stock_copy_path(t_path **copy_path, t_anthill *anthill);
+void				if_not_begin_room(t_anthill *anthill, t_room *new);
+void				if_begin_room(t_anthill *anthill, t_room *new);
+int					not_a_room(char **tab, t_anthill *anthill, char **line);
 void				ft_check_each_tube(t_anthill *anthill, t_path *my_path);
 t_room				*find_room(int target, t_anthill *anthill, t_room **room,
 					int previous);

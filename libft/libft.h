@@ -6,7 +6,7 @@
 /*   By: jjaouen <jjaouen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 17:39:21 by jjaouen           #+#    #+#             */
-/*   Updated: 2017/05/12 20:47:29 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 21:34:35 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memchr(const void *s, int c, size_t n);
+void				*ft_memjoinf(void *mem1, void *mem2, size_t len1,
+					size_t len2);
+void				*ft_memjoin(const void *mem1, const void *mem2,
+					size_t len1, size_t len2);
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
 void				ft_strclr(char *s);
