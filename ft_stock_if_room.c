@@ -6,11 +6,11 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 21:45:22 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/19 21:47:40 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 22:22:54 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lemin.h"
+#include "lemin.h"
 
 void	if_not_begin_room(t_anthill *anthill, t_room *new)
 {

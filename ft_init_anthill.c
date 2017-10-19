@@ -6,11 +6,11 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 21:35:07 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/19 21:35:28 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 22:22:54 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lemin.h"
+#include "lemin.h"
 
 t_anthill	*ft_initialize_struct_anthill(void)
 {

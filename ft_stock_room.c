@@ -6,11 +6,11 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/19 21:47:12 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 22:22:54 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lemin.h"
+#include "lemin.h"
 
 int		init_struct_room(t_room **room, char **tab, t_anthill *anthill)
 {

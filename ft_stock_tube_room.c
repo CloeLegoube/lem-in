@@ -6,11 +6,11 @@
 /*   By: clegoube <clegoube@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 12:52:19 by clegoube          #+#    #+#             */
-/*   Updated: 2017/10/19 21:38:06 by clegoube         ###   ########.fr       */
+/*   Updated: 2017/10/19 22:22:54 by clegoube         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lemin.h"
+#include "lemin.h"
 
 void	ft_count_tube_room(t_anthill *anthill, int room)
 {

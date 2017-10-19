@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lemin.h"
+#include "lemin.h"
 
 t_room	*find_room2(int target, t_anthill *anthill, t_room **room)
 {
