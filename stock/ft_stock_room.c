@@ -98,14 +98,21 @@ int		ft_stock_room(char **tab, t_anthill *anthill, char **line)
 		return (0);
 	if (ft_tablen(tab) != 3)
 		return (not_a_room(tab, anthill, line));
+	if (ft_strchr(tab[1], '-'))
+		return (0);
 	else
 	{
 		new = NULL;
-		if (ft_strstart(tab[0], "#") || ft_strstart(*line, "L") ||
-			(!ftdigit(tab[1]) || !ftdigit(tab[2])))
+		if (ft_strstart(tab[0], "#"))
 		{
 			ft_tabdel(tab);
 			return (1);
+		}
+		if (ft_strstart(*line, "L") ||
+			(!ftdigit(tab[1]) || !ftdigit(tab[2])))
+		{
+			ft_tabdel(tab);
+			ft_exit(25, anthill, line);
 		}
 		init_struct_room(&new, tab, anthill);
 		if (!anthill->begin_room)
